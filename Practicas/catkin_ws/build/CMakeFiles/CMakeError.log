@@ -1,0 +1,53 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec178490750/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec178490750.dir/build.make CMakeFiles/cmTryCompileExec178490750.dir/build
+make[1]: se ingresa al directorio «/home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec178490750.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec178490750.dir/CheckSymbolExists.c.o   -c /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec178490750
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec178490750.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec178490750.dir/CheckSymbolExists.c.o  -o cmTryCompileExec178490750 -rdynamic 
+CMakeFiles/cmTryCompileExec178490750.dir/CheckSymbolExists.c.o: En la función `main':
+CheckSymbolExists.c:(.text+0x16): referencia a `pthread_create' sin definir
+collect2: error: ld returned 1 exit status
+make[1]: se sale del directorio «/home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp»
+make[1]: *** [cmTryCompileExec178490750] Error 1
+make: *** [cmTryCompileExec178490750/fast] Error 2
+
+File /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3928980366/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3928980366.dir/build.make CMakeFiles/cmTryCompileExec3928980366.dir/build
+make[1]: se ingresa al directorio «/home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3928980366.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3928980366.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3928980366
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3928980366.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3928980366.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3928980366 -rdynamic -lpthreads 
+/usr/bin/ld: no se puede encontrar -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3928980366] Error 1
+make[1]: se sale del directorio «/home/isma/Universidad/VAR/Practicas/catkin_ws/build/CMakeFiles/CMakeTmp»
+make: *** [cmTryCompileExec3928980366/fast] Error 2
+
+

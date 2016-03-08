@@ -1,0 +1,8 @@
+prefix=/home/isma/Universidad/VAR/Practicas/catkin_ws/devel
+
+Name: wander
+Description: Description of wander
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/isma/Universidad/VAR/Practicas/catkin_ws/devel/lib 
+Requires: 

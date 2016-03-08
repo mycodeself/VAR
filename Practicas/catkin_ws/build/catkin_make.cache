@@ -1,0 +1,2 @@
+wander
+-DCATKIN_DEVEL_PREFIX=/home/isma/Universidad/VAR/Practicas/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/isma/Universidad/VAR/Practicas/catkin_ws/install -G Unix Makefiles
