@@ -334,6 +334,12 @@ sensor_msgs_DIR:PATH=/opt/ros/indigo/share/sensor_msgs/cmake
 std_msgs_DIR:PATH=/opt/ros/indigo/share/std_msgs/cmake
 
 //Value Computed by CMake
+teleop_twist_keyboard_BINARY_DIR:STATIC=/home/isma/Universidad/VAR/Practicas/catkin_ws/build/teleop_twist_keyboard
+
+//Value Computed by CMake
+teleop_twist_keyboard_SOURCE_DIR:STATIC=/home/isma/Universidad/VAR/Practicas/catkin_ws/src/teleop_twist_keyboard
+
+//Value Computed by CMake
 wander2_BINARY_DIR:STATIC=/home/isma/Universidad/VAR/Practicas/catkin_ws/build/wander
 
 //Value Computed by CMake
@@ -450,7 +456,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=3
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

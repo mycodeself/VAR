@@ -1,0 +1,6 @@
+1. Obtener 2 imágenes
+2. Calcular Keypoints (de dos imágenes)
+3. Calcular descriptores (2 array)
+4. calcular (filtros) correspondencias
+5. Obtener homografía
+6. Aplicar trigonometría + USIM

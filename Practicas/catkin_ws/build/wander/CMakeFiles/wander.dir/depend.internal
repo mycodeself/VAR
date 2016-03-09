@@ -5,8 +5,14 @@ wander/CMakeFiles/wander.dir/src/wander.cpp.o
  /home/isma/Universidad/VAR/Practicas/catkin_ws/src/wander/src/wander.cpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
+ /opt/ros/indigo/include/geometry_msgs/Point.h
+ /opt/ros/indigo/include/geometry_msgs/Pose.h
+ /opt/ros/indigo/include/geometry_msgs/PoseWithCovariance.h
+ /opt/ros/indigo/include/geometry_msgs/Quaternion.h
  /opt/ros/indigo/include/geometry_msgs/Twist.h
+ /opt/ros/indigo/include/geometry_msgs/TwistWithCovariance.h
  /opt/ros/indigo/include/geometry_msgs/Vector3.h
+ /opt/ros/indigo/include/nav_msgs/Odometry.h
  /opt/ros/indigo/include/ros/advertise_options.h
  /opt/ros/indigo/include/ros/advertise_service_options.h
  /opt/ros/indigo/include/ros/assert.h

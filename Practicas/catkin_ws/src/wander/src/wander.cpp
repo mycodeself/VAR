@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
+#include "nav_msgs/Odometry.h"
 #include <cstdlib> 
 #include <ctime> 
 
@@ -8,7 +9,7 @@ class Wander {
 	protected:
 	ros::Publisher commandPub; 
 	ros::Subscriber laserSub; 
-
+	ros::Subscriber odometry;
 	double forwardVel;
 	double rotateVel;
 	double closestRange;
@@ -26,6 +27,7 @@ class Wander {
 		// Suscribe el método commandCallback al tópico base_scan (el láser proporcionado por Stage)
 		// El método commandCallback será llamado cada vez que el emisor (stage) publique datos 
 		laserSub = nh.subscribe("base_scan", 1, &Wander::commandCallback, this);
+		odometry = nh.subscribe("odom", 1, &Wander::commandOdom, this);
 	};
 
 	// Procesa los datos de láser
@@ -56,6 +58,13 @@ class Wander {
 			ros::spinOnce(); // Se procesarán todas las llamadas pendientes, es decir, llamará a callBack
 			rate.sleep(); // Espera a que finalice el ciclo
 		}
+	};
+
+	void commandOdom(const nav_msgs::Odometry::ConstPtr& msg)
+	{
+		ROS_INFO_STREAM("Odometry X: " << msg->pose.pose.position.x);
+		ROS_INFO_STREAM("Odometry Y: " << msg->pose.pose.position.y);
+		ROS_INFO_STREAM("Odometry ang: " << 2*atan2(msg->pose.pose.orientation.z, msg->pose.pose.orientation.w));
 	};
 };
 
