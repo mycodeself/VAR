@@ -6,4 +6,5 @@
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
 SUBDIRS(teleop_twist_keyboard)
+SUBDIRS(turtlebot)
 SUBDIRS(wander)

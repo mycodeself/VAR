@@ -1,0 +1,8 @@
+prefix=/home/isma/Universidad/VAR/Practicas/catkin_ws/devel
+
+Name: turtlebot
+Description: Description of turtlebot
+Version: 2.2.2
+Cflags: 
+Libs: -L/home/isma/Universidad/VAR/Practicas/catkin_ws/devel/lib 
+Requires: 

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html id="yui_3_17_2_2_1457522872458_12" class="yui3-js-enabled" dir="ltr" xml:lang="es" lang="es"><div class="" id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important"></div><head>
+    <title>Manual de ROS</title>
+    <link rel="shortcut icon" href="https://moodle2015-16.ua.es/moodle/theme/image.php/cleanua/theme/1456858011/favicon">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="moodle, Manual de ROS">
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/moodle2015-16.ua.es\/moodle","sesskey":"ndsR4WoAQW","loadingicon":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/image.php\/cleanua\/core\/1456858011\/i\/loading_small","themerev":"1456858011","slasharguments":1,"theme":"cleanua","jsrev":"1456858011","svgicons":true,"developerdebug":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''};if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else me.path=component+'/'+component+'.'+me.type};
+YUI_config = {"debug":true,"base":"https:\/\/moodle2015-16.ua.es\/moodle\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/yui_combo.php?","combine":true,"filter":"RAW","insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/moodle2015-16.ua.es\/moodle\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/yui_combo.php?m\/1456858011\/","combine":true,"comboBase":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/yui_combo.php?","ext":false,"root":"m\/1456858011\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":"DEBUG","modules":{"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-formautosubmit":{"requires":["base","event-key"]},"moodle-core-formchangechecker":{"requires":["base","event-focus"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core_availability-form":{"requires":["base","node","event","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-calendar-eventmanager":{"requires":["base","node","event-mouseenter","overlay","moodle-calendar-eventmanager-skin"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-toolboxes":{"requires":["node","base","event-key","node","io","moodle-course-coursebase","moodle-course-util"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":["node","base"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-quizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-mod_quiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-util":{"requires":["node"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-block_navigation-navigation":{"requires":["base","io-base","node","event-synthetic","event-delegate","json-parse"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-theme_bootstrapbase-bootstrap":{"requires":["node","selector-css3"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_html-button":{"requires":["moodle-editor_atto-plugin","event-valuechange"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"https:\/\/moodle2015-16.ua.es\/moodle\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/moodle2015-16.ua.es\/moodle\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1456858011\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/moodle2015-16.ua.es\/moodle\/lib\/javascript.php\/1456858011\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker"]}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+<link rel="stylesheet" type="text/css" href="Manual%20de%20ROS_files/yui_combo_002.css"><script type="text/javascript" src="Manual%20de%20ROS_files/yui_combo_005.js"></script><script async="" src="Manual%20de%20ROS_files/yui_combo_003.js" id="yui_3_17_2_2_1457522872458_2" charset="utf-8"></script><link href="Manual%20de%20ROS_files/yui_combo.css" id="yui_3_17_2_3_1457522872458_12" rel="stylesheet" charset="utf-8"><script async="" src="Manual%20de%20ROS_files/yui_combo.js" id="yui_3_17_2_3_1457522872458_13" charset="utf-8"></script><script async="" src="Manual%20de%20ROS_files/yui_combo_004.js" id="yui_3_17_2_2_1457522872458_5" charset="utf-8"></script><script async="" src="Manual%20de%20ROS_files/yui_combo_002.js" id="yui_3_17_2_3_1457522872458_25" charset="utf-8"></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="Manual%20de%20ROS_files/all.css">
+<link rel="stylesheet" type="text/css" href="Manual%20de%20ROS_files/print.css">
+<script type="text/javascript" src="Manual%20de%20ROS_files/javascript-static.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+    config: ["Accessible.js", "Safe.js"],
+    errorSettings: { message: ["!"] },
+    skipStartupTypeset: true,
+    messageStyle: "none"
+});
+</script></head>
+
+<body id="page-mod-book-print" class="format-social  path-mod path-mod-book gecko dir-ltr lang-es yui-skin-sam yui3-skin-sam moodle2015-16-ua-es--moodle pagelayout-embedded course-5582 context-105467 cmid-82546 category-25  jsenabled">
+<div class="skiplinks"><a class="skip" href="#maincontent">Saltar a contenido principal</a></div>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+<div id="page">
+    <div id="page-content" class="clearfix">
+        <div id="yui_3_17_2_3_1457522872458_29" role="main"><span id="maincontent"></span><a onclick="window.print();return false;" class="hidden-print" href="#"><img class="icon" alt="Imprimir el Libro Completo" title="Imprimir el Libro Completo" src="Manual%20de%20ROS_files/book.svg">Imprimir el Libro Completo</a>    <a name="top"></a>
+    <h1>Manual de ROS</h1>    <p class="book_summary"></p><p>Manual de ROS</p><p></p>
+    <div id="yui_3_17_2_3_1457522872458_28" class="book_info"><table>
+    <tbody><tr>
+    <td>Sitio:</td>
+    <td><a href="https://moodle2015-16.ua.es/moodle">Moodle UA 2015-16</a></td>
+    </tr><tr>
+    <td>Curso:</td>
+    <td>2015-16_VISIÓN ARTIFICIAL Y ROBÓTICA_34030</td>
+    </tr><tr>
+    <td>Libro:</td>
+    <td>Manual de ROS</td>
+    </tr><tr>
+    <td>Imprimido por:</td>
+    <td>Ismael Piñeiro Ramos</td>
+    </tr><tr>
+    <td>Día:</td>
+    <td>miércoles, 9 de marzo de 2016, 12:27 </td>
+    </tr>
+    </tbody></table></div>
+
+    <div class="book_toc_numbered"><a name="toc"></a><h2>Tabla de contenidos</h2><ul><li><a title="1 Introducción a ROS" href="#ch2343">1 Introducción a ROS</a><ul><li><a title="1.1 Instalación de ROS" href="#ch2341">1.1 Instalación de ROS</a></li><li><a title="1.2 Conceptos" href="#ch2342">1.2 Conceptos</a></li><li><a title="1.3 Comandos de ROS" href="#ch2346">1.3 Comandos de ROS</a></li><li><a title="1.4 rviz" href="#ch2361">1.4 rviz</a></li><li><a title="1.5 rqt_graph" href="#ch2381">1.5 rqt_graph</a></li></ul></li><li><a title="2 Probando un simulador 2D" href="#ch2344">2 Probando un simulador 2D</a></li><li><a title="3 Programando en ROS" href="#ch2345">3 Programando en ROS</a><ul><li><a title="3.1 Código de ejemplo" href="#ch2421">3.1 Código de ejemplo</a></li></ul></li><li><a title="4 Simulador 3D Gazebo" href="#ch2401">4 Simulador 3D Gazebo</a></li></ul></div><div class="book_chapter"><a name="ch2343"></a><h2>1 Introducción a ROS</h2><p>ROS
+ (Robot Operating System) proporciona bibliotecas y herramientas para 
+ayudar a los desarrolladores de software crear aplicaciones robóticas. 
+Proporciona una abstracción del hardware, de los controladores de 
+dispositivos, las bibliotecas, visualizadores, paso de mensajes, gestión
+ de paquetes y mucho más.</p>
+<p>Este conjunto de herramientas y librerías nos proporciona:</p>
+<ul>
+<li><strong>Mecanismo de comunicación entre programas:</strong></li>
+</ul>
+<p>Es un estándar para comunicar entre sí diferente programas de un 
+mismo sistema, ya sea en el mismo computador o en varios computadores. 
+La computación distribuida es un recurso muy común donde pequeñas partes
+ de un robot trabajan por separado para conseguir un objetivo común.</p>
+<ul>
+<li><strong>Reusabilidad de código:&nbsp;</strong></li>
+</ul>
+<p>Los paquetes estándar proporcionados en las distribuciones de ROS 
+implementan muchos de los algoritmos comúnmente usado en robótica que ya
+ han sido depurados y usados de forma estable. Además, el modelo de 
+comunicación y gestión de mensajes de ROS se ha convertido en estándar y
+ muchas de las plataformas robóticas ya implementan interfaces para ser 
+usadas directamente desde ROS. Además de los paquetes estándar, existen 
+muchos otros en la comunidad que implementan interfaces para sus 
+sistemas (robots, sensores, librerías...)</p>
+<ul>
+<li><strong>Testeado rápido:</strong></li>
+</ul>
+<p>Debido al diseño de comunicación por paso de mensajes, ROS nos 
+permite simular muchos de los dispositivos con los que nuestro sistema 
+trabajará de forma que podemos aislar la funcionalidad de nuestro 
+sistema del código de comunicación entre las diferentes partes del 
+sistema, sensores y actuadores. Uno de los aspectos claves al 
+desarrollar una aplicación es la capacidad de repetir los experimentos y
+ poder simular los sensores y actuadores que nos permite crear conjuntos
+ de prueba.</p></div><div class="book_chapter"><a name="ch2341"></a><h3>1.1 Instalación de ROS</h3><p>En
+ este curso vamos a usar la version de ROS llamada hydro. Haremos uso de
+ las integraciones de las librerías de opencv y Point Cloud Library para
+ tratar tanto con imágenes de color como con nubes de puntos 3D.</p>
+<p>Se recomienda a los alumnos instalar ROS en sus portátiles/PCs con el
+ fin de obtener pleno acceso a todos los paquetes de ROS ya que en las 
+máquinas de los laboratorios solo hemos instalado los paquetes básicos 
+de ROS y habrá cosas que no se podrán usar al no tener permisos de 
+superusuario.</p>
+<p>Para la instalación se recomienda seguir los pasos indicados en:</p>
+<p><a href="http://wiki.ros.org/hydro/Installation">http://wiki.ros.org/hydro/Installation&nbsp;</a></p></div><div class="book_chapter"><a name="ch2342"></a><h3>1.2 Conceptos</h3><h4>Tópico (topic):</h4>
+<div>Son canales de información entre los nodos. Un nodo puede emitir o 
+suscribirse a un tópico. Por ejemplo, stage (simulador de robots) emite 
+un tópico que es la odometría del robot. Cualquier nodos se puede 
+suscribir. El nodo que emite no controla quién está suscrito. La 
+información es, por tanto, unidireccional (asíncrona). Si lo que 
+queremos es una comunicación síncrona (petición/respuesta) debemos usar <span style="font-family: 'courier new', courier, monospace;">servicios</span>.</div>
+<div>Un tópico no es más que un mensaje que se envía. Podemos usar distintos tipos de clases de mensajes.</div>
+<h4>Paquete (package):</h4>
+<div>El software en ROS está organizado en paquetes. Un paquete puede 
+contener un nodo, una librería, conjunto de datos, o cualquier cosa que 
+pueda constituir un módulo. Los paquetes pueden organizarse en pilas 
+(stacks).</div>
+<h4>Nodo&nbsp;(node):</h4>
+<div>Un nodo es un proceso que realiza algún tipo de computación en el 
+sistema. Los nodos se combinan dentro de un grafo, compartiendo 
+información entre ellos, para crear ejecuciones complejas. Un nodo puede
+ controlar un sensor láser, otro los motores de un robot y otro la 
+construcción de mapas.</div>
+<h4>Pila (stack):</h4>
+<div>Conjunto de nodos que juntos proporcionan alguna funcionalidad (por ejemplo, la pila de navegación).</div></div><div class="book_chapter"><a name="ch2346"></a><h3>1.3 Comandos de ROS</h3><ul id="yui_3_4_1_1_1422370546478_1399">
+<li><strong>roscd</strong>: cambia a un directorio de paquete o pila (ej.&nbsp;<em>roscd stage</em>)</li>
+<li><strong>roscore</strong>: ejecuta todo lo necesario para que dar 
+soporte de ejecución al sistema completo de ROS. Siempre tiene que estar
+ ejecutándose para permitir que se comuniquen los nodos. Permite 
+ejecutarse en un determinado puerto (ej.&nbsp;<em>roscore&nbsp;</em>o&nbsp;<em>roscore -p 1234</em>)</li>
+<li><strong>roscreate-pkg</strong>: crea e inicializa un paquete. Se 
+tiene que ejecutar desde uno de los directorios válidos para que 
+contengan paquetes. El formato de ejecución es:&nbsp;<span>roscreate-pkg paquete [depen1 ...]</span>&nbsp;donde
+ depen1 es una dependencia. Por ejemplo, si el paquete que estamos 
+creando va a usar los mensajes estándar y va a usar código c++, debemos 
+indicar las dependencias&nbsp;<span>std_msgs</span>&nbsp;y&nbsp;<span>roscpp</span>.&nbsp;</li>
+<li id="yui_3_4_1_1_1422370546478_1398"><strong>rosnode</strong>: nos proporciona información sobre un nodo. Disponemos de las siguientes opciones:
+<ul id="yui_3_4_1_1_1422370546478_1397">
+<li id="yui_3_4_1_1_1422370546478_1396">rosnode info nodo (muestra información sobre el nodo)</li>
+<li>rosnode kill nodo (mata ese proceso)</li>
+<li>rosnode list (muestra los nodos ejecutándose)</li>
+<li>rosnode machine maquina (muestra los nodos que se están ejecutando en la máquina).</li>
+<li>rosnode ping nodo (comprueba la conectividad del nodo).</li>
+</ul>
+</li>
+<li><strong>rosrun</strong>: permite ejecutar cualquier aplicación de un
+ paquete sin necesidad de cambiar a su directorio. Podemos pasarle 
+parámetros con _my_param:=value&nbsp;(ej.&nbsp;<em>rosrun stage stageros</em>) stage es el paquete y stageros es la aplicación que ejecutamos.</li>
+<li><strong>rostopic</strong>: permite obtener información sobre un tópico.
+<ul>
+<li>rostopic bw (muestra el ancho de banda consumido por un tópico)</li>
+<li>rostopic echo (imprime datos del tópico por la salida estándar)</li>
+<li>rostopic find (encuentra un tópico)</li>
+<li>rostopic info (imprime información de un tópico)</li>
+<li>rostopic list (imprime información sobre los tópicos activos)</li>
+<li>rostopic pub (publica datos a un tópico activo)</li>
+<li>rostopic type (imprime el tipo de información de un tópico)</li>
+</ul>
+</li>
+<li><strong>roswtf</strong>: permite chequear si algo va mal. Ejecutamos roscd y después roswtf.</li>
+</ul></div><div class="book_chapter"><a name="ch2361"></a><h3>1.4 rviz</h3><p>rviz
+ es un visualizador de datos muy completo y útil. Lo mejor para aprender
+ su funcionamiento es usarlo, pero hay varias cosas a tener en cuenta:</p>
+<h4>Frames de coordenadas</h4>
+<p>Hay dos frames de coordenadas importantes:</p>
+<ol>
+<li><address>El <span style="font-family: 'courier new', courier, monospace;">fixed frame</span>.
+ Es el sistema de coordenadas que tomaremos como referencia para mostrar
+ todos lo datos. Aparece en la parte izquierda en Global options. 
+Debemos asignarlo a un punto estático como el mundo o el mapa. Caso de 
+no tenerlo lo podemos asignar al de odometría. No debemos asignarlo a un
+ frame en movimiento, como la base de un robot.</address></li>
+<li><address>El <span style="font-family: 'courier new', courier, monospace;">target frame</span>.
+ &nbsp;Es el sistema de coordenadas que asignamos a la vista. Este sí 
+que se puede poner a la base del robot, por ejemplo. Podemos tener 
+distintas vistas y así ir cambiando de una a otra en función de lo que 
+queramos ver.</address></li>
+</ol>
+<h4>Modo de operación</h4>
+<p>Existen diversos modos de operación. Se pueden seleccionar en la 
+parte superior. Por defecto está en interactuar y podemos también mover 
+la cámara, seleccionar elementos (y ver sus valores, por ejemplo 
+coordenadas de puntos), etc.</p>
+<p></p></div><div class="book_chapter"><a name="ch2381"></a><h3>1.5 rqt_graph</h3><p>Esta
+ aplicación se ejecuta directamente, sin necesidad de llamar a rosrun. 
+Visualiza los nodos que se están ejecutando en este momento y el paso de
+ tópicos entre ellos. Sirve para visualizar qué está pasando con nuestro
+ programa. Por ejemplo, en la siguiente imagen podemos ver que tenemos 
+un nodo, <span style="font-family: 'courier new', courier, monospace;">stageros</span>, que publica cuatro tópicos y que escucha uno de ellos el cual es publicado por otro nodo, <span style="font-family: 'courier new', courier, monospace;">teleop_twist_keyboard</span></p>
+<p></p>
+<p><img src="Manual%20de%20ROS_files/rqtgraph.png" height="360" width="497"></p></div><div class="book_chapter"><a name="ch2344"></a><h2>2 Probando un simulador 2D</h2><p>Vamos
+ a probar el simulador Stage.&nbsp;Stage es un simulador de robots 
+móviles en 2D que podemos utilizar si queremos hacer pruebas iniciales 
+de nuestros algoritmos o bien no disponemos de un robot real. Para 
+nuestro código será transparente el que estemos trabajando con un robot 
+real o con Stage. Stage forma parte de otro controlador/simulador 
+llamado Player/Stage. Stage ha sido incluido en ROS por compatibilidad.</p>
+<div>Para empezar a usar ROS, primero debemos ejecutar el comando:</div>
+<pre><span>roscore</span></pre>
+<div>en una terminal. Este comando da soporte a todos los mecanismos 
+necesarios para permitir la comunicación entre los distintos nodos de 
+ROS.</div>
+<div></div>
+<div><strong>Ejecución de Stage</strong></div>
+<div>Una vez arrancado&nbsp;<span>roscore</span>&nbsp;procedemos a poner en marcha Stage. Para ello, nos tenemos que descargar los siguientes ficheros:&nbsp;<a title="stage config" href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2344/ra1.cfg" id="yui_3_15_0_3_1454332105094_99">configuración</a>&nbsp;e&nbsp;<a title="imagen mundo" href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2344/ra.pgm" id="yui_3_15_0_3_1454332105094_101">imagen del mundo</a>.
+ El primero contiene la configuración del mundo que vamos a simular 
+(incluido el robot) y el segundo contiene el mapa en una imagen. Ahora, 
+desde línea de comandos, ejecutamos:</div>
+<pre><span>rosrun stage_ros stageros ra1.cfg<br></span></pre>
+<div><span>rosrun</span>&nbsp;permite ejecutar paquetes de ROS. El primer argumento es el nombre del paquete y el segundo es un ejecutable que se encuentra en dicho paquete. El tercero es el nombre del fichero de configuración del mundo. TRUCO: si escribimos <span style="font-family: 'courier new', courier, monospace;">rosrun stage_ros</span> y pulsamos la tecla tabulador, se nos dirá los ejecutables que tiene ese paquete.</div>
+<div></div>
+<div>Si todo va bien, veremos una ventana como la siguiente:</div>
+<div><img src="Manual%20de%20ROS_files/stageexample1.png" height="440" width="672"></div>
+<p><br><strong>Manejo básico de Stage</strong></p>
+<p>Tanto Stage como Player utilizan un sistema de coordenadas levógiro, con lo cual los giros "a izquierdas" se consideran de signo positivo, y los que son "a derechas" de signo negativo. Los ejes de coordenadas en Stage son los habituales, es decir la X aumenta hacia la derecha y la Y hacia arriba. Stage permite tener a más de un robot en su mundo.</p>
+<p>Los mundos en Stage son ficheros bitmap, de modo que son sencillos de crear con cualquier herramienta de dibujo. Se puede cambiar la posición del robot arrastrándolo con el botón izquierdo del ratón y su orientación arrastrándolo con el derecho.</p>
+<p>Para desplazarse por el mapa, pulsar sobre cualquier punto del mismo con el botón izquierdo del ratón y arrastrar en la dirección deseada.</p>
+<p>De los menús que nos aparecen en el simulador, destacamos las siguientes opciones:</p>
+<ul>
+<li>View-&gt;Data: Permite visualizar los datos de los sensores del robot.</li>
+<li>View-&gt;Perspective camera: permite ver el mundo en pseudo-3D.</li>
+<li>View-&gt;Footprints: nos muestra el camino seguido por el robot.</li>
+<li>View-&gt;SaveScreenShots: empezará a guardar instantáneas del mundo, las cuales después pueden ser juntadas para montar un vídeo.</li>
+</ul>
+<div>También podemos visualizar los datos del láser ejecutando lo siguiente:</div>
+<pre><span>roscd stage</span></pre>
+<pre><span>rosrun rviz rviz -d `rospack find stage`/rviz/stage.rviz<br></span></pre>
+<div>rviz nos permite visualizar la mayoria de los datos base con los que trabaja ROS.</div>
+<div><img src="Manual%20de%20ROS_files/rvizexample.png" height="506" width="691"></div>
+<div></div>
+<div>Existen diversas utilidades tanto desde línea de comandos como aplicaciones gráficas. Probad rqt_grapth. También probad los comandos relacionados con los&nbsp;tópicos y nodos. Haced que se muestre la información del&nbsp;<em>ground truth</em>&nbsp;de stage y ved cómo cambia al mover el robot.</div>
+<pre>rostopic echo /base_pose_ground_truth</pre>
+<h4>Control del robot mediante teclado</h4>
+<p>Vamos a ver cómo podemos controlar al robot mediante el teclado. Hay que decir que lo que vamos a hacer aquí se podría hacer perfectamente con un robot real. Vamos a descargar un código compilarlo para poder trabajar. Lo primero es crearnos un espacio de trabajo en nuestro directorio.</p>
+<ul>
+<li>Creamos un directorio, por ejemplo <span style="font-family: 'courier new', courier, monospace;">catkin_ws</span></li>
+<li><span style="font-family: arial, helvetica, sans-serif;">Creamos un director dentro de este llamado <span style="font-family: 'courier new', courier, monospace;">src</span>.</span></li>
+<li><span style="font-family: arial, helvetica, sans-serif;">Dentro de ese directorio (<span style="font-family: 'courier new', courier, monospace;">catkin_ws/src</span>) ejecutamos <span style="font-family: 'courier new', courier, monospace;">catkin_init_workspace</span></span></li>
+<li><span style="font-family: arial, helvetica, sans-serif;">Veremos que se han creado varios directorios. En el <span style="font-family: 'courier new', courier, monospace;">src</span> es donde tendremos nuestros fuentes.&nbsp;</span></li>
+<li><span style="font-family: arial, helvetica, sans-serif;">Nos movemos a <span style="font-family: 'courier new', courier, monospace;">src</span> y vamos a descargar el código para controlar desde el teclado un robot. Ejecutamos:</span></li>
+</ul>
+<pre><span style="font-family: arial, helvetica, sans-serif;">git clone https://github.com/ros-teleop/teleop_twist_keyboard.git</span></pre>
+<ul>
+<li><span style="font-family: arial, helvetica, sans-serif;">Este comando descarga el código. Nos movemos a <span style="font-family: 'courier new', courier, monospace;">catkin_ws</span> y ejecutamos <span style="font-family: 'courier new', courier, monospace;">catkin_make</span></span></li>
+<li><span style="font-family: arial, helvetica, sans-serif;">Ya tenemos listo el nodo.</span></li>
+</ul>
+<p><span style="font-family: arial, helvetica, sans-serif;">Ahora ejecutamos:</span></p>
+<pre><span style="font-family: arial, helvetica, sans-serif;">source devel/setup.bash</span></pre>
+<p><span style="font-family: arial, helvetica, sans-serif;">Esto lo hacemos para que el sistema sepa que en nuestro directorio <span style="font-family: 'courier new', courier, monospace;">catkin_ws</span> también tenemos ejecutables de ROS.&nbsp;</span><span style="font-family: arial, helvetica, sans-serif;">Y ya por fin:</span></p>
+<pre><span style="font-family: arial, helvetica, sans-serif;">rosrun teleop_twist_keyboard teleop_twist_keyboard.py</span></pre></div><div class="book_chapter"><a name="ch2345"></a><h2>3 Programando en ROS</h2><p>Para nosotros, la programación en ROS va a consistir en crear un paquete que contenga nuestro código. Para ello, vamos a usar algunas instrucciones que nos facilitarán la tarea. Aquí indicamos los pasos a seguir para crear, compilar y disponer de un paquete.</p>
+<h4>Creando un paquete</h4>
+<p>Cambiamos al directorio donde queramos crear el paquete. En nuestro caso <span style="font-family: 'courier new', courier, monospace;">~/catkin_ws/src</span> Ahí, ejecutamos en siguiente comando:</p>
+<pre>catkin_create_pkg wander roscpp geometry_msgs sensor_msgs nav_msgs</pre>
+<p>Lo que viene a continuación de wander son las dependencias del paquete (otros paquetes que vamos a usar). Estas dependencias se pueden editar en el fichero <span style="font-family: 'courier new', courier, monospace;">manifest.xml</span>. Este fichero contiene información del paquete. OJO: cuando se crea el paquete se usa el nombre del usuario del sistema. Si dicho nombre contiene tildes y/o eñes da problemas de compilación.</p>
+<p><span style="font-family: 'courier new', courier, monospace;">catkin_create_pkg</span> creará un directorio con todos los ficheros necesarios de configuración. <span style="font-family: 'courier new', courier, monospace;">wander</span> será el ejecutable que crearemos y lo siguiente son las dependencias de este paquete. Añadimos las siguientes líneas al final del fichero <span style="font-family: 'courier new', courier, monospace;">CMakeLists.txt</span> que se encuentra en el directorio recién creado.</p>
+<pre>add_executable(${PROJECT_NAME} src/wander.cpp) <br>target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ) </pre>
+<p>Descargamos y dejamos en el directorio <span style="font-family: 'courier new', courier, monospace;">catkin_ws/src/wander/</span><span style="font-family: 'courier new', courier, monospace;">src</span> <a href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2345/wander.cpp">el fichero</a> con el esqueleto que vamos a usar. En este fichero se explica cómo conectarnos al manejador de nodos y cómo usar el láser para hacer una evitación de obstáculos.</p>
+<h4>Compilar el paquete</h4>
+<p>Para compilar el paquete, ejecutaremos <span style="font-family: 'courier new', courier, monospace;">catkin_make</span> en el workspace de catkin, en nuestro caso, <span style="font-family: 'courier new', courier, monospace;">catkin_ws</span>.</p>
+<h4>Ejecutar el nodo</h4>
+<p>Una vez compilado sin errores, podemos ejecutarlo con</p>
+<pre>rosrun wander wander </pre>
+<p>El primer wander se corresponde con el nombre del paquete y el segundo con el nombre del ejecutable que hemos creado.</p>
+<h4>Recibir un mensaje de odometría del robot o Stage</h4>
+<p>Para recibir el mensaje de odometría e interpretarlo, podemos usar el siguiente código:</p>
+<p>En el código (wander.cpp) habrá que incluir el fichero donde se definen estos mensajes.</p>
+<pre>#include "nav_msgs/Odometry.h" </pre>
+<p>Luego tenemos que declarar otro subscriptor como miembro de la clase y declarar en el constructor qué método se encargará de recoger este mensaje.</p>
+<pre>ros::Subscriber odometry; <br>odometry = nh.subscribe("odom", 1, &amp;Wander::commandOdom, this); </pre>
+<p>Aquí tenéis un ejemplo de método que recibe la odometría:</p>
+<pre>void commandOdom(const nav_msgs::Odometry::ConstPtr&amp; msg) { <br>    ROS_INFO_STREAM("Odometry x: " &lt;&lt; msg-&gt;pose.pose.position.x); <br>    ROS_INFO_STREAM("Odometry y: " &lt;&lt; msg-&gt;pose.pose.position.y); <br>    ROS_INFO_STREAM("Odometry angz: " &lt;&lt; 2*atan2(msg-&gt;pose.pose.orientation.z, msg-&gt;pose.pose.orientation.w)); } </pre>
+<p>Tenemos tres valores: x e y y luego el ángulo. Al estar el giro representado con un quaternion hay que hacer la conversión que se indica.</p></div><div class="book_chapter"><a name="ch2421"></a><h3>3.1 Código de ejemplo</h3><p>Vamos a ver el código pasado como ejemplo para empezar a trabajar.</p>
+<pre>#include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
+#include "sensor_msgs/LaserScan.h"
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;</pre>
+<p>Ficheros a incluir. Los <span style="font-family: 'courier new', courier, monospace;">sensor_msgs</span> y <span style="font-family: 'courier new', courier, monospace;">geometry_msgs</span> son necesarios para especificar el tipo de mensajes que vamos a recibir o enviar. Si vamos a usar otro tipo de mensajes, tenemos que incluir otros ficheros.</p>
+<pre>class Wander {
+	protected:
+	ros::Publisher commandPub; 
+	ros::Subscriber laserSub; 
+
+	double forwardVel;
+	double rotateVel;
+	double closestRange;</pre>
+<p>&nbsp;Definimos la clase Wander que va a definir nuestro nodo. Declaramos un publicador <span style="font-family: 'courier new', courier, monospace;">commandPub</span> y un suscriptor <span style="font-family: 'courier new', courier, monospace;">laserSub</span>.</p>
+<pre>Wander(ros::NodeHandle&amp; nh) { 
+		forwardVel=1.0; // 1m/s es una velocidad bastante alta
+		rotateVel=0.0;
+		closestRange=0.0;
+		srand(time(NULL));
+		commandPub = nh.advertise&lt;geometry_msgs::Twist&gt;("cmd_vel", 1);
+		laserSub = nh.subscribe("base_scan", 1, &amp;Wander::commandCallback, this);
+	};</pre>
+<p>El constructor de la clase. Recibe como parámetro el manejador de ROS <span style="font-family: 'courier new', courier, monospace;">nh</span>. Este manejador nos permite acceder al <span style="font-family: 'courier new', courier, monospace;">roscore</span> al que se conecte este nodo.</p>
+<p>Con el manejador "advertimos" que vamos a publicar un mensaje del tipo <span style="font-family: 'courier new', courier, monospace;">geometry_msgs::Twist</span>, que se llamará <span style="font-family: 'courier new', courier, monospace;">cmd_vel</span> y con el valor de 1 indicamos que si se acumulan varios mensajes, solo el último es enviado. Con <span style="font-family: 'courier new', courier, monospace;">commandPub</span> podremos enviar mensajes. No podemos enviar dos mensajes con el mismo nombre.</p>
+<p>También nos "suscribimos" a un mensaje <span style="font-family: 'courier new', courier, monospace;">base_scan</span> y lo asociamos al método <span style="font-family: 'courier new', courier, monospace;">commandCallback</span>. Esto quiere decir que cuando en el sistema algún nodo publique un mensaje con este nombre, se llamará a dicho método.</p>
+<pre>void commandCallback(const sensor_msgs::LaserScan::ConstPtr&amp; msg) {
+		/* VARIOS MENSAJES */
+		for (int i=0; i&lt; totalValues; i++) {
+			ROS_INFO_STREAM("Values[" &lt;&lt; i &lt;&lt; "]:" &lt;&lt; msg-&gt;ranges[i]); // Acceso a los valores de rango
+		}
+	};
+</pre>
+<p>Este método se llamará cuando se reciba un mensaje <span style="font-family: 'courier new', courier, monospace;">base_scan</span>. Como parámetro recibe el contenido de dicho mensaje. En este caso, contiene un array de datos con los valores del láser. ROS_INFO_STREAM nos permite imprimir mensajes por la salida estándar de ROS (habitualmente la consola), formateando la salida con un <span style="font-family: 'courier new', courier, monospace;">timestamp</span>.</p>
+<pre>void bucle() {
+		ros::Rate rate(1); 
+		while (ros::ok()) { 
+			geometry_msgs::Twist msg; 
+			msg.linear.x = forwardVel;
+			msg.angular.z = rotateVel;
+			commandPub.publish(msg);		
+			ros::spinOnce(); 
+			rate.sleep(); 
+		}
+	};</pre>
+<p>Este método nos permite crear un bucle que se irá ejecutando cada cierto tiempo. Con <span style="font-family: 'courier new', courier, monospace;">ros::Rate rate(1);</span> estamos diciendo que la frecuencia con la que se realizará este bucle es de 1hz o una vez por segundo. Nos metemos en un bucle que se ejecutará mientras el sistema de ROS esté funcionando.&nbsp;</p>
+<p>Creamos un mensaje con la velocidad lineal y rotacional a enviar. Este mensaje se mete en el publicador, pero no se publica al resto de nodos hasta que no ejecutemos <span style="font-family: 'courier new', courier, monospace;">ros::spinOnce();</span>&nbsp;Por último, llamamos a <span style="font-family: 'courier new', courier, monospace;">sleep</span> para esperar a la frecuencia de publicación definida.</p>
+<pre>int main(int argc, char **argv) {
+	ros::init(argc, argv, "wander"); 
+	ros::NodeHandle nh;
+	Wander wand(nh); 
+	wand.bucle(); 
+	return 0;
+};</pre>
+<p>Este es el punto de entra a nuestro programa (nodo). Al llamar a <span style="font-family: 'courier new', courier, monospace;">ros::init</span>&nbsp;estamos conectando con <span style="font-family: 'courier new', courier, monospace;">roscore</span>&nbsp;y le decimos que nos llamaremos <span style="font-family: 'courier new', courier, monospace;">wander</span>. Creamos un manejador que le pasaremos al contructor de la clase y por último ejecutamos el bucle.&nbsp;</p></div><div class="book_chapter"><a name="ch2401"></a><h2>4 Simulador 3D Gazebo</h2><p>Gazebo es un simulador de entornos 3D que posibilita evaluar el comportamiento de un robot en un mundo virtual. Permite, entre muchas otras opciones, diseñar robots de forma personalizada, crear mundos virtuales usando sencillas herramientas CAD e importar modelos ya creados.</p>
+<p>Además, es posible sincronizarlo con ROS de forma que los robots emulados publiquen la información de sus sensores en nodos, así como implementar una lógica y un control que dé ordenes al robot.</p>
+<h4>Instalación</h4>
+<p>Gazebo forma parte del bundle de ros "<span style="font-family: 'courier new', courier, monospace;">ros-hydro-desktop-full</span>", no obstante el robot que se usará como ejemplo no está integrado. El robot al que nos referimos es Turtlebot, un pequeño robot con una estructura montada sobre una base de Roomba y que integra sensores de odometría y una cámara RGB-D, entre otros.<br>El proceso de instalación se detalla en la Wiki de ROS, donde además se encuentra toda la documentación y otros tutoriales de interés&nbsp;<a href="http://wiki.ros.org/turtlebot_simulator">http://wiki.ros.org/turtlebot_simulator</a></p>
+<h4>Ejecución de Gazebo y Turtlebot</h4>
+<p>Gazebo puede ejecutarse como simulador <span style="font-family: 'courier new', courier, monospace;">stand-alone</span>, pero nosotros lo usaremos conjuntamente con ROS para poder consultar desde los nodos que creemos la información de los sensores, así como para mandarles comandos de velocidad. Para lanzar el simulador primero tenemos que arrancar en un terminal el motor de ROS:</p>
+<pre>roscore</pre>
+<p>En otra terminal lanzamos el siguiente comando:</p>
+<pre>roslaunch turtlebot_gazebo turtlebot_empty_world.launch</pre>
+<p><span style="font-family: 'courier new', courier, monospace;">roslaunch</span> es una herramienta que sirve para lanzar varios nodos de ROS de un paquete de forma automática y con una configuración específica impuesta por un fichero XML con extensión .launch.</p>
+<p>Tras ejecutar el comando se abrirá la ventana de Gazebo con un <span style="font-family: 'courier new', courier, monospace;">turtlebot</span> cargado situado en el centro del mundo.</p>
+<p><img src="Manual%20de%20ROS_files/gazebo_turtlebot.png" height="428" width="761"></p>
+<h4>Control de la cámara</h4>
+<p>El control del punto de vista de diseño es parecido al que muestran otros programas de diseño o simulación 3D:</p>
+<ul>
+<li>El botón izquierdo del ratón sirve para trasladar la cámara por el mundo</li>
+<li>El botón derecho o la rueda del ratón sirve para hacer zoom en la escena</li>
+<li>El botón central del ratón sirve para rotar la cámara</li>
+</ul>
+<h4>Diseño de mundos</h4>
+<p>Gazebo permite diseñar elementos con herramientas CAD, dichas herramientas son muy limitadas, pero suficientes para crear mundos sencillos.<br>Estas herramientas están situadas en la zona superior del programa y nos permite insertar cubos, esferas y cilindros, así como distintos puntos de luz.</p>
+<pre>Intenta poner un cubo a la izquierda del robot</pre>
+<p>Las otras tres herramientas sirven para seleccionar elementos, trasladarlos y rotarlos.</p>
+<pre>Rota el robot para que la cámara apunte directamente al cubo</pre>
+<p>Los elementos que contiene el mundo se van listando en la parte izquierda del programa, bajo la pestaña "World" y si son seleccionados permiten la edición de algunas propiedades tales como la pose o el nombre (esta característica no está implementada en la versión de que disponemos en el laboratorio).</p>
+<h4>Visualizar información de los sensores</h4>
+<p>Por el hecho de tener ROS funcionando y haber usado <span style="font-family: 'courier new', courier, monospace;">roslaunch</span> para lanzar el simulador, ya tenemos publicada la información que captan los sensores en la simulación.&nbsp;Para visualizarla usaremos otra herramienta de ROS llamada RViz, por lo que ejecutamos en otro terminal</p>
+<pre>rosrun rviz rviz</pre>
+<p>El comando lanza el programa pero aparentemente no muestra información alguna. Esto es porque aún no estamos suscritos a ningún tópico de los del robot.<br>Antes de suscribirnos a un tópico, vamos a configurar el marco de referencia global del visualizador, que por defecto está en <span style="font-family: 'courier new', courier, monospace;">map</span>, y lo cambiamos a <span style="font-family: 'courier new', courier, monospace;">odometry</span>. El marco fijo hace referencia a respecto a qué se va a mostrar la información en el visualizador. Si elegimos la opción <span style="font-family: 'courier new', courier, monospace;">camera_link</span>&nbsp;la información se representará en base a la posición de la articulación de la cámara. Si elegimos la opción <span style="font-family: 'courier new', courier, monospace;">camera_depth_frame</span>&nbsp;la información se representará en base a la posición del sensor de profundidad. Lo ideal es que el marco de referencia global haga referencia a un elemento que es fijo.</p>
+<p>Ahora sí, para suscribirnos a un nodo pulsamos en el botón "Add" de la parte inferior izquierda. En la nueva ventana que se abre seleccionamos la pestaña "By topic" y elegimos uno de ellos en función de la información que queramos visualizar, por ejemplo "camera/depth/image_raw/DepthCloud" y pulsamos "OK".</p>
+<p>El visualizador mostrará la nube de puntos captada por la cámara RGB-D, que si has seguido los pasos consistirá en un cono de puntos a ras del suelo y una pared formada por uno de los lados del cubo.</p>
+<pre>Si es una nube de puntos, ¿Por qué no tenemos puntos por todo el espacio?</pre>
+<p><img src="Manual%20de%20ROS_files/rviz.png" height="510" width="907"></p>
+<p></p>
+<h4>Importar un modelo 3D al mundo (con varios robots incluidos)</h4>
+<p>Lo siguiente que vamos a hacer es importar un fichero de configuración que carga el robot en un mundo que hemos diseñado con anterioridad. Como se ha explicado arriba, el paquete que necesitamos es el de <span style="font-family: 'courier new', courier, monospace;">turtlebot_gazebo</span> por lo que necesitamos ubicarlo. Para ello usamos el comando <span style="font-family: 'courier new', courier, monospace;">rospack</span></p>
+<pre>rospack find <span>turtlebot_gazebo</span></pre>
+<p>Lo siguiente es crear un nuevo paquete de catkin en nuestro workspace y copiar dentro todo el contenido del paquete gazebo_turtlebot. Seguimos cambiándole el nombre del proyecto en el fichero package.xml para que cuadre con el nombre del paquete que hemos creado. Por último, copiamos dentro de la carpeta launch los ficheros que se proporcionan a continuación <a href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2401/turtlebot_gazebo_multiple_files.tar.gz">turtlebot_gazebo_multiple_files.tar.gz</a>. <br>Estos ficheros contienen la configuración del simulador y de algunos nodos que se lanzan conjuntamente.</p>
+<p>El primer fichero <span style="font-family: 'courier new', courier, monospace;">create_multi_robot.launch</span> especifica la configuración del mundo que se va a usar. En este caso se toma como base un mundo vacío en el que se inserta el diseño del mundo, especificado en otro fichero que se proporciona <span style="font-family: 'courier new', courier, monospace;">race.sdf</span>. En el siguiente bloque se incluye la configuración de los robots, que está definida en <span style="font-family: 'courier new', courier, monospace;">robots.launch</span>.</p>
+<p>Aprovechamos para cambiar las rutas del paquete por el nombre del paquete que hayamos creado en el comando <span style="font-family: 'courier new', courier, monospace;">find</span>.<br>En <span style="font-family: 'courier new', courier, monospace;">robots.launch</span>&nbsp;se especifica la configuración de los dos robots que vamos a cargar en el simulador. En el primer bloque se definen ciertas variables como la base del robot, el conjunto de "bandejas" que forma el cuerpo del turtlebot o el tipo de cámara que monta. Por ejemplo, podemos ver que la base que usará el robot se llama kabuki, que va a usar las plataformas hexagonales, en vez de las circulares y que va a montar una cámara kinect.</p>
+<p>El siguiente bloque carga el modelo del robot, que es el mismo para los dos. Luego hay dos bloques que definen dos robots usando el modelo anterior, pero especificando algunos parámetros únicos como el nombre o la pose inicial. En esta especificación se hace referencia al último fichero&nbsp;<span style="font-family: 'courier new', courier, monospace;">one_robot.launch</span> que se encarga de hacer aparecer el robot en el simulador y de cargar otros nodos relacionados con la redirección de los tópicos del robot como, por ejemplo, <span style="font-family: 'courier new', courier, monospace;">robot_state_publisher</span>&nbsp;que se va a encargar de exponer todos los nodos que tiene el robot, con la información de las cámaras, odometría, láser y otros.</p>
+<p>También se especifica un nodo que simula la salida de un láser a partir de la imagen de profundidad obtenida por kinect.</p>
+<p>Cambiamos las rutas y los nombres de los paquetes por los correctos.</p>
+<p>El otro fichero que se proporciona, <span style="font-family: 'courier new', courier, monospace;">race.sdf</span>, contiene la definición de los elementos que forman el mundo. En este caso es un mundo formado por un sol, que nos prpporciona un sistema de iluminación, un plano que hace de suelo y varios elementos con geometría tipo caja que forman el mundo. Además de las dimensiones también se especifican la pose (traslación y rotación con respecto del sistema de referencia global), algunas propiedades físicas como la inercia o la masa y otras relacionadas con la textura que va a mostrar.<br>Una vez explicado todo esto, procedemos a construir el paquete y a cargar el mundo y los turtlebot en el simulador con el siguiente comando:</p>
+<pre>catkin_make<br>source devel/setup.bash<br>roslaunch turtlebot_gazebo_multiple create_multi_robot.launch </pre>
+<p></p>
+<p><img src="Manual%20de%20ROS_files/circuit.png" height="470" width="836"></p>
+<p>Este es el mundo que acabamos de cargar. Consta de una serie de paredes modeladas a partir de las cajas que se veían en el fichero <span style="font-family: 'courier new', courier, monospace;">race.sdf</span> ubicadas de tal manera que forman un circuito y dos turtlebots situados en la línea de salida.</p>
+<pre>Si utilizamos RViz para visualizar los datos de los robots date cuenta de que al tener dos, cada uno con su conjunto de marcos de referencia, es posible que si seleccionamos un fixed frame correspondiente al robot1 y luego intentamos visualizar datos del robot2 la transformación falle y se muestre un error. Esto es algo de esperar ya que cada robot debe representar los datos en base a sus sistemas de referencia.</pre>
+<h4>Mover a turtlebot por el mundo virtual usando comandos de velocidad</h4>
+<p>La forma de mover los robots, tanto en el mundo real como en el simulador, es enviándoles comandos de velocidad. Los robots tienen un nodo que consumen mensajes de tipo <span style="font-family: 'courier new', courier, monospace;">geometry_msgs/Twist</span> que son el tipo de mensajes para indicar precisamente eso, valores para velocidades lineales y angulares.<br>Un mensaje de este tipo acepta como máximo 6 valores: las velocidades lineales en x, y, z y las velocidades angulares de roll, pitch y yaw. Estos valores permiten dar movimiento a robots con hasta 6 grados de libertad, pero turtlebot sólo puede moverse por el plano XY y rotar en el eje Z (yaw).<br>Pero antes de enviar nada es necesario averiguar qué tópico es que acepta este tipo de mensajes por lo que usamos el siguiente comando para ver qué tópicos tenemos en el sistema</p>
+<pre>rostopic list</pre>
+<p>Para obtener más información sobre algún tópico usamos el siguiente comando</p>
+<pre>rostopic info /robot1/commands/velocity</pre>
+<p>El comando para empezar a mover el robot es el siguiente:</p>
+<pre>rostopic pub -r 10 /robot1/commands/velocity geometry_msgs/Twist '{linear: {x: 0.1}}'</pre>
+<p>Este comando sirve para obtener información de los nodos, mostrar su feedback y para enviarles mensajes. Nosotros usaremos el modo pub (publish) para publicar mensajes de velocidad. El parámetro -r indica la frecuencia en que se envían los mensajes, en este caso 10Hz. El siguiente argumento indica el tópico donde será lanzado este mensaje. El siguiente hace referencia al tipo de mensaje, en este caso uno de tipo Twist. Y por último se indica el contenido del mensaje, en este caso velocidad lineal de 0.1 unidades (m/s).</p>
+<pre>Si no se reciben mensajes de velocidad continuamente el robot se va a parar. Esto es una medida de seguridad por si pierde conectividad con el controlador para que no cause daños.&nbsp;</pre>
+<h4>Obtener la imagen RGB de Turtlebot en un nodo de ROS</h4>
+<p>Lo siguiente que vamos a hacer es crear un nodo de ROS que se suscriba al tópico <span style="font-family: 'courier new', courier, monospace;">robot1/camera/rgb/image_raw</span>&nbsp;de la cámara de turtlebot para visualizar las imágenes que capta. Para ello primero creamos un nuevo paquete en nuestro workspace de catkin indicando algunas dependecias.</p>
+<pre>catkin_create_pkg listener roscpp sensor_msgs image_transport std_msgs cv_bridge</pre>
+<p>Este comando genera un nuevo paquete vacío, pero antes de meter código es necesario indicar otras dependencias en el fichero CMakeList.txt.<br>El fichero CMakeList le indica al sistema de compilación de catkin (que internamente usa cmake) los directorios de las librerías que usa el paquete, que dependen de cada máquina, de forma que un solo fichero permita configurar el proyecto para varias máquinas.<br>Volviendo al proyecto, modificamos CMakeList.txt añadiendo las siguientes secciones</p>
+<pre>find_package(catkin REQUIRED COMPONENTS roscpp sensor_msgs image_transport std_msgs cv_bridge)<br>find_package(Boost REQUIRED COMPONENTS system)<br>find_package(OpenCV REQUIRED)</pre>
+<pre>include_directories(${catkin_INCLUDE_DIRS})<br>add_executable(listener src/main.cpp)</pre>
+<pre>target_link_libraries(listener<br> ${catkin_LIBRARIES}<br>)</pre>
+<p>Y ahora sí, escribimos un fichero con el siguiente código</p>
+<pre>#include &lt;ros/ros.h&gt;<br>#include &lt;image_transport/image_transport.h&gt;<br>#include &lt;opencv2/highgui/highgui.hpp&gt;<br>#include &lt;cv_bridge/cv_bridge.h&gt;<br>
+using namespace std;
+void imageCallback(const sensor_msgs::ImageConstPtr&amp; msg)&nbsp;{
+    try&nbsp;{ <br>         cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")-&gt;image);<br>         cv::waitKey(30);<br>     }<br>     catch (cv_bridge::Exception&amp; e) {<br>         ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg-&gt;encoding.c_str());<br>     }<br>}<br><br>int main(int argc, char **argv) {
+     ros::init(argc, argv, "image_listener");<br>     ros::NodeHandle nh;<br>     cv::namedWindow("view");<br>     cv::startWindowThread();<br>     image_transport::ImageTransport it(nh);<br>     image_transport::Subscriber sub = it.subscribe("robot1/camera/rgb/image_raw", 1, imageCallback);
+     ros::Rate rate(10.0);<br>     while(nh.ok()) {<br>       ros::spinOnce();<br>       rate.sleep();<br>     }<br>     ros::spin();<br>     ros::shutdown();<br>     cv::destroyWindow("view");<br>}</pre>
+<p>Se comienza iniciando los servicios de ROS así como creando un NodeHandler que es el controlador de comunicaciones del nodo. También se crea una ventana de OpenCV, el objeto que nos permite recibir mensajes que contienen imágenes 'ImageTransport' y el objeto que nos suscribe al nodo que las provee. A este objeto 'Subscriber' se le pasa por parámetro el nombre del tópico, el tamaño de la pila de recepción y la función que se va a ejecutar cuando se reciba un mensaje.<br>A continuación existe un bucle que lo único que hace es 'spinOnce' y esperar un tiempo. La función 'spinOnce' indica a ROS que puede proceder a recibir, enviar y a hacer las tareas de comunicación propias del sistema. Si no se ejecuta esta función nunca se enviarán ni se recibirán los paquetes desde o hacia el nodo actual.<br>La función 'imageCallback' se ejecuta cada vez que el tópico publique un nuevo mensaje y se encarga de mostrar la imagen que contenga en la ventana creada anteriormente. La función 'cv::waitKey()' provoca que el sistema espere 30 milisegundos, dándole tiempo al mismo para cargar la imagen en la ventana. Si no se espera un tiempo después de actualizar el contenido de una ventana de OpenCV, el procesamiento será tan rápido que nunca se llegará a ver una imagen cargada en la ventana.</p>
+<p>Si compilamos con catkin_make y ejecutamos el nodo con rosrun aparecerá una ventana de OpenCV que muestra las imágenes captadas por la cámara Kinect del Turtlebot en tiempo real.</p>
+<p><img src="Manual%20de%20ROS_files/listener.png" height="463" width="824"></p>
+<p>El paquete completo puedes encontrarlo en el siguiente enlace <a href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2401/listener.tar.gz">listener.tar.gz</a></p>
+<pre>Puedes modificar el código para mostrar la imagen de profundidad?</pre>
+<h4>Mover a turtlebot por el mundo virtual usando comandos de velocidad desde un nodo de ROS</h4>
+<p>En este bloque vamos a aprender cómo mover el turtlebot mandándole comandos de velocidad tal y como hacíamos en la sección <span style="font-family: 'courier new', courier, monospace;">Mover a turtlebot por el mundo virtual usando comandos de velocidad</span>&nbsp;pero en este caso en vez de mandarle el mensaje directamente desde la terminal lo haremos desde un nodo ROS. Las ventajas de este sistema son evidentes: podremos reunir la información de los sensores para averiguar la situación del robot y el estado del entorno, procesar estos datos y generar los comandos de movimiento necesarios para guiar el robot en función de la sensorización.</p>
+<pre>#include &lt;iostream&gt;
+#include &lt;ros/ros.h&gt;<br>#include &lt;geometry_msgs/Twist.h&gt;
+class RobotDriver<br>{<br>    private:<br>        //The node handle we'll be using<br>        ros::NodeHandle nh_;<br>        //We will be publishing to the "/base_controller/command" topic to issue commands<br>        ros::Publisher cmd_vel_pub_;<br>
+    public:<br>        //ROS node initialization<br>        RobotDriver(ros::NodeHandle &amp;nh) {<br>            nh_ = nh;<br>            //set up the publisher for the cmd_vel topic<br>            cmd_vel_pub_ = nh_.advertise&lt;geometry_msgs::Twist&gt;("/robot2/commands/velocity", 1);<br>        }<br>
+        //Loop forever while sending drive commands based on keyboard input<br>        bool driveKeyboard() {<br>             std::cout &lt;&lt; "Type a command and then press enter. " &lt;&lt;<br>                   "Use '+' to move forward, 'l' to turn left, " &lt;&lt; "'r' to turn right, '.' to exit.\n";
+             //we will be sending commands of type "twist"<br>             geometry_msgs::Twist base_cmd;
+             char cmd[50];<br>             while(nh_.ok()) {
+                 std::cin.getline(cmd, 50);<br>                 if(cmd[0]!='+' &amp;&amp; cmd[0]!='l' &amp;&amp; cmd[0]!='r' &amp;&amp; cmd[0]!='.') {<br>                     std::cout &lt;&lt; "unknown command:" &lt;&lt; cmd &lt;&lt; "\n";<br>                     continue;<br>                 }
+                 base_cmd.linear.x = base_cmd.linear.y = base_cmd.angular.z = 0; <br>                 //move forward<br>                 if(cmd[0]=='+') {<br>                     base_cmd.linear.x = 0.25;<br>                 } <br>                 //turn left (yaw) and drive forward at the same time<br>                 else if(cmd[0]=='l') {<br>                     base_cmd.angular.z = 0.75;<br>                     base_cmd.linear.x = 0.25;<br>                 } <br>                 //turn right (yaw) and drive forward at the same time<br>                 else if(cmd[0]=='r') {<br>                     base_cmd.angular.z = -0.75;<br>                     base_cmd.linear.x = 0.25;<br>                 } <br>                 //quit<br>                 else if(cmd[0]=='.') {<br>                     break;<br>                 }
+                 //publish the assembled command<br>                 cmd_vel_pub_.publish(base_cmd);<br>            }<br>            return true;<br>        };
+<br>    int main(int argc, char** argv) {<br>        //init the ROS node<br>        ros::init(argc, argv, "robot_driver");<br>        ros::NodeHandle nh;
+        RobotDriver driver(nh);<br>        driver.driveKeyboard();<br>    }<br>}</pre>
+<p>En este caso en vez de suscribirse a un tópico para obtener mensajes, lo que va a hacer es publicarlos para que otros nodos los consuman.<br>El código especifica una clase que consta de un constructor y una función.<br>El constructor se ocupa de crear el objeto 'Publisher' a partir del 'NodeHandler' pasándole el tipo de mensajes que envía 'geometry_msgs::Twist', la dirección del tópico y el tamaño de la pila del mismo. En la función 'driveKeyboard()' se crea un objeto del tipo del mensaje que se va a publicar 'Twist' y a continuación figura un bucle infinito en que se espera que el usuario introduzca un carácter y en función del mismo se realizará una acción u otra: avanzar, girar a izquierda, girar a derecha o detener el programa.<br>Esto se hace dándole valores a las propiedades pertinentes del mensaje. Por ejemplo, para avanzar, indicamos una velocidad lineal en el eje X de 0.25. Para girar a la derecha se indica una velocidad angular en el eje Z negativa (expresada en radianes) y una velocidad lineal en el eje X positiva.<br>Por último se publica el mensaje de forma efectiva usando la función 'publish()'.</p>
+<p><a href="https://moodle2015-16.ua.es/moodle/pluginfile.php/105467/mod_book/chapter/2401/send_velocity_commands.tar.gz">send_velocity_commands.tar.gz</a></p></div></div>    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+M.yui.add_module({"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdn.mathjax.org\/mathjax\/2.3-latest\/MathJax.js?delayStartupUntil=configured"}});
+
+//]]>
+</script>
+<script type="text/javascript" src="Manual%20de%20ROS_files/footer.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"\u00daltima modificaci\u00f3n","name":"Nombre","error":"Error","info":"Informaci\u00f3n","morehelp":"M\u00e1s ayuda","loadinghelp":"Cargando...","cancel":"Cancelar","yes":"S\u00ed","confirm":"Confirmar","no":"No","areyousure":"\u00bfEst\u00e0 seguro?","closebuttontitle":"Cerrar","unknownerror":"Error desconocido"},"repository":{"type":"Tipo","size":"Tama\u00f1o","invalidjson":"Cadena JSON no v\u00e1lida","nofilesattached":"No se han adjuntado archivos","filepicker":"Selector de archivos","logout":"Salir","nofilesavailable":"No hay archivos disponibles","norepositoriesavailable":"Lo sentimos, ninguno de sus repositorios actuales puede devolver archivos en el formato solicitado.","fileexistsdialogheader":"El archivo existe","fileexistsdialog_editor":"Un archivo con el mismo nombre ya se ha adjuntado al texto que est\u00e1 editando.","fileexistsdialog_filemanager":"Un archivo con ese nombre ya ha sido adjuntado","renameto":"Cambiar el nombre a \"{$a}\"","referencesexist":"Existen {$a} archivos de alias\/atajos que emplean este archivo como su or\u00edgen","select":"Seleccionar"},"block":{"addtodock":"Minimizar en la barra lateral","undockitem":"Desacoplar este \u00edtem","dockblock":"Acoplar bloque {$a}","undockblock":"Desacoplar bloque {$a}","undockall":"Desacoplar todo","hidedockpanel":"Esconder el panel desacoplado","hidepanel":"Esconder panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"Confirmaci\u00f3n"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+YUI().use('node', function(Y) {
+M.util.load_flowplayer();
+setTimeout("fix_column_widths()", 20);
+Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+});
+M.util.help_popups.setup(Y);
+Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+});
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"MathJax.Hub.Config({\r\n    config: [\"Accessible.js\", \"Safe.js\"],\r\n    errorSettings: { message: [\"!\"] },\r\n    skipStartupTypeset: true,\r\n    messageStyle: \"none\"\r\n});\r\n","lang":"es"});
+});
+ M.util.js_pending('random56e008b8c420f2'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random56e008b8c420f2'); });
+
+});
+//]]>
+</script>
+
+</body></html>

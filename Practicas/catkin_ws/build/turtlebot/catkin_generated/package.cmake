@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "turtlebot")
+set(turtlebot_MAINTAINER "Marcus Liebhardt <marcus.liebhardt@yujinrobot.com>")
+set(turtlebot_DEPRECATED "")
+set(turtlebot_VERSION "2.2.2")
+set(turtlebot_BUILD_DEPENDS )
+set(turtlebot_RUN_DEPENDS "yocs_cmd_vel_mux" "diagnostic_aggregator" "depthimage_to_laserscan" "gazebo_ros" "kobuki_gazebo_plugins" "robot_pose_ekf" "robot_state_publisher" "turtlebot_bringup" "turtlebot_description" "turtlebot_navigation" "xacro")
+set(turtlebot_BUILDTOOL_DEPENDS "catkin")
