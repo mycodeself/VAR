@@ -1,0 +1,2 @@
+listener:p1_pkg
+-DCATKIN_DEVEL_PREFIX=/home/ros/VAR/practica1/p1_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ros/VAR/practica1/p1_ws/install

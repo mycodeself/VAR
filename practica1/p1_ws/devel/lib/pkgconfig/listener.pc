@@ -1,0 +1,8 @@
+prefix=/home/ros/VAR/practica1/p1_ws/devel
+
+Name: listener
+Description: Description of listener
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ros/VAR/practica1/p1_ws/devel/lib 
+Requires: 

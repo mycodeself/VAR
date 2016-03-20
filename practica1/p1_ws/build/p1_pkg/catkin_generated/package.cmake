@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "p1_pkg")
+set(p1_pkg_MAINTAINER "Marcus Liebhardt <marcus.liebhardt@yujinrobot.com>")
+set(p1_pkg_DEPRECATED "")
+set(p1_pkg_VERSION "2.1.1")
+set(p1_pkg_BUILD_DEPENDS )
+set(p1_pkg_RUN_DEPENDS "yocs_cmd_vel_mux" "create_gazebo_plugins" "diagnostic_aggregator" "depthimage_to_laserscan" "gazebo_ros" "kobuki_gazebo_plugins" "robot_pose_ekf" "robot_state_publisher" "turtlebot_bringup" "turtlebot_description" "xacro")
+set(p1_pkg_BUILDTOOL_DEPENDS "catkin")

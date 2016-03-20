@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "listener")
+set(listener_MAINTAINER "ros <ros@todo.todo>")
+set(listener_DEPRECATED "")
+set(listener_VERSION "0.0.0")
+set(listener_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
+set(listener_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
+set(listener_BUILDTOOL_DEPENDS "catkin")

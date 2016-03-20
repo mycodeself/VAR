@@ -1,0 +1,8 @@
+prefix=/home/ros/VAR/practica1/p1_ws/devel
+
+Name: p1_pkg
+Description: Description of p1_pkg
+Version: 2.1.1
+Cflags: 
+Libs: -L/home/ros/VAR/practica1/p1_ws/devel/lib 
+Requires: 
