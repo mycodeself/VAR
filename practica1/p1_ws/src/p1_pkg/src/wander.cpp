@@ -66,3 +66,4 @@ int main(int argc, char **argv) {
 	wand.bucle(); // Ejecuta el bucle
 	return 0;
 };
+

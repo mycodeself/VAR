@@ -3,6 +3,7 @@
 
 listener/CMakeFiles/listener.dir/src/main.cpp.o
  /home/ros/VAR/practica1/p1_ws/src/listener/src/main.cpp
+ /home/ros/VAR/practica1/p1_ws/src/listener/src/panorama.cpp
  /opt/ros/hydro/include/XmlRpcDecl.h
  /opt/ros/hydro/include/XmlRpcValue.h
  /opt/ros/hydro/include/cv_bridge/cv_bridge.h
@@ -14,15 +15,49 @@ listener/CMakeFiles/listener.dir/src/main.cpp.o
  /opt/ros/hydro/include/image_transport/publisher.h
  /opt/ros/hydro/include/image_transport/single_subscriber_publisher.h
  /opt/ros/hydro/include/image_transport/subscriber.h
+ /opt/ros/hydro/include/image_transport/subscriber_filter.h
  /opt/ros/hydro/include/image_transport/transport_hints.h
+ /opt/ros/hydro/include/message_filters/connection.h
+ /opt/ros/hydro/include/message_filters/macros.h
+ /opt/ros/hydro/include/message_filters/null_types.h
+ /opt/ros/hydro/include/message_filters/signal1.h
+ /opt/ros/hydro/include/message_filters/signal9.h
+ /opt/ros/hydro/include/message_filters/simple_filter.h
+ /opt/ros/hydro/include/message_filters/sync_policies/approximate_time.h
+ /opt/ros/hydro/include/message_filters/synchronizer.h
+ /opt/ros/hydro/include/opencv2/calib3d/calib3d.hpp
  /opt/ros/hydro/include/opencv2/core/core.hpp
  /opt/ros/hydro/include/opencv2/core/core_c.h
+ /opt/ros/hydro/include/opencv2/core/cuda_devptrs.hpp
+ /opt/ros/hydro/include/opencv2/core/gpumat.hpp
  /opt/ros/hydro/include/opencv2/core/mat.hpp
  /opt/ros/hydro/include/opencv2/core/operations.hpp
  /opt/ros/hydro/include/opencv2/core/types_c.h
  /opt/ros/hydro/include/opencv2/core/version.hpp
+ /opt/ros/hydro/include/opencv2/features2d/features2d.hpp
+ /opt/ros/hydro/include/opencv2/flann/config.h
+ /opt/ros/hydro/include/opencv2/flann/defines.h
+ /opt/ros/hydro/include/opencv2/flann/miniflann.hpp
  /opt/ros/hydro/include/opencv2/highgui/highgui.hpp
  /opt/ros/hydro/include/opencv2/highgui/highgui_c.h
+ /opt/ros/hydro/include/opencv2/imgproc/imgproc.hpp
+ /opt/ros/hydro/include/opencv2/imgproc/types_c.h
+ /opt/ros/hydro/include/opencv2/nonfree/features2d.hpp
+ /opt/ros/hydro/include/opencv2/nonfree/gpu.hpp
+ /opt/ros/hydro/include/opencv2/nonfree/nonfree.hpp
+ /opt/ros/hydro/include/opencv2/opencv_modules.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/blenders.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/camera.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/exposure_compensate.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/matchers.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/motion_estimators.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/seam_finders.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/util.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/util_inl.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/warpers.hpp
+ /opt/ros/hydro/include/opencv2/stitching/detail/warpers_inl.hpp
+ /opt/ros/hydro/include/opencv2/stitching/stitcher.hpp
+ /opt/ros/hydro/include/opencv2/stitching/warpers.hpp
  /opt/ros/hydro/include/ros/advertise_options.h
  /opt/ros/hydro/include/ros/advertise_service_options.h
  /opt/ros/hydro/include/ros/assert.h
