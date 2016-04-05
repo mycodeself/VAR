@@ -6,7 +6,7 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_datatypes.h>
 #include <geometry_msgs/Quaternion.h>
-
+#include <std_msgs/String.h> 
 #define DEBUG 0 // macro que nos permite mostrar datos de debug
 #define VELOCITY 0.5 // velocidad de 0.5m/s
 #define TURBO_VELOCITY 0.9 // velocidad turbo 0.9m/s solo durante 5 segundos al observar un robot
@@ -20,10 +20,12 @@ class RobotDriver
         ros::Subscriber laser_sub_;                 // suscriptor para obtener los mensajes del laser
         ros::Subscriber imu_sub_;                   // suscriptor para obtener los mensajes del Imu
         ros::Subscriber odom_sub_;                  // suscriptor para obtener los datos de la odometría
+        ros::Subscriber go_sub_;					// suscriptor para obtener la salida de la carrera
         geometry_msgs::Twist twist_msg_;            // mensaje que será enviado al publicador que contiene los comandos de velocidad
         nav_msgs::Odometry odom_msg_;               // mensaje que contiene los datos de la odometría recibidos
         sensor_msgs::Imu imu_msg_rcvd_;             // mensaje que contiene los datos del Imu recibidos
         sensor_msgs::LaserScan laser_msg_rcvd_;     // mensaje que contiene los datos del Laser recibidos
+        bool go_ = false;
         double goal_x_;
         double goal_y_;
         void Navigate()
@@ -100,6 +102,8 @@ class RobotDriver
             // rotación por defecto en el eje z
             twist_msg_.angular.z = 0;
 
+            go_sub_ = nh.subscribe("/control_tower/race_state", 1, &RobotDriver::GoCallback, this);
+
             goal_x_ = odom_msg_.pose.pose.position.x;
             goal_y_ = odom_msg_.pose.pose.position.y;
         }
@@ -132,13 +136,20 @@ class RobotDriver
         {
             odom_msg_ = *msg;
         }
+
+        void GoCallback(const std_msgs::String::ConstPtr& msg){
+        	if(msg->data == "GO"){
+        		go_ = true;
+        	}
+        }
         // Bucle principal
         void Init()
         {
             ros::Rate rate(10.0);
             while(ros::ok())
             {
-                Navigate();
+            	if(go_) // se navegara cuando se de la salida
+                	Navigate();
                 ros::spinOnce();
                 rate.sleep();
             }
