@@ -25,7 +25,7 @@ class RobotDriver
         nav_msgs::Odometry odom_msg_;               // mensaje que contiene los datos de la odometría recibidos
         sensor_msgs::Imu imu_msg_rcvd_;             // mensaje que contiene los datos del Imu recibidos
         sensor_msgs::LaserScan laser_msg_rcvd_;     // mensaje que contiene los datos del Laser recibidos
-        bool go_ = false;
+        bool go_;
         double goal_x_;
         double goal_y_;
         void Navigate()
@@ -101,7 +101,7 @@ class RobotDriver
             twist_msg_.linear.x = 0;
             // rotación por defecto en el eje z
             twist_msg_.angular.z = 0;
-
+            go_ = false;
             go_sub_ = nh.subscribe("/control_tower/race_state", 1, &RobotDriver::GoCallback, this);
 
             goal_x_ = odom_msg_.pose.pose.position.x;
