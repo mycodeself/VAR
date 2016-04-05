@@ -188,5 +188,5 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(${PROJECT_NAME} src/wander.cpp) 
+add_executable(${PROJECT_NAME} src/robotdriver.cpp) 
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ) 

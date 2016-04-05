@@ -12,7 +12,8 @@
 #include <image_transport/subscriber_filter.h>
 #include <message_filters/sync_policies/approximate_time.h>
 
-#define USE_STITCHER_CLASS 0
+#define USE_STITCHER_CLASS 1 // macro que define si se usará la clase stitcher proporcionada por OpenCV
+#define SHOW_CAPTURE_IMAGES 0 // macro que define si se mostrarán las imagenes capturadas por las cámaras para debug
 
 class Panorama {
 	private:
@@ -28,16 +29,18 @@ class Panorama {
 
 		void StitchingImage()
 		{
+#if SHOW_CAPTURE_IMAGES
+			cv::imshow("leftImage", m_leftImgMat);
+			cv::imshow("rightImage", m_rightImgMat);
+#endif
 #if USE_STITCHER_CLASS
 			std::vector<cv::Mat> images;
 			cv::Mat resultImage;
-			images.push_back(m_leftImgMat);
 			images.push_back(m_rightImgMat);
+			images.push_back(m_leftImgMat);
+			
 			cv::Stitcher stitcher = cv::Stitcher::createDefault(true);
 			stitcher.setPanoConfidenceThresh(0);
-
-			//stitcher.setWaveCorrection(true);
-			//stitcher.setWaveCorrectKind(cv::detail::WAVE_CORRECT_HORIZ);
 			cv::Stitcher::Status status = stitcher.stitch(images, resultImage);
 			if(cv::Stitcher::OK == status)
 			{
@@ -52,9 +55,8 @@ class Panorama {
 			// convertimos a escala de grises para mejor obtención de keypoints
 			cv::cvtColor(m_leftImgMat, leftImgGray, CV_RGB2GRAY);
 			cv::cvtColor(m_rightImgMat, rightImgGray, CV_RGB2GRAY);
-			
 			// empezamos a obtener los keypoints con SURF
-			cv::SurfFeatureDetector detector(500);
+			cv::SurfFeatureDetector detector(300);
 			std::vector<cv::KeyPoint> keypoints_left, keypoints_right;
 			detector.detect(leftImgGray, keypoints_left);
 			detector.detect(rightImgGray, keypoints_right);
@@ -70,7 +72,7 @@ class Panorama {
 			std::vector<cv::DMatch> matches;
 			matcher.match(descriptors_left, descriptors_right, matches);
 
-			double max_dist = 0, min_dist = 100, dist = 0;
+			double max_dist = 0, min_dist = 1000, dist = 0;
 			for(int i=0;i<descriptors_left.rows;i++)
 			{
 				dist = matches[i].distance;
@@ -81,7 +83,7 @@ class Panorama {
 			std::vector<cv::DMatch> good_matches;
 			for(int i=0;i<descriptors_left.rows;i++)
 			{
-				if(matches[i].distance < 5*min_dist){
+				if(matches[i].distance < 4*min_dist){
 					good_matches.push_back(matches[i]);
 				}
 			} 
@@ -94,6 +96,7 @@ class Panorama {
 			}
 			if(left.size() < 4 || right.size() < 4) return;
 
+			// obtenemos la matriz homográfica mediante RANSAC
 			cv::Mat homography = cv::findHomography(left, right, CV_RANSAC);
 			cv::Mat result;
 			cv::warpPerspective(m_leftImgMat, result, homography, cv::Size(m_leftImgMat.cols+m_rightImgMat.cols, m_leftImgMat.rows));
@@ -106,15 +109,19 @@ class Panorama {
 	public:
 		Panorama() :
 		m_it(m_nh), 
-		m_leftCamSub(m_it, "/robot1/trasera1/trasera1/rgb/image_raw", 1),
-		m_rightCamSub(m_it, "/robot1/trasera2/trasera2/rgb/image_raw", 1),
+		m_leftCamSub(m_it, "/robot1/trasera2/trasera2/rgb/image_raw", 1),
+		m_rightCamSub(m_it, "/robot1/trasera1/trasera1/rgb/image_raw", 1),
 		m_sync(t_SyncPolicy(10), m_leftCamSub, m_rightCamSub)
 		{
 			m_sync.registerCallback(boost::bind(&Panorama::ImageCallback, this, _1, _2));
 			cv::namedWindow("view");
     		cv::startWindowThread();
-			//m_leftCamSub = it.subscribe("/robot1/trasera2/trasera2/rgb/image_raw", 1, &Panorama::LeftImageCallback, this);
-			//m_rightCamSub = it.subscribe("/robot1/trasera1/trasera1/rgb/image_raw", 1, &Panorama::RightImageCallback, this);
+#if SHOW_CAPTURE_IMAGES 
+    		cv::namedWindow("leftImage");
+    		cv::startWindowThread();
+    		cv::namedWindow("rightImage");
+    		cv::startWindowThread();
+#endif
 		}
 		void ImageCallback(const sensor_msgs::ImageConstPtr& leftImg, 
 						const sensor_msgs::ImageConstPtr& rightImg)
@@ -143,5 +150,9 @@ class Panorama {
 		    ros::spin();
 		    ros::shutdown();
 		    cv::destroyWindow("view");
+#if SHOW_CAPTURE_IMAGES
+		    cv::destroyWindow("leftImage");
+		    cv::destroyWindow("rightImage");
+#endif
 		}
 };
