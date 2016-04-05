@@ -109,8 +109,8 @@ class Panorama {
 	public:
 		Panorama() :
 		m_it(m_nh), 
-		m_leftCamSub(m_it, "/robot1/trasera2/trasera2/rgb/image_raw", 1),
-		m_rightCamSub(m_it, "/robot1/trasera1/trasera1/rgb/image_raw", 1),
+		m_leftCamSub(m_it, "/robot6/trasera2/trasera2/rgb/image_raw", 1),
+		m_rightCamSub(m_it, "/robot6/trasera1/trasera1/rgb/image_raw", 1),
 		m_sync(t_SyncPolicy(10), m_leftCamSub, m_rightCamSub)
 		{
 			m_sync.registerCallback(boost::bind(&Panorama::ImageCallback, this, _1, _2));

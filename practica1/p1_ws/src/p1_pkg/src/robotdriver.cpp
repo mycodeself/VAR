@@ -90,13 +90,13 @@ class RobotDriver
         RobotDriver(ros::NodeHandle &nh) {
             nh_ = nh;
             // subscriber para la odometría
-            odom_sub_ = nh_.subscribe("/robot1/odom", 1, &RobotDriver::OdomCallback, this);
+            odom_sub_ = nh_.subscribe("/robot6/odom", 1, &RobotDriver::OdomCallback, this);
             // publisher para comandos de velocidad
-            cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/robot1/commands/velocity", 1);
+            cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/robot6/commands/velocity", 1);
             // subscriber para información del IMU
-            imu_sub_ = nh_.subscribe("/robot1/sensors/imu_data", 1, &RobotDriver::IMUCallback, this);
+            imu_sub_ = nh_.subscribe("/robot6/sensors/imu_data", 1, &RobotDriver::IMUCallback, this);
             // subscriber para el laser scan
-            laser_sub_ = nh_.subscribe("/robot1/scan", 1, &RobotDriver::LaserCallback, this);
+            laser_sub_ = nh_.subscribe("/robot6/scan", 1, &RobotDriver::LaserCallback, this);
             // velocidad por defecto en el eje X
             twist_msg_.linear.x = 0;
             // rotación por defecto en el eje z
