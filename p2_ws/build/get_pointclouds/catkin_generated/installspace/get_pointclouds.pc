@@ -1,0 +1,8 @@
+prefix=/home/ipr25/VAR/p2_ws/install
+
+Name: get_pointclouds
+Description: Description of get_pointclouds
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ipr25/VAR/p2_ws/install/lib 
+Requires: 

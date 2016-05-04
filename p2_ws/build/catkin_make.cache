@@ -1,2 +1,2 @@
-load_model
+get_pointclouds:load_model
 -DCATKIN_DEVEL_PREFIX=/home/ipr25/VAR/p2_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ipr25/VAR/p2_ws/install

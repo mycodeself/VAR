@@ -90,6 +90,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/ipr25/VAR/p2_ws/build/gtest/cmake_install.cmake")
   INCLUDE("/home/ipr25/VAR/p2_ws/build/load_model/cmake_install.cmake")
+  INCLUDE("/home/ipr25/VAR/p2_ws/build/get_pointclouds/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
