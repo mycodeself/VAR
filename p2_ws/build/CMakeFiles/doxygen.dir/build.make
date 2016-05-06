@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ipr25/VAR/p2_ws/src
+CMAKE_SOURCE_DIR = /home/ros/VAR/p2_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ipr25/VAR/p2_ws/build
+CMAKE_BINARY_DIR = /home/ros/VAR/p2_ws/build
 
 # Utility rule file for doxygen.
 
@@ -43,7 +43,7 @@ CMAKE_BINARY_DIR = /home/ipr25/VAR/p2_ws/build
 include CMakeFiles/doxygen.dir/progress.make
 
 CMakeFiles/doxygen:
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ipr25/VAR/p2_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ros/VAR/p2_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "doxygen found"
 
 doxygen: CMakeFiles/doxygen
@@ -59,6 +59,6 @@ CMakeFiles/doxygen.dir/clean:
 .PHONY : CMakeFiles/doxygen.dir/clean
 
 CMakeFiles/doxygen.dir/depend:
-	cd /home/ipr25/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doxygen.dir/depend
 

@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/ipr25/VAR/p2_ws/build"
+export PWD="/home/ros/VAR/p2_ws/build"

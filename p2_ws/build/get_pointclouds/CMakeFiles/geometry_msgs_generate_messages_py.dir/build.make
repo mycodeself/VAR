@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ipr25/VAR/p2_ws/src
+CMAKE_SOURCE_DIR = /home/ros/VAR/p2_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ipr25/VAR/p2_ws/build
+CMAKE_BINARY_DIR = /home/ros/VAR/p2_ws/build
 
 # Utility rule file for geometry_msgs_generate_messages_py.
 
@@ -53,10 +53,10 @@ get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/build: geometr
 .PHONY : get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
 
 get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/clean:
-	cd /home/ipr25/VAR/p2_ws/build/get_pointclouds && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/ros/VAR/p2_ws/build/get_pointclouds && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/clean
 
 get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/depend:
-	cd /home/ipr25/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/src/get_pointclouds /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build/get_pointclouds /home/ipr25/VAR/p2_ws/build/get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/src/get_pointclouds /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build/get_pointclouds /home/ros/VAR/p2_ws/build/get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : get_pointclouds/CMakeFiles/geometry_msgs_generate_messages_py.dir/depend
 

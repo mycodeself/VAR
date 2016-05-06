@@ -1,8 +1,8 @@
-# Install script for directory: /home/ipr25/VAR/p2_ws/src/load_model
+# Install script for directory: /home/ros/VAR/p2_ws/src/load_model
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/ipr25/VAR/p2_ws/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/ros/VAR/p2_ws/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ipr25/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_model.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_model.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/load_model/cmake" TYPE FILE FILES
-    "/home/ipr25/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_modelConfig.cmake"
-    "/home/ipr25/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_modelConfig-version.cmake"
+    "/home/ros/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_modelConfig.cmake"
+    "/home/ros/VAR/p2_ws/build/load_model/catkin_generated/installspace/load_modelConfig-version.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/load_model" TYPE FILE FILES "/home/ipr25/VAR/p2_ws/src/load_model/package.xml")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/load_model" TYPE FILE FILES "/home/ros/VAR/p2_ws/src/load_model/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

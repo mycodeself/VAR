@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ipr25/VAR/p2_ws/src/get_pointclouds/src/node.cpp
+/home/ros/VAR/p2_ws/src/get_pointclouds/src/node.cpp
 ros/ros.h
 -
 pcl_ros/point_cloud.h

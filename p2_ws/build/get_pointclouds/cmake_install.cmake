@@ -1,8 +1,8 @@
-# Install script for directory: /home/ipr25/VAR/p2_ws/src/get_pointclouds
+# Install script for directory: /home/ros/VAR/p2_ws/src/get_pointclouds
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/ipr25/VAR/p2_ws/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/ros/VAR/p2_ws/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ipr25/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointclouds.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointclouds.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_pointclouds/cmake" TYPE FILE FILES
-    "/home/ipr25/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointcloudsConfig.cmake"
-    "/home/ipr25/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointcloudsConfig-version.cmake"
+    "/home/ros/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointcloudsConfig.cmake"
+    "/home/ros/VAR/p2_ws/build/get_pointclouds/catkin_generated/installspace/get_pointcloudsConfig-version.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_pointclouds" TYPE FILE FILES "/home/ipr25/VAR/p2_ws/src/get_pointclouds/package.xml")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_pointclouds" TYPE FILE FILES "/home/ros/VAR/p2_ws/src/get_pointclouds/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

@@ -1,8 +1,8 @@
 prefix=/home/ros/VAR/p2_ws/devel
 
-Name: get_pointclouds
-Description: Description of get_pointclouds
-Version: 0.0.0
+Name: teleop_twist_keyboard
+Description: Description of teleop_twist_keyboard
+Version: 0.6.0
 Cflags: 
 Libs: -L/home/ros/VAR/p2_ws/devel/lib 
 Requires: 

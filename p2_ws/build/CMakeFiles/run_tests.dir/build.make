@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ipr25/VAR/p2_ws/src
+CMAKE_SOURCE_DIR = /home/ros/VAR/p2_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ipr25/VAR/p2_ws/build
+CMAKE_BINARY_DIR = /home/ros/VAR/p2_ws/build
 
 # Utility rule file for run_tests.
 
@@ -57,6 +57,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/ipr25/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

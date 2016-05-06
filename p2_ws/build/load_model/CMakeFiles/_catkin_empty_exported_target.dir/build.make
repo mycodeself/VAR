@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ipr25/VAR/p2_ws/src
+CMAKE_SOURCE_DIR = /home/ros/VAR/p2_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ipr25/VAR/p2_ws/build
+CMAKE_BINARY_DIR = /home/ros/VAR/p2_ws/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -53,10 +53,10 @@ load_model/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_empty_exp
 .PHONY : load_model/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 load_model/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/ipr25/VAR/p2_ws/build/load_model && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/ros/VAR/p2_ws/build/load_model && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : load_model/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 load_model/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/ipr25/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ipr25/VAR/p2_ws/src /home/ipr25/VAR/p2_ws/src/load_model /home/ipr25/VAR/p2_ws/build /home/ipr25/VAR/p2_ws/build/load_model /home/ipr25/VAR/p2_ws/build/load_model/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros/VAR/p2_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/VAR/p2_ws/src /home/ros/VAR/p2_ws/src/load_model /home/ros/VAR/p2_ws/build /home/ros/VAR/p2_ws/build/load_model /home/ros/VAR/p2_ws/build/load_model/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : load_model/CMakeFiles/_catkin_empty_exported_target.dir/depend
 
