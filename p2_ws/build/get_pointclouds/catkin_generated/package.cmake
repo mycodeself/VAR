@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "get_pointclouds")
-set(get_pointclouds_MAINTAINER "fran <fran@todo.todo>")
-set(get_pointclouds_DEPRECATED "")
-set(get_pointclouds_VERSION "0.0.0")
-set(get_pointclouds_BUILD_DEPENDS "pcl_conversions" "pcl_ros" "roscpp" "sensor_msgs")
-set(get_pointclouds_RUN_DEPENDS "pcl_conversions" "pcl_ros" "roscpp" "sensor_msgs")
-set(get_pointclouds_BUILDTOOL_DEPENDS "catkin")
