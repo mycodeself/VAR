@@ -29,14 +29,36 @@ void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg)
 
 	//keypoints
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints(new pcl::PointCloud<pcl::PointXYZRGB>);
-	get_iss_keypoints(keypoints);
+	iss_keypoints(keypoints);
 
 	//descriptors
 	//pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>);
-	//get_SHOT352_descriptors(descriptors, keypoints);
+	//SHOT352_descriptors(descriptors, keypoints);
 
 
 	visu_pc = cloud_filtered;
+}
+
+double get_cloud_resolution()
+{
+	double res = 0.0;
+  	int n_points = 0, n_res;
+  	std::vector<int> indices (2);
+  	std::vector<float> sqr_distances (2);
+  	pcl::search::KdTree<PointType> tree;
+  	tree.setInputCloud (cloud); 
+	for(size_t i=0;i<cloud->size();++i) {
+		if(!pcl_isfinite((*cloud)[i].x)) 
+			continue;
+		n_res = tree.nearestKSearch (i, 2, indices, sqr_distances); 
+		if (n_res == 2) {
+      		res += sqrt (sqr_distances[1]);
+      		++n_points;
+    	} 
+	}
+	if(n_points != 0)
+		res /= n_points;
+	return res;
 }
 
 void filter_voxel_grid()
@@ -52,7 +74,7 @@ void filter_voxel_grid()
 
 }
 
-void get_iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
+void iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
 {
 	pcl::ISSKeypoint3D<pcl::PointXYZRGB, pcl::PointXYZRGB> iss_detector;
 	iss_detector.setInputCloud(cloud_filtered);
@@ -66,7 +88,7 @@ void get_iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
 
 }
 
-void get_SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
+void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
 								const pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
 {
 	pcl::SHOTEstimationOMP<pcl::PointXYZRGB, pcl::Normal, pcl::SHOT352> shot_describer;

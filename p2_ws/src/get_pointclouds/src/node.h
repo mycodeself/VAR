@@ -15,14 +15,18 @@
 
 #define DEBUG_MSG 1
 
+#define PointType pcl::PointXYZRGB
+
 void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg);
 void simpleVis();
 
+double get_cloud_resolution();
+
 //keypoints
-void get_iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints);
+void iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints);
 
 //descriptors
-void get_SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
+void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
 								const pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints);
 
 void filter_voxel_grid();
