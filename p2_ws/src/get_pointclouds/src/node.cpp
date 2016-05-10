@@ -1,12 +1,10 @@
-#include <ros/ros.h>
-#include <pcl_ros/point_cloud.h>
-#include <pcl/point_types.h>
-#include <boost/foreach.hpp>
-#include <pcl/visualization/pcl_visualizer.h>
-#include <pcl/visualization/cloud_viewer.h>
-#include <pcl/filters/voxel_grid.h>
+#include "node.h"
 
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr visu_pc (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
+
 
 void simpleVis ()
 {
@@ -21,19 +19,67 @@ void simpleVis ()
 
 void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg)
 {
-	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>(*msg));
-	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
+	*cloud = *msg;
 
-	cout << "Puntos capturados: " << cloud->size() << endl;
+#if DEBUG_MSG
+	cout << "Number of points captured: " << cloud->size() << "\n";
+#endif
 
-	pcl::VoxelGrid<pcl::PointXYZRGB > vGrid;
-	vGrid.setInputCloud (cloud);
-	vGrid.setLeafSize (0.05f, 0.05f, 0.05f);
-	vGrid.filter (*cloud_filtered);
+	filter_voxel_grid();
 
-	cout << "Puntos tras VG: " << cloud_filtered->size() << endl;
+	//keypoints
+	pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints(new pcl::PointCloud<pcl::PointXYZRGB>);
+	get_iss_keypoints(keypoints);
+
+	//descriptors
+	//pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>);
+	//get_SHOT352_descriptors(descriptors, keypoints);
+
 
 	visu_pc = cloud_filtered;
+}
+
+void filter_voxel_grid()
+{
+	pcl::VoxelGrid<pcl::PointXYZRGB> v_grid;
+	v_grid.setInputCloud(cloud);
+	v_grid.setLeafSize(0.01f, 0.01f, 0.01f);
+	v_grid.filter(*cloud_filtered);
+
+#if DEBUG_MSG
+	std::cout << "Number of points after VoxelGrid: " << cloud_filtered->size() << "\n";
+#endif
+
+}
+
+void get_iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
+{
+	pcl::ISSKeypoint3D<pcl::PointXYZRGB, pcl::PointXYZRGB> iss_detector;
+	iss_detector.setInputCloud(cloud_filtered);
+	//iss_detector.setSalientRadius(1.0f);
+	//iss_detector.setNonMaxRadius(1.0f);
+	iss_detector.compute(*keypoints);
+
+#if DEBUG_MSG
+	std::cout << "Number of keypoints with IIS detector: " << keypoints->size() << "\n";
+#endif
+
+}
+
+void get_SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
+								const pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
+{
+	pcl::SHOTEstimationOMP<pcl::PointXYZRGB, pcl::Normal, pcl::SHOT352> shot_describer;
+	shot_describer.setRadiusSearch(6.0f);
+	shot_describer.setInputCloud(keypoints);
+	//shot_describer.setInputNormals.(normals);
+	shot_describer.setSearchSurface(cloud_filtered);
+	shot_describer.compute(*descriptors);
+
+#if DEBUG_MSG
+	std::cout << "Number of descriptors with SHOT352: " << descriptors->size() << "\n";
+#endif
+
 }
 
 int main(int argc, char** argv)
