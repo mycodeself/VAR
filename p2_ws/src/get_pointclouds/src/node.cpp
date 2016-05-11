@@ -1,9 +1,9 @@
 #include "node.h"
 
-pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
 
-pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>);
-pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>());
+pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>());
 double model_resolution;
 
 void simpleVis ()
@@ -25,14 +25,19 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 #endif
 
 	//compute cloud model_resolution
-	//model_resolution = get_cloud_resolution();
+	model_resolution = get_cloud_resolution();
+
+	//estimate normals
+	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
+	estimate_normals(normals);
+
 	//keypoints
-	//pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>);
-	//iss_keypoints(keypoints);
+	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
+	iss_keypoints(keypoints);
 
 	//descriptors
-	//pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>);
-	//SHOT352_descriptors(descriptors, keypoints);
+	pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>());
+	SHOT352_descriptors(descriptors, keypoints, normals);
 
 	filter_voxel_grid();
 	visu_pc = cloud_filtered;
@@ -88,17 +93,35 @@ void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints)
 }
 
 void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
-								const pcl::PointCloud<PointType>::Ptr keypoints)
+								const pcl::PointCloud<PointType>::Ptr keypoints,
+								const pcl::PointCloud<pcl::Normal>::Ptr normals)
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
 	shot_describer.setRadiusSearch(6.0f);
 	shot_describer.setInputCloud(keypoints);
-	//shot_describer.setInputNormals.(normals);
+	shot_describer.setInputNormals(normals);
 	shot_describer.setSearchSurface(cloud);
 	shot_describer.compute(*descriptors);
 
 #if DEBUG_MSG
 	std::cout << "Number of descriptors with SHOT352: " << descriptors->size() << "\n";
+#endif
+
+}
+
+void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals)
+{
+	pcl::NormalEstimationOMP<PointType, pcl::Normal> ne;
+	//pcl::NormalEstimation<PointType, pcl::Normal> ne;
+	ne.setInputCloud(cloud);
+	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>());
+	ne.setSearchMethod(tree);
+	//radio de vecinos
+	ne.setRadiusSearch(0.01);
+	ne.compute(*normals);
+
+#if DEBUG_MSG
+	std::cout << "Number of normal estimated: " << normals->size() << "\n";
 #endif
 
 }

@@ -12,6 +12,8 @@
 #include <pcl/keypoints/iss_3d.h> // get_iss_keypoints
 #include <pcl/impl/point_types.hpp> // get_SHOT352_descriptors
 #include <pcl/features/shot_omp.h> // get_SHOT352_descriptors
+#include <pcl/features/normal_3d.h> // pcl::NormalEstimation
+#include <pcl/features/normal_3d_omp.h> // pcl::NormalEstimationOMP
 
 #define DEBUG_MSG 1
 
@@ -27,9 +29,11 @@ void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints);
 
 //descriptors
 void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
-								const pcl::PointCloud<PointType>::Ptr keypoints);
+								const pcl::PointCloud<PointType>::Ptr keypoints,
+								const pcl::PointCloud<pcl::Normal>::Ptr normals);
 
 void filter_voxel_grid();
 
+void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals);
 
 #endif
