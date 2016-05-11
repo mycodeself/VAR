@@ -1,9 +1,9 @@
 #include "node.h"
 
-pcl::PointCloud<pcl::PointType>::Ptr visu_pc (new pcl::PointCloud<pcl::PointXYZRGB>);
+pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>);
 
-pcl::PointCloud<pcl::PointType>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
-pcl::PointCloud<pcl::PointType>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
+pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>);
 double model_resolution;
 
 void simpleVis ()
@@ -17,19 +17,18 @@ void simpleVis ()
 
 }
 
-void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg)
+void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 {
 	*cloud = *msg;
-
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
 
 	//compute cloud model_resolution
-	model_resolution = get_cloud_resolution();
+	//model_resolution = get_cloud_resolution();
 	//keypoints
-	pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints(new pcl::PointCloud<pcl::PointXYZRGB>);
-	iss_keypoints(keypoints);
+	//pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>);
+	//iss_keypoints(keypoints);
 
 	//descriptors
 	//pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>);
@@ -63,9 +62,9 @@ double get_cloud_resolution()
 
 void filter_voxel_grid()
 {
-	pcl::VoxelGrid<pcl::PointXYZRGB> v_grid;
+	pcl::VoxelGrid<PointType> v_grid;
 	v_grid.setInputCloud(cloud);
-	v_grid.setLeafSize(0.01f, 0.01f, 0.01f);
+	v_grid.setLeafSize(0.05f, 0.05f, 0.05f);
 	v_grid.filter(*cloud_filtered);
 
 #if DEBUG_MSG
@@ -74,9 +73,9 @@ void filter_voxel_grid()
 
 }
 
-void iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
+void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints)
 {
-	pcl::ISSKeypoint3D<pcl::PointXYZRGB, pcl::PointXYZRGB> iss_detector;
+	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;
 	iss_detector.setInputCloud(cloud);
 	iss_detector.setSalientRadius(6*model_resolution);
 	iss_detector.setNonMaxRadius(4*model_resolution);
@@ -89,9 +88,9 @@ void iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
 }
 
 void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
-								const pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
+								const pcl::PointCloud<PointType>::Ptr keypoints)
 {
-	pcl::SHOTEstimationOMP<pcl::PointXYZRGB, pcl::Normal, pcl::SHOT352> shot_describer;
+	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
 	shot_describer.setRadiusSearch(6.0f);
 	shot_describer.setInputCloud(keypoints);
 	//shot_describer.setInputNormals.(normals);
@@ -108,7 +107,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "sub_pcl");
   ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe<pcl::PointCloud<pcl::PointXYZRGB> >("/camera/depth/points", 1, callback);
+  ros::Subscriber sub = nh.subscribe<pcl::PointCloud<PointType> >("/camera/depth/points", 1, callback);
 
   boost::thread t(simpleVis);
 
