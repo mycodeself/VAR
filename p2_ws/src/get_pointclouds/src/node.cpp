@@ -1,10 +1,10 @@
 #include "node.h"
 
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr visu_pc (new pcl::PointCloud<pcl::PointXYZRGB>);
+pcl::PointCloud<pcl::PointType>::Ptr visu_pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
-
+pcl::PointCloud<pcl::PointType>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+pcl::PointCloud<pcl::PointType>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
+double model_resolution;
 
 void simpleVis ()
 {
@@ -25,8 +25,8 @@ void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg)
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
 
-	filter_voxel_grid();
-
+	//compute cloud model_resolution
+	model_resolution = get_cloud_resolution();
 	//keypoints
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints(new pcl::PointCloud<pcl::PointXYZRGB>);
 	iss_keypoints(keypoints);
@@ -35,7 +35,7 @@ void callback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg)
 	//pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>);
 	//SHOT352_descriptors(descriptors, keypoints);
 
-
+	filter_voxel_grid();
 	visu_pc = cloud_filtered;
 }
 
@@ -77,9 +77,9 @@ void filter_voxel_grid()
 void iss_keypoints(pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoints)
 {
 	pcl::ISSKeypoint3D<pcl::PointXYZRGB, pcl::PointXYZRGB> iss_detector;
-	iss_detector.setInputCloud(cloud_filtered);
-	//iss_detector.setSalientRadius(1.0f);
-	//iss_detector.setNonMaxRadius(1.0f);
+	iss_detector.setInputCloud(cloud);
+	iss_detector.setSalientRadius(6*model_resolution);
+	iss_detector.setNonMaxRadius(4*model_resolution);
 	iss_detector.compute(*keypoints);
 
 #if DEBUG_MSG
@@ -95,7 +95,7 @@ void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors,
 	shot_describer.setRadiusSearch(6.0f);
 	shot_describer.setInputCloud(keypoints);
 	//shot_describer.setInputNormals.(normals);
-	shot_describer.setSearchSurface(cloud_filtered);
+	shot_describer.setSearchSurface(cloud);
 	shot_describer.compute(*descriptors);
 
 #if DEBUG_MSG
