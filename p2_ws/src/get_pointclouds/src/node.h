@@ -14,15 +14,18 @@
 #include <pcl/features/shot_omp.h> // get_SHOT352_descriptors
 #include <pcl/features/normal_3d.h> // pcl::NormalEstimation
 #include <pcl/features/normal_3d_omp.h> // pcl::NormalEstimationOMP
+#include <pcl/kdtree/impl/kdtree_flann.hpp>
+#include <pcl/correspondence.h>
 
 #define DEBUG_MSG 1
 
 #define PointType pcl::PointXYZRGB
+#define DescriptorType pcl::SHOT352
 
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
 void simpleVis();
 
-double get_cloud_resolution();
+double get_cloud_resolution(const pcl::PointCloud<PointType>::Ptr cloud);
 
 //keypoints
 void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints);
@@ -32,8 +35,13 @@ void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors,
 								const pcl::PointCloud<PointType>::Ptr keypoints,
 								const pcl::PointCloud<pcl::Normal>::Ptr normals);
 
-void filter_voxel_grid();
+//filter voxelGrid
+void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
+						pcl::PointCloud<PointType>::Ptr cloud_filtered);
 
 void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals);
+
+void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
+							pcl::PointCloud<DescriptorType>::Ptr world_descriptors);
 
 #endif

@@ -2,9 +2,7 @@
 
 pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
 
-pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>());
-pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>());
-double model_resolution;
+pcl::PointCloud<PointType>::Ptr world(new pcl::PointCloud<PointType>());
 
 void simpleVis ()
 {
@@ -19,13 +17,12 @@ void simpleVis ()
 
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 {
-	*cloud = *msg;
+	pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>());
+	pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>(*msg));
+
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
-
-	//compute cloud model_resolution
-	model_resolution = get_cloud_resolution();
 
 	//estimate normals
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
@@ -36,27 +33,30 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	iss_keypoints(keypoints);
 
 	//descriptors
-	pcl::PointCloud<pcl::SHOT352>::Ptr descriptors(new pcl::PointCloud<pcl::SHOT352>());
-	SHOT352_descriptors(descriptors, keypoints, normals);
+	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
 
-	filter_voxel_grid();
+#if DescriptorType == pcl::SHOT352
+	SHOT352_descriptors(descriptors, keypoints, normals);
+#endif
+
+	filter_voxel_grid(cloud, cloud_filtered);
 	visu_pc = cloud_filtered;
 }
 
-double get_cloud_resolution()
+double get_cloud_resolution(const pcl::PointCloud<PointType>::Ptr cloud)
 {
 	double res = 0.0;
   	int n_points = 0, n_res;
   	std::vector<int> indices (2);
   	std::vector<float> sqr_distances (2);
   	pcl::search::KdTree<PointType> tree;
-  	tree.setInputCloud (cloud); 
+  	tree.setInputCloud(cloud); 
 	for(size_t i=0;i<cloud->size();++i) {
 		if(!pcl_isfinite((*cloud)[i].x)) 
 			continue;
 		n_res = tree.nearestKSearch (i, 2, indices, sqr_distances); 
 		if (n_res == 2) {
-      		res += sqrt (sqr_distances[1]);
+      		res += sqrt(sqr_distances[1]);
       		++n_points;
     	} 
 	}
@@ -65,7 +65,8 @@ double get_cloud_resolution()
 	return res;
 }
 
-void filter_voxel_grid()
+void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
+						pcl::PointCloud<PointType>::Ptr cloud_filtered)
 {
 	pcl::VoxelGrid<PointType> v_grid;
 	v_grid.setInputCloud(cloud);
@@ -80,7 +81,11 @@ void filter_voxel_grid()
 
 void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints)
 {
-	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;
+
+	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;	
+	//compute cloud model_resolution
+	double model_resolution = get_cloud_resolution(cloud);
+	//iss_detector
 	iss_detector.setInputCloud(cloud);
 	iss_detector.setSalientRadius(6*model_resolution);
 	iss_detector.setNonMaxRadius(4*model_resolution);
@@ -125,6 +130,30 @@ void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals)
 #endif
 
 }
+
+void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
+							pcl::PointCloud<DescriptorType>::Ptr world_descriptors)
+{
+	pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
+	pcl::KdTreeFLANN<DescriptorType> match;
+	match.setInputCloud(actual_descriptors);
+	for(size_t i=0;i<world_descriptors->size();++i) {
+		std::vector<int> indices(1);
+		std::vector<float> sqr(1);
+		if(!pcl_isfinite(world_descriptors->at(i).descriptor[0])) // skip NaN
+			continue; 
+		// para SHOT252 hay correspondencia si el cuadrado de la distancia
+		// del descritor es menor de 0.25
+		int neighbours = match.nearestKSearch(world_descriptors->at(i), 1, indices, sqr);
+		if(neighbours == 1 && sqr[0] < 0.25) {
+			pcl::Correspondence c(indices[0], static_cast<int>(i), sqr[0]);
+			correspondences->push_back(c);
+		}
+	}
+#if DEBUG_MSG
+	std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
+#endif
+}	
 
 int main(int argc, char** argv)
 {

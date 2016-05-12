@@ -4,6 +4,7 @@
 //#include <gazebo/ModelState.h>
 //#include <gazebo>
 #include "gazebo_msgs/ModelState.h"
+#include "gazebo_msgs/ModelStates.h"
 #include "gazebo_msgs/SetModelState.h"
 
 
@@ -27,21 +28,22 @@ void bucle()
 	}
 }
 
-void ModelStateCallback(const gazebo_msgs::ModelState::ConstPtr& msg)
+void ModelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 {
-	ROS_INFO_STREAM("Posicion Actual: x [" << msg->pose.position.x << "], y[" << msg->pose.position.y << "], z ["<< msg->pose.position.z << "]"); 
-	if(modelState.model_name == "")
+	int id_mb = msg->name.size()-1;
+	ROS_INFO_STREAM("Posicion Actual: x [" << msg->pose[id_mb].position.x << "], y[" << msg->pose[id_mb].position.y << "], z ["<< msg->pose[id_mb].position.z << "]"); 
+	/*if(modelState.model_name == "")
 	{
-		modelState.model_name 		= msg->model_name;
-		modelState.reference_frame 	= msg->reference_frame;
+		modelState.model_name 		= msg->name[0];
+		//modelState.reference_frame 	= msg->reference_frame;
 	}
 	char cmd_buff[50];
-	std::cin.getline(cmd_buff, 50);
+	std::cin.getline(cmd_buff, 50);*/
 	/*
 	int iKeyValue = GetKey();
 	switch(iKeyValue)
 	{
-		geometry_msgs::Pose nextPose  	= msg->pose;
+		geometry_msgs::Pose nextPose  	= msg->pose[0];
 		geometry_msgs::Twist nextTwist 	= msg->twist;
 
 		case VK_LEFT:
@@ -63,8 +65,8 @@ void ModelStateCallback(const gazebo_msgs::ModelState::ConstPtr& msg)
 			nextPose.position.x += 0.5;
 		break;
 */
-	geometry_msgs::Pose nextPose  	= msg->pose;
-	geometry_msgs::Twist nextTwist 	= msg->twist;
+	/*geometry_msgs::Pose nextPose  	= msg->pose[0];
+	geometry_msgs::Twist nextTwist 	= msg->twist[0];
 	switch(cmd_buff[0])
 	{
 
@@ -96,7 +98,7 @@ void ModelStateCallback(const gazebo_msgs::ModelState::ConstPtr& msg)
 	client.call(setModelState);
 
 	ROS_INFO_STREAM("Posicion siguiente: 	x [" << nextPose.position.x << "], y[" << nextPose.position.y << "], z ["<< nextPose.position.z << "]"); 
-	ROS_INFO_STREAM("Orientación siguiente: x [" << nextTwist.linear.x << "], y[" << nextTwist.linear.y << "], z ["<< nextTwist.linear.z << "]"); 
+	ROS_INFO_STREAM("Orientación siguiente: x [" << nextTwist.linear.x << "], y[" << nextTwist.linear.y << "], z ["<< nextTwist.linear.z << "]"); */
 	
 }
 
@@ -105,8 +107,8 @@ int main(int argc, char** argv)
 	ros::init(argc, argv, "move_turtlebot");
 	ros::NodeHandle nh;
 
-	subModelState 				= nh.subscribe("mobile_base", 1, ModelStateCallback);
-	client 						= nh.serviceClient<gazebo_msgs::SetModelState>("/gazebo/SetModelState");
+	subModelState 				= nh.subscribe("/gazebo/model_states", 10, ModelStateCallback);
+	client 						= nh.serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
   	modelState.model_name 		= "";
   	modelState.reference_frame 	= "";
 	bucle();
