@@ -1,7 +1,7 @@
 prefix=/home/gacel/VAR/p2_ws/devel
 
-Name: load_model
-Description: Description of load_model
+Name: move_turtlebot
+Description: Description of move_turtlebot
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/gacel/VAR/p2_ws/devel/lib 
