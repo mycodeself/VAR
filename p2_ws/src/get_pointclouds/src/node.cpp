@@ -196,8 +196,7 @@ bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud,
 			else
 				cloud->points[i].z = -1 * (cloud->points[i].x + cloud->points[i].y);
 		}
-	}
-	
+	}	
 
 	std::vector<int> inliers;
 
@@ -208,26 +207,31 @@ bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud,
 	pcl::SampleConsensusModelPlane<PointType>::Ptr
 		model_p (new pcl::SampleConsensusModelPlane<PointType> (cloud));
 
+	bool isGood = false;
 
 	if(TYPE_RANSAC == 1)
 	{
 		pcl::RandomSampleConsensus<PointType> ransac (model_p);
-		ransac.setDistanceThreshold (.01);
-		ransac.computeModel();
+		ransac.setDistanceThreshold (DISTANCE_THRESHOLD);
+		isGood = ransac.computeModel();
 		ransac.getInliers(inliers);
 	}
 	else if (TYPE_RANSAC == 2)
 	{
 		pcl::RandomSampleConsensus<PointType> ransac (model_s);
-		ransac.setDistanceThreshold (.01);
-		ransac.computeModel();
+		ransac.setDistanceThreshold (DISTANCE_THRESHOLD);
+		isGood = ransac.computeModel();
 		ransac.getInliers(inliers);
 	}
 
 	// copies all inliers of the model computed to another PointCloud
 	pcl::copyPointCloud<PointType>(*cloud, inliers, *finalCloud);
 
-	return 0;
+#if DEBUG_MSG
+	std::cout << "Number of inliers found: " << inliers.size() << "\n";
+#endif
+
+	return isGood;
 }
 
 int main(int argc, char** argv)

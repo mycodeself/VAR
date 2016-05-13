@@ -37,8 +37,7 @@
 #define DescriptorType pcl::SHOT352 // 1
 
 // Constantes para RANSAC
-#define DISTANCE_TRESOLD 0.01
-#define MAX_ITER 1000
+#define DISTANCE_THRESHOLD 0.01
 #define TYPE_RANSAC 1 // 0 - NO RANSAC, 1 - PLANO, 2 - ESFERA
 
 
