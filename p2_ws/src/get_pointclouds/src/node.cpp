@@ -28,14 +28,12 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
 
-	double res = get_cloud_resolution(cloud);
-
 	//estimate normals
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
 	estimate_normals(cloud, normals);
 	//keypoints
 	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
-	iss_keypoints(cloud, res, keypoints);
+	iss_keypoints(cloud, keypoints);
 	//descriptors
 	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
 
@@ -57,7 +55,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	visu_pc = cloud_filtered;
 }
 
-double get_cloud_resolution(const pcl::PointCloud<PointType>::Ptr cloud)
+double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 {
 	double res = 0.0;
   	int n_points = 0, n_res;
@@ -94,7 +92,6 @@ void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
 }
 
 void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
-					const double& model_resolution,
 					pcl::PointCloud<PointType>::Ptr keypoints)
 {
 

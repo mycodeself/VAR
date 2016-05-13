@@ -32,11 +32,10 @@
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
 void simpleVis();
 
-double get_cloud_resolution(const pcl::PointCloud<PointType>::Ptr cloud);
+double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 //keypoints
 void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
-					const double& model_resolution,
 					pcl::PointCloud<PointType>::Ptr keypoints);
 
 //descriptors
