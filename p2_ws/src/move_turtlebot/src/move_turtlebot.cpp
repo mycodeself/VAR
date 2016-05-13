@@ -6,18 +6,18 @@
 #include "gazebo_msgs/ModelState.h"
 #include "gazebo_msgs/ModelStates.h"
 #include "gazebo_msgs/SetModelState.h"
-//#include "gazebo_msgs/GetModelState.h"
+#include "gazebo_msgs/GetModelState.h"
 #include <stdio.h>
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
 
 
-ros::Subscriber subModelState;
+//ros::Subscriber subModelState;
 ros::ServiceClient clientSetModelState;
-//ros::ServiceClient clientGetModelState;
+ros::ServiceClient clientGetModelState;
 gazebo_msgs::ModelState modelState;
-//gazebo_msgs::GetModelState getModelState;
+gazebo_msgs::GetModelState getModelState;
 
 
 int getKey();
@@ -33,17 +33,19 @@ void moveTurtlebot();
 
 int getKey() 
 {
-  struct termios oldt,
-                 newt;
-  int            ch;
-  tcgetattr( STDIN_FILENO, &oldt );
+  static struct termios oldt, newt;
+  tcgetattr( STDIN_FILENO, &oldt);           // save old settings
   newt = oldt;
-  newt.c_lflag &= ~( ICANON | ECHO );
-  tcsetattr( STDIN_FILENO, TCSANOW, &newt );
-  ch = getchar();
-  tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-  return ch;
+  newt.c_lflag &= ~(ICANON);                 // disable buffering     
+  newt.c_cc[VMIN] = 0; newt.c_cc[VTIME] = 0; 
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt);  // apply new settings
+
+  int c = getchar();  // read character (non-blocking)
+
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
+  return c;
 }
+
 void bucle()
 {
 
@@ -56,17 +58,16 @@ void bucle()
 		//msg.linear.x = forwardVel;
 		//msg.angular.z = rotateVel;
 		//commandPub.publish(msg);
-
-		/*getModelState.request.model_name = "mobile_base";		
+		
 		clientGetModelState.call(getModelState);
 
 		if(getModelState.response.success)
 		{
-			//ROS_INFO_STREAM("Posicion actual: x [" << getModelState.response.pose.position.x << "]");
+			ROS_INFO_STREAM("Posicion actual: " << getModelState.response.pose);
 			
-		}*/
+		}
 		moveTurtlebot();
-		//ros::spinOnce(); // Se procesarán todas las llamadas pendientes, es decir, llamará a callBack
+		ros::spinOnce(); // Se procesarán todas las llamadas pendientes, es decir, llamará a callBack
 		rate.sleep(); // Espera a que finalice el ciclo
 	}
 }
@@ -76,37 +77,37 @@ void moveTurtlebot()
 	int key = getKey();
 	gazebo_msgs::SetModelState setModelState;
 	setModelState.request.model_state.model_name = "mobile_base";
-	setModelState.request.model_state.reference_frame = "world";
-
+	//setModelState.request.model_state.reference_frame = "world";
+	setModelState.request.model_state.pose = getModelState.response.pose;
 	switch(key)
 	{
 
 		case 'w':case 'W':
-			setModelState.request.model_state.twist.linear.x = 0.1;
+			setModelState.request.model_state.twist.linear.x = -0.5;
 		break;
 		case 's':case 'S':
-			setModelState.request.model_state.twist.linear.x = -0.1;
+			setModelState.request.model_state.twist.linear.x = 0.5;
 		break;
 		case 'a':case 'A':
-			setModelState.request.model_state.twist.linear.y = -0.1;
+			setModelState.request.model_state.twist.linear.y = -0.5;
 		break;
 		case 'd':case 'D':
-			setModelState.request.model_state.twist.linear.y = 0.1;
+			setModelState.request.model_state.twist.linear.y = 0.5;
 		break;
 		case 'k':case 'K':		// Rotar iz
-			setModelState.request.model_state.twist.angular.z = -0.1;
+			setModelState.request.model_state.twist.angular.z = 0.5;
 		break;
 		case 'l':case 'L':		// Rotar de
-			setModelState.request.model_state.twist.angular.z = 0.1;
+			setModelState.request.model_state.twist.angular.z = -0.5;
 		break;
 	}
 	
 	clientSetModelState.call(setModelState);
-	ROS_INFO_STREAM("Twist actual" << setModelState.request.model_state.twist);
+	ROS_INFO_STREAM("Twist actual\n" << setModelState.request.model_state.twist);
 }
 
 
-void ModelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
+/*void ModelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 {
 	/*int id_mb = msg->name.size()-1;
 	ROS_INFO_STREAM("Posicion Actual: x [" << msg->pose[id_mb].position.x << "], y[" << msg->pose[id_mb].position.y << "], z ["<< msg->pose[id_mb].position.z << "]"); 
@@ -177,8 +178,7 @@ void ModelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 
 	ROS_INFO_STREAM("Posicion siguiente: 	x [" << nextPose.position.x << "], y[" << nextPose.position.y << "], z ["<< nextPose.position.z << "]"); 
 	ROS_INFO_STREAM("Orientación siguiente: x [" << nextTwist.linear.x << "], y[" << nextTwist.linear.y << "], z ["<< nextTwist.linear.z << "]"); */
-	
-}
+//}
 
 int main(int argc, char** argv)
 {
@@ -186,9 +186,11 @@ int main(int argc, char** argv)
 	ros::NodeHandle nh;
 
 	//subModelState 				= nh.subscribe("/gazebo/model_states", 10, ModelStateCallback);
-	//clientGetModelState			= nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
+	getModelState.request.model_name = "mobile_base";
+	getModelState.request.relative_entity_name = "world";
+	clientGetModelState			= nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
 	clientSetModelState 		= nh.serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
-  	modelState.model_name 		= "";
-  	modelState.reference_frame 	= "";
+  	//modelState.model_name 		= "";
+  	//modelState.reference_frame 	= "";
 	bucle();
 }

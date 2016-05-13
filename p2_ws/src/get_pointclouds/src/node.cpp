@@ -8,6 +8,9 @@ pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
 pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
 
+/*
+* Cloud Visualizer
+*/
 void simpleVis ()
 {
   	pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
@@ -41,15 +44,15 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	SHOT352_descriptors(keypoints, normals, cloud, descriptors);
 #endif
 
-	if(last_cloud->empty()) { 
-		// primera iteración, no se puede hacer matching
-		*last_cloud = *cloud;
-		*last_keypoints = *keypoints;
-		*last_descriptors = *descriptors;
-	}else{
+	if(!last_cloud->empty()) { 
 		// hacemos matching
-
+		find_correspondences(descriptors);
 	}
+
+	*last_cloud = *cloud;
+	*last_keypoints = *keypoints;
+	*last_descriptors = *descriptors;
+
 
 	filter_voxel_grid(cloud, cloud_filtered);
 	visu_pc = cloud_filtered;
@@ -77,7 +80,7 @@ double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 	return res;
 }
 
-void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
+void filter_voxel_grid(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<PointType>::Ptr cloud_filtered)
 {
 	pcl::VoxelGrid<PointType> v_grid;
@@ -91,7 +94,7 @@ void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
 
 }
 
-void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
+void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 					pcl::PointCloud<PointType>::Ptr keypoints)
 {
 
@@ -110,9 +113,9 @@ void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
 
 }
 
-void SHOT352_descriptors(const pcl::PointCloud<PointType>::Ptr keypoints,
-							const pcl::PointCloud<pcl::Normal>::Ptr normals,
-							const pcl::PointCloud<PointType>::Ptr cloud,
+void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
+							const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors)
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
@@ -128,7 +131,7 @@ void SHOT352_descriptors(const pcl::PointCloud<PointType>::Ptr keypoints,
 
 }
 
-void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
+void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<pcl::Normal>::Ptr normals)
 {
 	pcl::NormalEstimationOMP<PointType, pcl::Normal> ne;
@@ -146,20 +149,19 @@ void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
 
 }
 
-/*void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
-							pcl::PointCloud<DescriptorType>::Ptr world_descriptors)
+void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors)
 {
 	pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 	pcl::KdTreeFLANN<DescriptorType> match;
-	match.setInputCloud(actual_descriptors);
-	for(size_t i=0;i<world_descriptors->size();++i) {
+	match.setInputCloud(descriptors);
+	for(size_t i=0;i<last_descriptors->size();++i) {
 		std::vector<int> indices(1);
 		std::vector<float> sqr(1);
-		if(!pcl_isfinite(world_descriptors->at(i).descriptor[0])) // skip NaN
+		if(!pcl_isfinite(last_descriptors->at(i).descriptor[0])) // skip NaN
 			continue; 
 		// para SHOT252 hay correspondencia si el cuadrado de la distancia
 		// del descritor es menor de 0.25
-		int neighbours = match.nearestKSearch(world_descriptors->at(i), 1, indices, sqr);
+		int neighbours = match.nearestKSearch(last_descriptors->at(i), 1, indices, sqr);
 		if(neighbours == 1 && sqr[0] < 0.25) {
 			pcl::Correspondence c(indices[0], static_cast<int>(i), sqr[0]);
 			correspondences->push_back(c);
@@ -168,7 +170,7 @@ void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
 #if DEBUG_MSG
 	std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
 #endif
-}*/	
+}	
 
 bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
 				pcl::PointCloud<PointType>::Ptr &finalCloud)
