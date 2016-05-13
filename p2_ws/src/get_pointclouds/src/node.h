@@ -35,23 +35,22 @@ void simpleVis();
 double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 //keypoints
-void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
+void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 					pcl::PointCloud<PointType>::Ptr keypoints);
 
 //descriptors
-void SHOT352_descriptors(const pcl::PointCloud<PointType>::Ptr keypoints,
-							const pcl::PointCloud<pcl::Normal>::Ptr normals,
-							const pcl::PointCloud<PointType>::Ptr cloud,
+void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
+							const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors);
 
 //filter voxelGrid
-void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
+void filter_voxel_grid(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<PointType>::Ptr cloud_filtered);
 
-void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
+void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<pcl::Normal>::Ptr normals);
 
-void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
-							pcl::PointCloud<DescriptorType>::Ptr world_descriptors);
+void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors);
 
 #endif
