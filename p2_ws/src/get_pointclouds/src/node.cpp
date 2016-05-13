@@ -4,6 +4,10 @@ pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
 
 pcl::PointCloud<PointType>::Ptr world(new pcl::PointCloud<PointType>());
 
+pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
+pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
+pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
+
 void simpleVis ()
 {
   	pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
@@ -24,20 +28,30 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
 
+	double res = get_cloud_resolution(cloud);
+
 	//estimate normals
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
-	estimate_normals(normals);
-
+	estimate_normals(cloud, normals);
 	//keypoints
 	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
-	iss_keypoints(keypoints);
-
+	iss_keypoints(cloud, res, keypoints);
 	//descriptors
 	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
 
-#if DescriptorType == pcl::SHOT352
-	SHOT352_descriptors(descriptors, keypoints, normals);
+#if Descriptor == 1
+	SHOT352_descriptors(keypoints, normals, cloud, descriptors);
 #endif
+
+	if(last_cloud->empty()) { 
+		// primera iteración, no se puede hacer matching
+		*last_cloud = *cloud;
+		*last_keypoints = *keypoints;
+		*last_descriptors = *descriptors;
+	}else{
+		// hacemos matching
+
+	}
 
 	filter_voxel_grid(cloud, cloud_filtered);
 	visu_pc = cloud_filtered;
@@ -79,7 +93,9 @@ void filter_voxel_grid(const pcl::PointCloud<PointType>::Ptr cloud,
 
 }
 
-void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints)
+void iss_keypoints(const pcl::PointCloud<PointType>::Ptr cloud,
+					const double& model_resolution,
+					pcl::PointCloud<PointType>::Ptr keypoints)
 {
 
 	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;	
@@ -97,9 +113,10 @@ void iss_keypoints(pcl::PointCloud<PointType>::Ptr keypoints)
 
 }
 
-void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors, 
-								const pcl::PointCloud<PointType>::Ptr keypoints,
-								const pcl::PointCloud<pcl::Normal>::Ptr normals)
+void SHOT352_descriptors(const pcl::PointCloud<PointType>::Ptr keypoints,
+							const pcl::PointCloud<pcl::Normal>::Ptr normals,
+							const pcl::PointCloud<PointType>::Ptr cloud,
+							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors)
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
 	shot_describer.setRadiusSearch(6.0f);
@@ -114,7 +131,8 @@ void SHOT352_descriptors(pcl::PointCloud<pcl::SHOT352>::Ptr descriptors,
 
 }
 
-void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals)
+void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
+						pcl::PointCloud<pcl::Normal>::Ptr normals)
 {
 	pcl::NormalEstimationOMP<PointType, pcl::Normal> ne;
 	//pcl::NormalEstimation<PointType, pcl::Normal> ne;
@@ -131,7 +149,7 @@ void estimate_normals(pcl::PointCloud<pcl::Normal>::Ptr normals)
 
 }
 
-void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
+/*void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_descriptors,
 							pcl::PointCloud<DescriptorType>::Ptr world_descriptors)
 {
 	pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
@@ -153,7 +171,7 @@ void find_correspondences(const pcl::PointCloud<DescriptorType>::Ptr actual_desc
 #if DEBUG_MSG
 	std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
 #endif
-}	
+}*/	
 
 int main(int argc, char** argv)
 {
