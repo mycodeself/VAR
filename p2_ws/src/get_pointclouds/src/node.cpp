@@ -170,6 +170,64 @@ void estimate_normals(const pcl::PointCloud<PointType>::Ptr cloud,
 #endif
 }*/	
 
+bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
+				pcl::PointCloud<PointType>::Ptr &finalCloud)
+{
+	for (size_t i = 0; i < cloud->points.size(); ++i)
+	{
+		if (TYPE_RANSAC == 1 || TYPE_RANSAC == 2)
+		{
+			// Modifica puntos a random
+			if (i % 5 == 0)
+				cloud->points[i].z = 1024 * rand () / (RAND_MAX + 1.0);
+			else if(i % 2 == 0)
+				cloud->points[i].z =  sqrt( 1 - (cloud->points[i].x * cloud->points[i].x)
+			                              - (cloud->points[i].y * cloud->points[i].y));
+			else
+				cloud->points[i].z =  - sqrt( 1 - (cloud->points[i].x * cloud->points[i].x)
+			                                - (cloud->points[i].y * cloud->points[i].y));    
+		}
+		else
+		{
+			if( i % 2 == 0)
+				cloud->points[i].z = 1024 * rand () / (RAND_MAX + 1.0);
+			else
+				cloud->points[i].z = -1 * (cloud->points[i].x + cloud->points[i].y);
+		}
+	}
+	
+
+	std::vector<int> inliers;
+
+	// created RandomSampleConsensus object and compute the appropriated model
+	pcl::SampleConsensusModelSphere<PointType>::Ptr
+		model_s(new pcl::SampleConsensusModelSphere<PointType> (cloud));
+
+	pcl::SampleConsensusModelPlane<PointType>::Ptr
+		model_p (new pcl::SampleConsensusModelPlane<PointType> (cloud));
+
+
+	if(TYPE_RANSAC == 1)
+	{
+		pcl::RandomSampleConsensus<PointType> ransac (model_p);
+		ransac.setDistanceThreshold (.01);
+		ransac.computeModel();
+		ransac.getInliers(inliers);
+	}
+	else if (TYPE_RANSAC == 2)
+	{
+		pcl::RandomSampleConsensus<PointType> ransac (model_s);
+		ransac.setDistanceThreshold (.01);
+		ransac.computeModel();
+		ransac.getInliers(inliers);
+	}
+
+	// copies all inliers of the model computed to another PointCloud
+	pcl::copyPointCloud<PointType>(*cloud, inliers, *finalCloud);
+
+	return 0;
+}
+
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "sub_pcl");
