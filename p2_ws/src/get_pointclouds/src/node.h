@@ -16,6 +16,8 @@
 #include <pcl/features/normal_3d_omp.h> // pcl::NormalEstimationOMP
 #include <pcl/kdtree/impl/kdtree_flann.hpp>
 #include <pcl/correspondence.h>
+#include <pcl/recognition/cg/geometric_consistency.h>
+#include <pcl/common/transforms.h>
 
 #define DEBUG_MSG 1
 
@@ -26,17 +28,15 @@
 // algoritmo descriptor a usar
 #define DescriptorType pcl::SHOT352 // 1
 
-
-
-
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
+
 void simpleVis();
 
 double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 //keypoints
 void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
-					pcl::PointCloud<PointType>::Ptr keypoints);
+							pcl::PointCloud<PointType>::Ptr keypoints);
 
 //descriptors
 void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
@@ -46,11 +46,16 @@ void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 
 //filter voxelGrid
 void filter_voxel_grid(const pcl::PointCloud<PointType>::ConstPtr& cloud,
-						pcl::PointCloud<PointType>::Ptr cloud_filtered);
+							pcl::PointCloud<PointType>::Ptr cloud_filtered);
 
 void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
-						pcl::PointCloud<pcl::Normal>::Ptr normals);
+							pcl::PointCloud<pcl::Normal>::Ptr normals);
+	
+void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
+							pcl::CorrespondencesPtr correspondences);
+	
+void cluster_geometric_consistency(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+									const pcl::CorrespondencesConstPtr& correspondences);
 
-void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors);
 
 #endif

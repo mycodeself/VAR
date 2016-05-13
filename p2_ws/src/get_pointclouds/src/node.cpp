@@ -2,11 +2,13 @@
 
 pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
 
-pcl::PointCloud<PointType>::Ptr world(new pcl::PointCloud<PointType>());
-
 pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
 pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
+
+std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
+
+double actual_res = 0;
 
 /*
 * Cloud Visualizer
@@ -30,7 +32,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
-
+	actual_res = get_cloud_resolution(cloud);
 	//estimate normals
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
 	estimate_normals(cloud, normals);
@@ -46,16 +48,26 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 
 	if(!last_cloud->empty()) { 
 		// hacemos matching
-		find_correspondences(descriptors);
+		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
+		find_correspondences(descriptors, correspondences);
+		//agrupamos
+		cluster_geometric_consistency(keypoints, correspondences);
+		pcl::PointCloud<PointType>::Ptr rotated_model (new pcl::PointCloud<PointType> ());
+		for(size_t i=0;i<rot_translations.size();++i) {
+			
+			pcl::transformPointCloud (*cloud, *rotated_model, rot_translations[i]);			
+		}
+		filter_voxel_grid(rotated_model, cloud_filtered);
+	}else{
+		filter_voxel_grid(cloud, cloud_filtered);
 	}
 
 	*last_cloud = *cloud;
 	*last_keypoints = *keypoints;
 	*last_descriptors = *descriptors;
 
+	*visu_pc += *cloud_filtered;
 
-	filter_voxel_grid(cloud, cloud_filtered);
-	visu_pc = cloud_filtered;
 }
 
 double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud)
@@ -99,12 +111,10 @@ void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 {
 
 	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;	
-	//compute cloud model_resolution
-	double model_resolution = get_cloud_resolution(cloud);
 	//iss_detector
 	iss_detector.setInputCloud(cloud);
-	iss_detector.setSalientRadius(6*model_resolution);
-	iss_detector.setNonMaxRadius(4*model_resolution);
+	iss_detector.setSalientRadius(6*actual_res);
+	iss_detector.setNonMaxRadius(4*actual_res);
 	iss_detector.compute(*keypoints);
 
 #if DEBUG_MSG
@@ -120,6 +130,7 @@ void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
 	shot_describer.setRadiusSearch(6.0f);
+	shot_describer.setNumberOfThreads(4);
 	shot_describer.setInputCloud(keypoints);
 	shot_describer.setInputNormals(normals);
 	shot_describer.setSearchSurface(cloud);
@@ -136,6 +147,7 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 {
 	pcl::NormalEstimationOMP<PointType, pcl::Normal> ne;
 	//pcl::NormalEstimation<PointType, pcl::Normal> ne;
+	ne.setNumberOfThreads(4);
 	ne.setInputCloud(cloud);
 	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>());
 	ne.setSearchMethod(tree);
@@ -149,9 +161,10 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 
 }
 
-void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors)
+void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
+							pcl::CorrespondencesPtr correspondences)
 {
-	pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
+	//pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 	pcl::KdTreeFLANN<DescriptorType> match;
 	match.setInputCloud(descriptors);
 	for(size_t i=0;i<last_descriptors->size();++i) {
@@ -171,6 +184,30 @@ void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descr
 	std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
 #endif
 }	
+
+
+void cluster_geometric_consistency(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+									const pcl::CorrespondencesConstPtr& correspondences)
+{
+  	//std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
+  	std::vector<pcl::Correspondences> clustered_corrs;	
+    pcl::GeometricConsistencyGrouping<PointType, PointType> gc_clusterer;
+    
+    gc_clusterer.setGCSize(0.01*actual_res);
+    gc_clusterer.setGCThreshold(2*actual_res);
+
+    gc_clusterer.setInputCloud(keypoints);
+    gc_clusterer.setSceneCloud(last_keypoints);
+    gc_clusterer.setModelSceneCorrespondences(correspondences);
+
+    //gc_clusterer.cluster(clustered_corrs);
+    gc_clusterer.recognize(rot_translations, clustered_corrs);
+
+#if DEBUG_MSG
+	std::cout << "Number of instances: " << rot_translations.size() << "\n";
+#endif    
+}
+
 
 int main(int argc, char** argv)
 {
