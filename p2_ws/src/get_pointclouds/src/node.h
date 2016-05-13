@@ -19,6 +19,16 @@
 #include <pcl/recognition/cg/geometric_consistency.h>
 #include <pcl/common/transforms.h>
 
+#include <iostream>
+#include <pcl/console/parse.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/sample_consensus/ransac.h>
+#include <pcl/sample_consensus/sac_model_plane.h>
+#include <pcl/sample_consensus/sac_model_sphere.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <boost/thread/thread.hpp>
+
 #define DEBUG_MSG 1
 
 #define Descriptor 1
@@ -27,6 +37,11 @@
 #define PointType pcl::PointXYZRGB
 // algoritmo descriptor a usar
 #define DescriptorType pcl::SHOT352 // 1
+
+// Constantes para RANSAC
+#define DISTANCE_THRESHOLD 0.01
+#define TYPE_RANSAC 1 // 0 - NO RANSAC, 1 - PLANO, 2 - ESFERA
+
 
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
 
@@ -57,5 +72,9 @@ void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descr
 void cluster_geometric_consistency(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 									const pcl::CorrespondencesConstPtr& correspondences);
 
+
+// Devuelve true si se ha encontrado correspondencias suficientes
+bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
+				pcl::PointCloud<PointType>::Ptr &cloudFinal);
 
 #endif
