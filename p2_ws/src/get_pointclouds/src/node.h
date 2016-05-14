@@ -18,8 +18,6 @@
 #include <pcl/correspondence.h>
 #include <pcl/recognition/cg/geometric_consistency.h>
 #include <pcl/common/transforms.h>
-
-#include <iostream>
 #include <pcl/console/parse.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/io/pcd_io.h>
@@ -28,6 +26,9 @@
 #include <pcl/sample_consensus/sac_model_sphere.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <boost/thread/thread.hpp>
+#include <iostream>
+#include <vector>
+#include <sys/resource.h>
 
 #define DEBUG_MSG 1
 
@@ -53,6 +54,8 @@ double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<PointType>::Ptr keypoints);
 
+void remove_nan(pcl::PointCloud<PointType>::Ptr cloud);
+
 //descriptors
 void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
@@ -72,9 +75,11 @@ void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descr
 void cluster_geometric_consistency(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 									const pcl::CorrespondencesConstPtr& correspondences);
 
-
 // Devuelve true si se ha encontrado correspondencias suficientes
 bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
 				pcl::PointCloud<PointType>::Ptr &cloudFinal);
+
+
+double get_cpu_time();
 
 #endif

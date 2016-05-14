@@ -32,6 +32,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
+	remove_nan(cloud);
 	actual_res = get_cloud_resolution(cloud);
 	//estimate normals
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
@@ -55,11 +56,14 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 		pcl::PointCloud<PointType>::Ptr rotated_model (new pcl::PointCloud<PointType> ());
 		for(size_t i=0;i<rot_translations.size();++i) {
 			
-			pcl::transformPointCloud (*cloud, *rotated_model, rot_translations[i]);			
+			pcl::transformPointCloud (*cloud, *rotated_model, rot_translations[i]);
+			filter_voxel_grid(rotated_model, cloud_filtered);	
+			*visu_pc += *cloud_filtered;		
 		}
-		filter_voxel_grid(rotated_model, cloud_filtered);
+		//filter_voxel_grid(rotated_model, cloud_filtered);
 	}else{
 		filter_voxel_grid(cloud, cloud_filtered);
+		*visu_pc += *cloud_filtered;
 	}
 
 	*last_cloud = *cloud;
@@ -90,6 +94,19 @@ double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 	if(n_points != 0)
 		res /= n_points;
 	return res;
+}
+
+void remove_nan(pcl::PointCloud<PointType>::Ptr cloud)
+{
+	pcl::PointCloud<PointType>::Ptr output(new pcl::PointCloud<PointType>());
+	std::vector<int> indices;
+	pcl::removeNaNFromPointCloud(*cloud, *output, indices);
+	*cloud = *output;
+
+#if DEBUG_MSG
+	std::cout << "Number of points after remove_nan: " << cloud->size() << "\n";
+#endif
+
 }
 
 void filter_voxel_grid(const pcl::PointCloud<PointType>::ConstPtr& cloud,
@@ -129,7 +146,7 @@ void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors)
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
-	shot_describer.setRadiusSearch(6.0f);
+	shot_describer.setRadiusSearch(0.05);
 	shot_describer.setNumberOfThreads(4);
 	shot_describer.setInputCloud(keypoints);
 	shot_describer.setInputNormals(normals);
@@ -268,6 +285,19 @@ bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud,
 #endif
 
 	return isGood;
+}
+
+
+double get_cpu_time(void) 
+{
+    struct timeval tim;
+    struct rusage ru;
+    getrusage(RUSAGE_SELF, &ru);
+    tim=ru.ru_utime;
+    double t=(double)tim.tv_sec + (double)tim.tv_usec / 1000000.0;
+    tim=ru.ru_stime;
+    t+=(double)tim.tv_sec + (double)tim.tv_usec / 1000000.0;
+    return t;
 }
 
 
