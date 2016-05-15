@@ -9,11 +9,11 @@
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl/filters/voxel_grid.h>
 #define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
-#include <pcl/keypoints/iss_3d.h> // get_iss_keypoints
-#include <pcl/impl/point_types.hpp> // get_SHOT352_descriptors
-#include <pcl/features/shot_omp.h> // get_SHOT352_descriptors
-#include <pcl/features/normal_3d.h> // pcl::NormalEstimation
-#include <pcl/features/normal_3d_omp.h> // pcl::NormalEstimationOMP
+#include <pcl/keypoints/iss_3d.h>
+#include <pcl/impl/point_types.hpp>
+#include <pcl/features/shot_omp.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/features/normal_3d_omp.h>
 #include <pcl/kdtree/impl/kdtree_flann.hpp>
 #include <pcl/correspondence.h>
 #include <pcl/recognition/cg/geometric_consistency.h>
@@ -25,9 +25,14 @@
 #include <pcl/sample_consensus/sac_model_plane.h>
 #include <pcl/sample_consensus/sac_model_sphere.h>
 #include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/recognition/cg/hough_3d.h>
+#include <pcl/features/board.h>
+#include <pcl/common/time.h>
+#include <pcl/registration/sample_consensus_prerejective.h>
 #include <boost/thread/thread.hpp>
 #include <iostream>
 #include <vector>
+#include <string>
 #include <sys/resource.h>
 
 #define DEBUG_MSG 1
@@ -47,6 +52,9 @@
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
 
 void simpleVis();
+
+void cloud_visualizer(const std::string& name, 
+						const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 double get_cloud_resolution(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
@@ -75,9 +83,19 @@ void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descr
 void cluster_geometric_consistency(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 									const pcl::CorrespondencesConstPtr& correspondences);
 
+
+void cluster_hough3d(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+						const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
+						const pcl::PointCloud<PointType>::ConstPtr& cloud,
+						const pcl::CorrespondencesConstPtr& correspondences);
+
 // Devuelve true si se ha encontrado correspondencias suficientes
 bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
 				pcl::PointCloud<PointType>::Ptr &cloudFinal);
+
+bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
+						const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
+						pcl::PointCloud<PointType>::Ptr cloud_aligned);
 
 
 double get_cpu_time();

@@ -5,6 +5,7 @@ pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
 pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
+pcl::PointCloud<pcl::Normal>::Ptr last_normals(new pcl::PointCloud<pcl::Normal>());
 
 std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
 
@@ -22,6 +23,16 @@ void simpleVis ()
 	  boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
 	}
 
+}
+
+void cloud_visualizer(const std::string& name, 
+						const pcl::PointCloud<PointType>::ConstPtr& cloud)
+{
+	pcl::visualization::CloudViewer viewer(name);
+	while(!viewer.wasStopped()) {
+		viewer.showCloud(cloud);
+		boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
+	}
 }
 
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
@@ -52,7 +63,11 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 		find_correspondences(descriptors, correspondences);
 		//agrupamos
-		cluster_geometric_consistency(keypoints, correspondences);
+		/*if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
+			*visu_pc += *cloud_filtered;
+		}*/
+		//cluster_geometric_consistency(keypoints, correspondences);
+		cluster_hough3d(keypoints, normals, cloud, correspondences);
 		pcl::PointCloud<PointType>::Ptr rotated_model (new pcl::PointCloud<PointType> ());
 		for(size_t i=0;i<rot_translations.size();++i) {
 			
@@ -69,6 +84,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	*last_cloud = *cloud;
 	*last_keypoints = *keypoints;
 	*last_descriptors = *descriptors;
+	*last_normals = *normals;
 
 	*visu_pc += *cloud_filtered;
 
@@ -287,6 +303,64 @@ bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud,
 	return isGood;
 }
 
+void cluster_hough3d(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+						const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
+						const pcl::PointCloud<PointType>::ConstPtr& cloud,
+						const pcl::CorrespondencesConstPtr& correspondences)
+{
+    pcl::PointCloud<pcl::ReferenceFrame>::Ptr actual_cloud_rf (new pcl::PointCloud<pcl::ReferenceFrame> ());
+    pcl::PointCloud<pcl::ReferenceFrame>::Ptr last_cloud_rf (new pcl::PointCloud<pcl::ReferenceFrame> ());
+    std::vector<pcl::Correspondences> clustered_corrs;
+    pcl::BOARDLocalReferenceFrameEstimation<PointType, pcl::Normal, pcl::ReferenceFrame> rf_est;
+
+    rf_est.setFindHoles (true);
+    rf_est.setRadiusSearch (0.020);
+    rf_est.setInputCloud (keypoints);
+    rf_est.setInputNormals (normals);
+    rf_est.setSearchSurface (cloud);
+    rf_est.compute (*actual_cloud_rf);
+    rf_est.setInputCloud (last_keypoints);
+    rf_est.setInputNormals (last_normals);
+    rf_est.setSearchSurface (last_cloud);
+    rf_est.compute (*last_cloud_rf);
+
+    pcl::Hough3DGrouping<PointType, PointType, pcl::ReferenceFrame, pcl::ReferenceFrame> clusterer;
+    clusterer.setHoughBinSize (0.01);
+    clusterer.setHoughThreshold (5.0);
+    clusterer.setUseInterpolation (true);
+    clusterer.setUseDistanceWeight (false);
+    clusterer.setInputCloud (keypoints);
+    clusterer.setInputRf (actual_cloud_rf);
+    clusterer.setSceneCloud (last_keypoints);
+    clusterer.setSceneRf (last_cloud_rf);
+    clusterer.setModelSceneCorrespondences (correspondences);
+    clusterer.recognize (rot_translations, clustered_corrs);	
+#if DEBUG_MSG
+	std::cout << "Number of instances: " << rot_translations.size() << "\n";
+#endif      
+}
+
+bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
+						const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
+						pcl::PointCloud<PointType>::Ptr cloud_aligned)
+{
+  pcl::SampleConsensusPrerejective<PointType,PointType,DescriptorType> align;
+  align.setInputSource (cloud);
+  align.setSourceFeatures (descriptors);
+  align.setInputTarget (last_cloud);
+  align.setTargetFeatures (last_descriptors);
+  align.setMaximumIterations (50000); // Number of RANSAC iterations
+  align.setNumberOfSamples (3); // Number of points to sample for generating/prerejecting a pose
+  align.setCorrespondenceRandomness (5); // Number of nearest features to use
+  align.setSimilarityThreshold (0.9f); // Polygonal edge length similarity threshold
+  align.setMaxCorrespondenceDistance (2.5f * 0.005); // Inlier threshold
+  align.setInlierFraction (0.25f); // Required inlier fraction for accepting a pose hypothesis
+  {
+    pcl::ScopeTime t("Alignment");
+    align.align (*cloud_aligned);
+  }
+  return align.hasConverged();
+}
 
 double get_cpu_time(void) 
 {
