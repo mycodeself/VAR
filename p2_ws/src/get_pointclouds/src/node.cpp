@@ -63,18 +63,19 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 		find_correspondences(descriptors, correspondences);
 		//agrupamos
-		/*if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
-			*visu_pc += *cloud_filtered;
-		}*/
+		if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
+		//	*visu_pc += *cloud_filtered;
+			iterative_closest_point(cloud_filtered);
+		}
 		//cluster_geometric_consistency(keypoints, correspondences);
-		cluster_hough3d(keypoints, normals, cloud, correspondences);
+		/*cluster_hough3d(keypoints, normals, cloud, correspondences);
 		pcl::PointCloud<PointType>::Ptr rotated_model (new pcl::PointCloud<PointType> ());
 		for(size_t i=0;i<rot_translations.size();++i) {
 			
 			pcl::transformPointCloud (*cloud, *rotated_model, rot_translations[i]);
 			filter_voxel_grid(rotated_model, cloud_filtered);	
 			*visu_pc += *cloud_filtered;		
-		}
+		}*/
 		//filter_voxel_grid(rotated_model, cloud_filtered);
 	}else{
 		filter_voxel_grid(cloud, cloud_filtered);
@@ -377,11 +378,14 @@ double get_cpu_time(void)
 void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 {
 	pcl::IterativeClosestPoint<PointType, PointType> icp;
-	icp.setInputCloud(cloud);
+	icp.setInputSource(cloud);
 	icp.setInputTarget(last_cloud);
-	icp.align(visu_pc);
-	if(icp.hasConverged())
+	pcl::PointCloud<PointType> final;
+	icp.align(final);
+	if(icp.hasConverged()) {
 		std::cout << "ICP has converged\n";
+		*visu_pc += final;
+	}
 #if DEBUG_MSG
 	std::cout << "ICP Score: " << icp.getFitnessScore() << "\n";
 #endif

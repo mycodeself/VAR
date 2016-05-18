@@ -1,8 +1,8 @@
-prefix=/home/ros/VAR/p2_ws/devel
+prefix=/home/ipr25/VAR/p2_ws/devel
 
 Name: move_turtlebot
 Description: Description of move_turtlebot
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/ros/VAR/p2_ws/devel/lib 
+Libs: -L/home/ipr25/VAR/p2_ws/devel/lib 
 Requires: 
