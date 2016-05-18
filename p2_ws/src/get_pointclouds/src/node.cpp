@@ -374,6 +374,18 @@ double get_cpu_time(void)
     return t;
 }
 
+void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
+{
+	pcl::IterativeClosestPoint<PointType, PointType> icp;
+	icp.setInputCloud(cloud);
+	icp.setInputTarget(last_cloud);
+	icp.align(visu_pc);
+	if(icp.hasConverged())
+		std::cout << "ICP has converged\n";
+#if DEBUG_MSG
+	std::cout << "ICP Score: " << icp.getFitnessScore() << "\n";
+#endif
+}
 
 int main(int argc, char** argv)
 {

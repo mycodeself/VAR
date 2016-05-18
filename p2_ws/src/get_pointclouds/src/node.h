@@ -29,6 +29,7 @@
 #include <pcl/features/board.h>
 #include <pcl/common/time.h>
 #include <pcl/registration/sample_consensus_prerejective.h>
+#include <pcl/registration/icp.h>
 #include <boost/thread/thread.hpp>
 #include <iostream>
 #include <vector>
@@ -99,5 +100,7 @@ bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 
 
 double get_cpu_time();
+
+void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud_in);
 
 #endif
