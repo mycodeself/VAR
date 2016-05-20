@@ -35,6 +35,7 @@
 #include <vector>
 #include <string>
 #include <sys/resource.h>
+#include <pcl/registration/correspondence_rejection_sample_consensus.h>
 
 #define DEBUG_MSG 1
 
@@ -91,13 +92,15 @@ void cluster_hough3d(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 						const pcl::CorrespondencesConstPtr& correspondences);
 
 // Devuelve true si se ha encontrado correspondencias suficientes
-bool ransac(const pcl::PointCloud<PointType>::Ptr &cloud, 
+bool ransac_correspondences(const pcl::PointCloud<PointType>::Ptr &cloud, 
 				pcl::PointCloud<PointType>::Ptr &cloudFinal);
 
 bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
 						pcl::PointCloud<PointType>::Ptr cloud_aligned);
 
+void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+							pcl::CorrespondencesPtr bestCorrespondences);
 
 double get_cpu_time();
 

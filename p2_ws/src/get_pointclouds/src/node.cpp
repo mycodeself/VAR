@@ -61,7 +61,12 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	if(!last_cloud->empty()) { 
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
-		find_correspondences(descriptors, correspondences);
+		//pcl::CorrespondencesPtr bestCorrespondences (new pcl::Correspondences ());
+
+		//find_correspondences(descriptors, correspondences);
+
+		ransac_correspondences(keypoints, correspondences);
+
 		//agrupamos
 		if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
 		//	*visu_pc += *cloud_filtered;
@@ -361,6 +366,32 @@ bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
     align.align (*cloud_aligned);
   }
   return align.hasConverged();
+}
+
+void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+							pcl::CorrespondencesPtr bestCorrespondences)
+{
+	// Estimate correspondences
+	pcl::CorrespondencesPtr estimateCorrespondences (new pcl::Correspondences);
+	pcl::registration::CorrespondenceEstimation<PointType, PointType> corr_est;
+	corr_est.setInputSource(keypoints);
+	corr_est.setInputTarget(last_keypoints);
+	corr_est.determineCorrespondences(*estimateCorrespondences);
+
+	// Apply RANSAC
+	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>::Ptr crsc(new pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>);
+    crsc->setInputSource(keypoints);
+    crsc->setInputTarget(last_keypoints); 
+    crsc->setInlierThreshold(0.01); 
+    crsc->setMaximumIterations(10000); 
+    crsc->setInputCorrespondences(estimateCorrespondences);
+	crsc->getCorrespondences(*bestCorrespondences);
+
+#if DEBUG_MSG
+	std::cout << "Number of estimation correspondences: " << estimateCorrespondences->size() << "\n";
+	std::cout << "Number of remaining correspondences: " << bestCorrespondences->size() << "\n";
+#endif
+
 }
 
 double get_cpu_time(void) 
