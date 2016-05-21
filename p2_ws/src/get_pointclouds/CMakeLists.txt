@@ -131,7 +131,7 @@ include_directories(
 # add_dependencies(get_pointclouds ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
- add_executable(get_pointclouds_node src/node.cpp)
+ add_executable(get_pointclouds_node src/node.cpp src/mapping.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
