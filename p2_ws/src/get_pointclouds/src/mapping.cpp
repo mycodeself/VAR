@@ -66,7 +66,6 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<pcl::Normal>::Ptr normals)
 {
 	pcl::NormalEstimationOMP<PointType, pcl::Normal> ne;
-	//pcl::NormalEstimation<PointType, pcl::Normal> ne;
 	ne.setNumberOfThreads(4);
 	ne.setInputCloud(cloud);
 	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>());
@@ -81,41 +80,7 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 
 }
 
-void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
-					pcl::PointCloud<PointType>::Ptr keypoints)
-{
 
-	pcl::ISSKeypoint3D<PointType, PointType> iss_detector;	
-	//iss_detector
-	iss_detector.setInputCloud(cloud);
-	iss_detector.setSalientRadius(6*actual_res);
-	iss_detector.setNonMaxRadius(4*actual_res);
-	iss_detector.compute(*keypoints);
-
-#if DEBUG_MSG
-	std::cout << "Number of keypoints with IIS detector: " << keypoints->size() << "\n";
-#endif
-
-}
-
-void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
-							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
-							const pcl::PointCloud<PointType>::ConstPtr& cloud,
-							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors)
-{
-	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
-	shot_describer.setRadiusSearch(0.05);
-	shot_describer.setNumberOfThreads(4);
-	shot_describer.setInputCloud(keypoints);
-	shot_describer.setInputNormals(normals);
-	shot_describer.setSearchSurface(cloud);
-	shot_describer.compute(*descriptors);
-
-#if DEBUG_MSG
-	std::cout << "Number of descriptors with SHOT352: " << descriptors->size() << "\n";
-#endif
-
-}
 
 bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
@@ -154,33 +119,6 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 	std::cout << "ICP Score: " << icp.getFitnessScore() << "\n";
 #endif
 }
-
-void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
-							pcl::CorrespondencesPtr correspondences)
-{
-	//pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
-	pcl::KdTreeFLANN<DescriptorType> match;
-	match.setInputCloud(descriptors);
-	for(size_t i=0;i<last_descriptors->size();++i) {
-		std::vector<int> indices(1);
-		std::vector<float> sqr(1);
-		if(!pcl_isfinite(last_descriptors->at(i).descriptor[0])) // skip NaN
-			continue; 
-		// para SHOT252 hay correspondencia si el cuadrado de la distancia
-		// del descritor es menor de 0.25
-		int neighbours = match.nearestKSearch(last_descriptors->at(i), 1, indices, sqr);
-		if(neighbours == 1 && sqr[0] < 0.25) {
-			pcl::Correspondence c(indices[0], static_cast<int>(i), sqr[0]);
-			correspondences->push_back(c);
-		}
-	}
-#if DEBUG_MSG
-	std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
-#endif
-}	
-
-
-
 
 void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 							pcl::CorrespondencesPtr bestCorrespondences)

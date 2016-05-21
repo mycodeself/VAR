@@ -2,6 +2,8 @@
 #define _NODE_H_
 
 #include "common.h"
+#include "keypoints.h"
+#include "descriptors.h"
 #include "mapping.h"
 
 /**

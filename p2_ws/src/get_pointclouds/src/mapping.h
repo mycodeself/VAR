@@ -36,28 +36,6 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 						pcl::PointCloud<pcl::Normal>::Ptr normals);
 
 /**
- * Calcula los keypoints de una nube de puntos, utilizando
- * el algoritmo de ISSKeypoint3D
- * @param cloud Nube de puntos de entrada de la que calcular los keypoints
- * @param keypoints Nube de puntos de salida con los keypoints calculados
- */
-void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
-					pcl::PointCloud<PointType>::Ptr keypoints);
-
-/**
- * Computa los descriptores mediante el algoritmo SHOT352 de manera
- * paralelizada mediante OpenMP
- * @param keypoints Keypoints de los que calcular los descriptores
- * @param normals Estimacion de normales de las que calcular los descriptores
- * @param cloud Nube de puntso de la que calcular los descriptores
- * @param descriptors Nube de puntos de salida obteniendo los descriptores
- */
-void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
-							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
-							const pcl::PointCloud<PointType>::ConstPtr& cloud,
-							pcl::PointCloud<pcl::SHOT352>::Ptr descriptors);
-
-/**
  * Realiza el alineamiento de la nube de puntos actual con la anterior
  * utilizando el algoritmo SampleConsensusPrerejective
  * @param cloud Nube de puntos de entrada a alinear
@@ -74,13 +52,6 @@ bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
  * @param cloud Nube de puntos de entrada
  */
 void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud);
-
-/**
- *
- *
- */
-void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
-							pcl::CorrespondencesPtr correspondences);
 
 /**
  *

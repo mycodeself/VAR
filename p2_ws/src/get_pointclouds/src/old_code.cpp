@@ -118,3 +118,28 @@ void cluster_hough3d(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
     std::cout << "Number of instances: " << rot_translations.size() << "\n";
 #endif      
 }
+
+void find_correspondences(const pcl::PointCloud<DescriptorType>::ConstPtr& descriptors,
+                            pcl::CorrespondencesPtr correspondences)
+{
+    //pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
+    pcl::KdTreeFLANN<DescriptorType> match;
+    match.setInputCloud(descriptors);
+    for(size_t i=0;i<last_descriptors->size();++i) {
+        std::vector<int> indices(1);
+        std::vector<float> sqr(1);
+        if(!pcl_isfinite(last_descriptors->at(i).descriptor[0])) // skip NaN
+            continue; 
+        // para SHOT252 hay correspondencia si el cuadrado de la distancia
+        // del descritor es menor de 0.25
+        int neighbours = match.nearestKSearch(last_descriptors->at(i), 1, indices, sqr);
+        if(neighbours == 1 && sqr[0] < 0.25) {
+            pcl::Correspondence c(indices[0], static_cast<int>(i), sqr[0]);
+            correspondences->push_back(c);
+        }
+    }
+#if DEBUG_MSG
+    std::cout << "Number of correspondences found: " << correspondences->size() << "\n";
+#endif
+
+}   

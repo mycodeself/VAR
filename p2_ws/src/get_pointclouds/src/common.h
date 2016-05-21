@@ -36,15 +36,28 @@
 #include <string>
 #include <sys/resource.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
+#include <pcl/features/fpfh_omp.h>
+#include <pcl/keypoints/sift_keypoint.h>
 
 
 #define DEBUG_MSG 1
-#define Descriptor 1
 
-// tipo de punto a usar
+/**
+ * 1 == ISSKeypoints3D
+ * 2 == SIFTKeypoint
+ */
+#define KeypointsMethod 2
+/**
+ * 1 == SHOT352
+ * 2 == FPFH
+ * No olvidar ajustar DescriptorType
+ */	
+#define DescriptorMethod 2
+// tipo de punto
 #define PointType pcl::PointXYZRGB
 // algoritmo descriptor a usar
-#define DescriptorType pcl::SHOT352 // 1
+//#define DescriptorType pcl::SHOT352 // 1
+#define DescriptorType pcl::FPFHSignature33 // 2
 
 extern pcl::PointCloud<PointType>::Ptr visu_pc;
 extern pcl::PointCloud<PointType>::Ptr last_cloud;

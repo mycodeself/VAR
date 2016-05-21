@@ -30,46 +30,41 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
+	// Eliminamos los NaN de la nube de puntos
 	remove_nan(cloud);
+	// Obtenemos la resolucion de la nube de puntos actual
 	actual_res = get_cloud_resolution(cloud);
-	//estimate normals
+	// Estimamos las normales
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
 	estimate_normals(cloud, normals);
-	//keypoints
-	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
-	iss_keypoints(cloud, keypoints);
-	//descriptors
-	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
 
-#if Descriptor == 1
+	// Obtenemos keypoints
+	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
+#if KeypointsMethod	== 1
+	iss_keypoints(cloud, keypoints);
+#elif KeypointsMethod == 2
+	sift_keypoints(cloud, keypoints);
+#endif
+
+	// Obtenemos descriptores
+	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
+#if DescriptorMethod == 1
 	SHOT352_descriptors(keypoints, normals, cloud, descriptors);
+#elif DescriptorMethod == 2
+	FPFH_descriptors(keypoints, descriptors);
 #endif
 
 	if(!last_cloud->empty()) { 
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
-		//pcl::CorrespondencesPtr bestCorrespondences (new pcl::Correspondences ());
-
-		//find_correspondences(descriptors, correspondences);
-
 		ransac_correspondences(keypoints, correspondences);
-
-		//agrupamos
+		// alineamos las nubes mediante RANSAC
 		if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
 		//	*visu_pc += *cloud_filtered;
 			iterative_closest_point(cloud_filtered);
 		}
-		//cluster_geometric_consistency(keypoints, correspondences);
-		/*cluster_hough3d(keypoints, normals, cloud, correspondences);
-		pcl::PointCloud<PointType>::Ptr rotated_model (new pcl::PointCloud<PointType> ());
-		for(size_t i=0;i<rot_translations.size();++i) {
-			
-			pcl::transformPointCloud (*cloud, *rotated_model, rot_translations[i]);
-			filter_voxel_grid(rotated_model, cloud_filtered);	
-			*visu_pc += *cloud_filtered;		
-		}*/
-		//filter_voxel_grid(rotated_model, cloud_filtered);
 	}else{
+		// Es la primera nube la metemos sin más
 		filter_voxel_grid(cloud, cloud_filtered);
 		*visu_pc += *cloud_filtered;
 	}
