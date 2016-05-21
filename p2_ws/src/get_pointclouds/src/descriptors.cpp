@@ -5,13 +5,13 @@ void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 							const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<pcl::SHOT352>::Ptr& descriptors)
 {
-	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot_describer;
-	shot_describer.setRadiusSearch(0.05);
-	shot_describer.setNumberOfThreads(4);
-	shot_describer.setInputCloud(keypoints);
-	shot_describer.setInputNormals(normals);
-	shot_describer.setSearchSurface(cloud);
-	shot_describer.compute(*descriptors);
+	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot;
+	shot.setNumberOfThreads(4);
+	shot.setRadiusSearch(SHOT352_RADIUS_SEARCH);
+	shot.setInputCloud(keypoints);
+	shot.setInputNormals(normals);
+	shot.setSearchSurface(cloud);
+	shot.compute(*descriptors);
 
 #if DEBUG_MSG
 	std::cout << "Number of descriptors with SHOT352: " << descriptors->size() << "\n";
@@ -31,10 +31,38 @@ void FPFH_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
 	pcl::search::KdTree<PointType>::Ptr tree (new pcl::search::KdTree<PointType>());
 	fpfh.setSearchMethod(tree);
 	// Radio de busqueda, tiene que ser mayor que el utilizado al calcular las normales
-	fpfh.setRadiusSearch(0.05);
+	fpfh.setRadiusSearch(FPFH_RADIUS_SEARCH);
 	fpfh.compute(*descriptors);
 
 #if DEBUG_MSG
 	std::cout << "Number of descriptors with FPFH: " << descriptors->size() << "\n";
 #endif	
+}
+
+void CVFH_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
+						pcl::PointCloud<pcl::VFHSignature308>::Ptr& descriptors)
+{
+	pcl::CVFHEstimation<PointType, pcl::Normal, pcl::VFHSignature308> cvfh;
+	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
+	estimate_normals(keypoints, normals);	
+	cvfh.setInputCloud(keypoints);
+	cvfh.setInputNormals(normals);
+	pcl::search::KdTree<PointType>::Ptr tree (new pcl::search::KdTree<PointType>());
+	cvfh.setSearchMethod(tree);
+	// Set the maximum allowable deviation of the normals,
+	// for the region segmentation step.
+	cvfh.setEPSAngleThreshold(CVFH_EPS_ANGLE_THRESHOLD); // 5 degrees.
+	// Set the curvature threshold (maximum disparity between curvatures),
+	// for the region segmentation step.
+	cvfh.setCurvatureThreshold(CVFH_CURVATURE_THRESHOLD);
+	// Set to true to normalize the bins of the resulting histogram,
+	// using the total number of points. Note: enabling it will make CVFH
+	// invariant to scale just like VFH, but the authors encourage the opposite.
+	cvfh.setNormalizeBins(CVFH_NORMALIZE_BINS);
+ 
+	cvfh.compute(*descriptors);	
+
+#if DEBUG_MSG
+	std::cout << "Number of descriptors with CVFH: " << descriptors->size() << "\n";
+#endif		
 }

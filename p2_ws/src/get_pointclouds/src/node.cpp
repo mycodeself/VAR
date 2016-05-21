@@ -40,10 +40,13 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 
 	// Obtenemos keypoints
 	pcl::PointCloud<PointType>::Ptr keypoints(new pcl::PointCloud<PointType>());
+
 #if KeypointsMethod	== 1
 	iss_keypoints(cloud, keypoints);
 #elif KeypointsMethod == 2
 	sift_keypoints(cloud, keypoints);
+#elif KeypointsMethod == 3
+	harris_keypoints(cloud, keypoints);
 #endif
 
 	// Obtenemos descriptores
@@ -52,9 +55,11 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	SHOT352_descriptors(keypoints, normals, cloud, descriptors);
 #elif DescriptorMethod == 2
 	FPFH_descriptors(keypoints, descriptors);
+#elif DescriptorMethod == 3
+	CVFH_descriptors(keypoints, descriptors);	
 #endif
 
-	if(!last_cloud->empty()) { 
+	/*if(!last_cloud->empty()) { 
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 		ransac_correspondences(keypoints, correspondences);
@@ -74,10 +79,14 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	*last_descriptors = *descriptors;
 	*last_normals = *normals;
 
-	*visu_pc += *cloud_filtered;
+	*visu_pc += *cloud_filtered;*/
 
 }
 
+/**
+ * Computa el tiempo de CPU actual
+ * @return tiempo actual de CPU
+ */
 double get_cpu_time(void) 
 {
     struct timeval tim;
@@ -89,7 +98,6 @@ double get_cpu_time(void)
     t+=(double)tim.tv_sec + (double)tim.tv_usec / 1000000.0;
     return t;
 }
-
 
 int main(int argc, char** argv)
 {

@@ -27,10 +27,4 @@ void cloud_visualizer(const std::string& name,
 						const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 
-/**
- * Computa el tiempo de CPU actual
- * @return tiempo actual de CPU
- */
-double get_cpu_time();
-
 #endif

@@ -38,26 +38,31 @@
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
 #include <pcl/features/fpfh_omp.h>
 #include <pcl/keypoints/sift_keypoint.h>
+#include <pcl/keypoints/harris_3d.h>
+#include <pcl/features/cvfh.h>
 
-
+#define SHOW_TIME 1
 #define DEBUG_MSG 1
 
 /**
  * 1 == ISSKeypoints3D
  * 2 == SIFTKeypoint
+ * 3 == HarrisKeypoint3D
  */
 #define KeypointsMethod 2
 /**
  * 1 == SHOT352
  * 2 == FPFH
+ * 3 == CVFH
  * No olvidar ajustar DescriptorType
  */	
 #define DescriptorMethod 2
 // tipo de punto
 #define PointType pcl::PointXYZRGB
 // algoritmo descriptor a usar
-//#define DescriptorType pcl::SHOT352 // 1
-#define DescriptorType pcl::FPFHSignature33 // 2
+//#define DescriptorType pcl::SHOT352 // 1 == SHOT352
+#define DescriptorType pcl::FPFHSignature33 // 2 == FPFH
+//#define DescriptorType pcl::VFHSignature308 // 3 == CVFH
 
 extern pcl::PointCloud<PointType>::Ptr visu_pc;
 extern pcl::PointCloud<PointType>::Ptr last_cloud;
@@ -66,5 +71,11 @@ extern pcl::PointCloud<DescriptorType>::Ptr last_descriptors;
 extern pcl::PointCloud<pcl::Normal>::Ptr last_normals;
 extern std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
 extern double actual_res;
+
+/**
+ * Computa el tiempo de CPU actual
+ * @return tiempo actual de CPU
+ */
+extern double get_cpu_time();
 
 #endif
