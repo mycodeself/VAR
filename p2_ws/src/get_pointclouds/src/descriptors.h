@@ -4,6 +4,7 @@
  * cabecera
  *
  * @Author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
  */
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_

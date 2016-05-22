@@ -4,6 +4,7 @@
  * cabecera
  *
  * @Author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
  */
 #ifndef _KEYPOINTS_H_
 #define _KEYPOINTS_H_

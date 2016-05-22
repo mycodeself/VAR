@@ -4,6 +4,7 @@
  * los mensajes recibidos de la kinect
  *
  * @author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
  */
 #ifndef _NODE_H_
 #define _NODE_H_

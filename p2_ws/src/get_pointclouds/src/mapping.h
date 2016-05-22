@@ -4,6 +4,7 @@
  * ni de descriptores. Cabecera
  *
  * @author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
  */
 #ifndef _MAPPING_H_
 #define _MAPPING_H_
@@ -17,8 +18,8 @@
 #define ICP_TRANSFORMATION_EPSILON 1e-8
 #define ICP_EUCLIDEAN_FITNESS_EPSILON 1
 
-#define RANSAC_MAX_ITERATIONS 1000
-#define RANSAC_INLIER_THRESHOLD 0.01
+#define RANSAC_MAX_ITERATIONS 10000
+#define RANSAC_INLIER_THRESHOLD 0.05
 /**
  * Calcula la resolución espacial de una nube de puntos dada,
  * mediante la media de la distancia entre cada punto y su
@@ -78,4 +79,20 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 							pcl::CorrespondencesPtr bestCorrespondences);
 
+/**
+ * Transformacion haciendo uso de la clase CorrespondenceRejectionSampleConsensus
+ * @param keypoints nube de puntos a transformar
+ * @param transformedCloud nube transformada
+*/
+void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+						pcl::PointCloud<PointType>::Ptr &transformedCloud);
+/*
+ * Transforma la nube y acumula la transformacion global
+ * @param transform matriz de transformacion calculada
+ * @param cloud nube a transformar
+ * @param transformedCloud nube resultante de la transformacion
+ */
+void transform_cloud(const Eigen::Matrix4f &transform,
+						const pcl::PointCloud<PointType>::ConstPtr &cloud,
+						pcl::PointCloud<PointType>::Ptr &transformedCloud);
 #endif

@@ -10,6 +10,7 @@
 void simpleVis ()
 {
   	pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
+
 	while(!viewer.wasStopped())
 	{
 	  viewer.showCloud (final_cloud);
@@ -74,17 +75,23 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 		pcl::PointCloud<PointType>::Ptr transformed_cloud(new pcl::PointCloud<PointType>());
 		pcl::transformPointCloud(*cloud_original, *transformed_cloud, transformation);
 		filter_voxel_grid(transformed_cloud, cloud_filtered);
-		*final_cloud += *cloud_filtered;
 	}else{
 		// Es la primera nube la metemos sin más
 		filter_voxel_grid(cloud_original, cloud_filtered);
-		*final_cloud += *cloud_filtered;
 	}
 
 	*last_cloud = *cloud_original;
 	*last_keypoints = *keypoints;
 	*last_descriptors = *descriptors;
 	*last_normals = *normals;
+	*final_cloud += *cloud_filtered;
+
+	/*cloud_filtered->clear();
+	filter_voxel_grid(final_cloud, cloud_filtered);
+	final_cloud->clear();
+  	std::swap(final_cloud, cloud_filtered); 
+*/
+
 
 }
 
@@ -111,7 +118,7 @@ int main(int argc, char** argv)
   ros::Subscriber sub = nh.subscribe<pcl::PointCloud<PointType> >("/camera/depth/points", 1, callback);
 
   boost::thread t(simpleVis);
-
+  transformation.setIdentity();
   while(ros::ok())
   {
 	ros::spinOnce();

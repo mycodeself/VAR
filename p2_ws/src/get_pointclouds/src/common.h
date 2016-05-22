@@ -3,6 +3,7 @@
  * Parametrizacion comun necesaria
  *
  * @Author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
  */
 
 #ifndef _COMMON_H_
@@ -79,6 +80,7 @@ extern pcl::PointCloud<DescriptorType>::Ptr last_descriptors;
 extern pcl::PointCloud<pcl::Normal>::Ptr last_normals;
 //extern std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
 extern Eigen::Matrix4f transformation;
+extern Eigen::Affine3f transform_total;
 extern double actual_res;
 
 /**

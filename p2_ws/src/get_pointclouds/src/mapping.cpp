@@ -14,6 +14,7 @@ pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
 pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
 pcl::PointCloud<pcl::Normal>::Ptr last_normals(new pcl::PointCloud<pcl::Normal>());
+Eigen::Affine3f transform_total = Eigen::Affine3f::Identity();
 
 Eigen::Matrix4f transformation;
 
@@ -149,10 +150,59 @@ void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoint
     crsc.setInputCorrespondences(estimateCorrespondences);
 	crsc.getCorrespondences(*bestCorrespondences);
 	transformation = crsc.getBestTransformation();
+	
 #if DEBUG_MSG
 	std::cout << "Number of estimation correspondences: " << estimateCorrespondences->size() << "\n";
 	std::cout << "Number of remaining correspondences: " << bestCorrespondences->size() << "\n";
 	std::cout << "Matrix transformation: \n" << transformation << "\n";
 #endif
 
+}
+
+
+void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+						pcl::PointCloud<PointType>::Ptr &transformedCloud)
+{
+	Eigen::Matrix4f transform;
+	pcl::CorrespondencesPtr bestCorrespondences(new pcl::Correspondences);
+
+	// Estimate correspondences
+	pcl::CorrespondencesPtr estimateCorrespondences (new pcl::Correspondences);
+	pcl::registration::CorrespondenceEstimation<PointType, PointType> corr_est;
+	corr_est.setInputSource(keypoints);
+	corr_est.setInputTarget(last_keypoints);
+	corr_est.determineCorrespondences(*estimateCorrespondences);
+
+	// Apply RANSAC
+	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>::Ptr crsc(new pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>);
+    crsc->setInputSource(keypoints);
+    crsc->setInputTarget(last_keypoints); 
+    crsc->setInlierThreshold(0.05); 
+    crsc->setMaximumIterations(5000); 
+    crsc->setInputCorrespondences(estimateCorrespondences);
+	crsc->getCorrespondences(*bestCorrespondences);
+    crsc->setInputCorrespondences(bestCorrespondences);
+	transform = crsc->getBestTransformation();
+
+#if DEBUG_MSG
+	std::cout << "Best transform matrix: " << "\n" << transform << "\n";
+#endif
+
+	transform_cloud(transform, keypoints, transformedCloud);
+	//pcl::transformPointCloud(*keypoints, *transformedCloud, transformTotal);
+#if DEBUG_MSG
+	std::cout << "Size of transformed cloud: " << transformedCloud->size() << "\n";
+#endif
+}
+
+void transform_cloud(const Eigen::Matrix4f &transform,
+						const pcl::PointCloud<PointType>::ConstPtr &cloud,
+						pcl::PointCloud<PointType>::Ptr &transformedCloud)
+{
+	transform_total *= transform;
+	pcl::transformPointCloud(*cloud, *transformedCloud, transform);
+
+#if DEBUG_MSG
+	std::cout << "TransformTotal matrix: " << transform_total.matrix() << "\n";
+#endif
 }

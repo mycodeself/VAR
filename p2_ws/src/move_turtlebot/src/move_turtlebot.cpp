@@ -1,3 +1,12 @@
+/**
+ * @file node.h
+ * Implementacion del nodo que se encarga de procesar
+ * los mensajes recibidos de la kinect
+ *
+ * @author Ismael Piñeiro Ramos
+ * @author Gacel Ivorra Rodriguez
+ */
+
 #include "ros/ros.h"
 //#include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Twist.h"
