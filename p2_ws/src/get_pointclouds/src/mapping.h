@@ -3,6 +3,12 @@
 
 #include "common.h"
 
+#define NORMALS_RADIUS_SEARCH 0.01f
+
+#define ICP_MAX_ITERATIONS 50
+#define ICP_MAX_CORRESPONDENCE_DISTANCE 0.05
+#define ICP_TRANSFORMATION_EPSILON 1e-8
+#define ICP_EUCLIDEAN_FITNESS_EPSILON 1
 /**
  * Calcula la resolución espacial de una nube de puntos dada,
  * mediante la media de la distancia entre cada punto y su
@@ -59,6 +65,5 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud);
  */
 void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 							pcl::CorrespondencesPtr bestCorrespondences);
-
 
 #endif

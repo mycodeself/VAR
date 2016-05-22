@@ -8,10 +8,10 @@
 #define ISS_NON_MAX_RADIUS 4
 
 //SIFT PARAMETERS
-#define SIFT_MIN_SCALE 0.01
-#define SIFT_N_OCTAVES 4
-#define SIFT_N_SCALES_OCTAVE 5
-#define SIFT_MINIMUM_CONTRAST 10
+#define SIFT_MIN_SCALE 0.01f
+#define SIFT_N_OCTAVES 3
+#define SIFT_N_SCALES_OCTAVE 4
+#define SIFT_MINIMUM_CONTRAST 0.0001f
 
 //HARRIS PARAMETERS
 #define HARRIS_NON_MAX_SUPRESSION true
@@ -27,7 +27,7 @@ void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 
 /**
  * Calcula los keypoints de una nube de puntos, utilizando
- * el alrogirtmo SIFT
+ * el algoritmo SIFT
  * @param cloud Nube de puntos de entrada de la que calcular los keypoints
  * @param keypoints Nube de puntos de salida con los keypoints calculados
  */					

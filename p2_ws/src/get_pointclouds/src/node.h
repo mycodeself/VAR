@@ -7,14 +7,14 @@
 #include "mapping.h"
 
 /**
- *
- *
+ * Callback donde realizaremos los calculos correspondientes
+ * para obtener el mapeado en un visualizador
+ * @param msg Nube de puntos recibida en el callback desde la kinect
  */
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg);
 
 /**
- *
- *
+ * Lanza el visualizador por defecto donde se muestra el mapeado
  */
 void simpleVis();
 
@@ -25,6 +25,5 @@ void simpleVis();
  */
 void cloud_visualizer(const std::string& name, 
 						const pcl::PointCloud<PointType>::ConstPtr& cloud);
-
 
 #endif

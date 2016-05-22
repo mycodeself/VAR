@@ -1,14 +1,14 @@
 #include "mapping.h"
 
 /* VARIABLES GLOBALES */
-pcl::PointCloud<PointType>::Ptr visu_pc (new pcl::PointCloud<PointType>());
+pcl::PointCloud<PointType>::Ptr final_cloud (new pcl::PointCloud<PointType>());
 
 pcl::PointCloud<PointType>::Ptr last_cloud(new pcl::PointCloud<PointType>());
 pcl::PointCloud<PointType>::Ptr last_keypoints(new pcl::PointCloud<PointType>());
 pcl::PointCloud<DescriptorType>::Ptr last_descriptors(new pcl::PointCloud<DescriptorType>());
 pcl::PointCloud<pcl::Normal>::Ptr last_normals(new pcl::PointCloud<pcl::Normal>());
 
-std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
+Eigen::Matrix4f transformation;
 
 double actual_res = 0;
 
@@ -71,7 +71,7 @@ void estimate_normals(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>());
 	ne.setSearchMethod(tree);
 	//radio de vecinos
-	ne.setRadiusSearch(0.01);
+	ne.setRadiusSearch(NORMALS_RADIUS_SEARCH);
 	ne.compute(*normals);
 
 #if DEBUG_MSG
@@ -109,13 +109,17 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 	pcl::IterativeClosestPoint<PointType, PointType> icp;
 	icp.setInputSource(cloud);
 	icp.setInputTarget(last_cloud);
-	pcl::PointCloud<PointType> final;
-	icp.align(final);
-	if(icp.hasConverged()) {
-		std::cout << "ICP has converged\n";
-		*visu_pc += final;
-	}
+	icp.setMaxCorrespondenceDistance(ICP_MAX_CORRESPONDENCE_DISTANCE);
+	icp.setMaximumIterations(ICP_MAX_ITERATIONS);
+	icp.setTransformationEpsilon(ICP_TRANSFORMATION_EPSILON);
+	icp.setEuclideanFitnessEpsilon(ICP_EUCLIDEAN_FITNESS_EPSILON);
+	pcl::PointCloud<PointType> aligned_cloud;
+	icp.align(aligned_cloud);
+	//transformation = icp.getFinalTransformation();
 #if DEBUG_MSG
+	if(icp.hasConverged()) {
+		std::cout << "ICP has converged, ";
+	}
 	std::cout << "ICP Score: " << icp.getFitnessScore() << "\n";
 #endif
 }
@@ -131,17 +135,18 @@ void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoint
 	corr_est.determineCorrespondences(*estimateCorrespondences);
 
 	// Apply RANSAC
-	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>::Ptr crsc(new pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>);
-    crsc->setInputSource(keypoints);
-    crsc->setInputTarget(last_keypoints); 
-    crsc->setInlierThreshold(0.01); 
-    crsc->setMaximumIterations(10000); 
-    crsc->setInputCorrespondences(estimateCorrespondences);
-	crsc->getCorrespondences(*bestCorrespondences);
-
+	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType> crsc;
+    crsc.setInputSource(keypoints);
+    crsc.setInputTarget(last_keypoints); 
+    crsc.setInlierThreshold(0.01); 
+    crsc.setMaximumIterations(10000); 
+    crsc.setInputCorrespondences(estimateCorrespondences);
+	crsc.getCorrespondences(*bestCorrespondences);
+	transformation = crsc.getBestTransformation();
 #if DEBUG_MSG
 	std::cout << "Number of estimation correspondences: " << estimateCorrespondences->size() << "\n";
 	std::cout << "Number of remaining correspondences: " << bestCorrespondences->size() << "\n";
+	std::cout << "Matrix transformation: \n" << transformation << "\n";
 #endif
 
 }

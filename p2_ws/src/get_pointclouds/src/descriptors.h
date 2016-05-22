@@ -24,7 +24,6 @@
  * @param descriptors Nube de puntos de salida obteniendo los descriptores
  */
 void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
-							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
 							const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<pcl::SHOT352>::Ptr& descriptors);
 

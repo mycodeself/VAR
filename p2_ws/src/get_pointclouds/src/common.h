@@ -64,12 +64,13 @@
 #define DescriptorType pcl::FPFHSignature33 // 2 == FPFH
 //#define DescriptorType pcl::VFHSignature308 // 3 == CVFH
 
-extern pcl::PointCloud<PointType>::Ptr visu_pc;
+extern pcl::PointCloud<PointType>::Ptr final_cloud;
 extern pcl::PointCloud<PointType>::Ptr last_cloud;
 extern pcl::PointCloud<PointType>::Ptr last_keypoints;
 extern pcl::PointCloud<DescriptorType>::Ptr last_descriptors;
 extern pcl::PointCloud<pcl::Normal>::Ptr last_normals;
-extern std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
+//extern std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rot_translations;
+extern Eigen::Matrix4f transformation;
 extern double actual_res;
 
 /**

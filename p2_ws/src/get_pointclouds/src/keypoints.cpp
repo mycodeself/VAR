@@ -32,7 +32,7 @@ void sift_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 #endif
 	pcl::SIFTKeypoint<PointType, pcl::PointWithScale> sift;
 	pcl::PointCloud<pcl::PointWithScale> result;
-	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType> ());
+	pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>());
 	sift.setSearchMethod(tree);
 	// min_scale, n_octaves, n_scales_per_octave
 	sift.setScales(SIFT_MIN_SCALE, SIFT_N_OCTAVES, SIFT_N_SCALES_OCTAVE);

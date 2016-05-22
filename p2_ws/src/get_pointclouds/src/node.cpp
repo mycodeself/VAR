@@ -6,7 +6,7 @@ void simpleVis ()
   	pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
 	while(!viewer.wasStopped())
 	{
-	  viewer.showCloud (visu_pc);
+	  viewer.showCloud (final_cloud);
 	  boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
 	}
 
@@ -52,34 +52,36 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	// Obtenemos descriptores
 	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
 #if DescriptorMethod == 1
-	SHOT352_descriptors(keypoints, normals, cloud, descriptors);
+	SHOT352_descriptors(keypoints, cloud, descriptors);
 #elif DescriptorMethod == 2
 	FPFH_descriptors(keypoints, descriptors);
 #elif DescriptorMethod == 3
 	CVFH_descriptors(keypoints, descriptors);	
 #endif
-
-	/*if(!last_cloud->empty()) { 
+	if(!last_cloud->empty()) { 
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 		ransac_correspondences(keypoints, correspondences);
+		//iterative_closest_point(cloud);
 		// alineamos las nubes mediante RANSAC
-		if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
+		//if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
 		//	*visu_pc += *cloud_filtered;
-			iterative_closest_point(cloud_filtered);
-		}
+		//	iterative_closest_point(cloud_filtered);
+		//}
+		pcl::PointCloud<PointType>::Ptr transformed_cloud(new pcl::PointCloud<PointType>());
+		pcl::transformPointCloud(*cloud, *transformed_cloud, transformation);
+		filter_voxel_grid(transformed_cloud, cloud_filtered);
+		*final_cloud += *cloud_filtered;
 	}else{
 		// Es la primera nube la metemos sin más
 		filter_voxel_grid(cloud, cloud_filtered);
-		*visu_pc += *cloud_filtered;
+		*final_cloud += *cloud_filtered;
 	}
 
 	*last_cloud = *cloud;
 	*last_keypoints = *keypoints;
 	*last_descriptors = *descriptors;
 	*last_normals = *normals;
-
-	*visu_pc += *cloud_filtered;*/
 
 }
 

@@ -1,11 +1,12 @@
 #include "descriptors.h"
 
 void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,
-							const pcl::PointCloud<pcl::Normal>::ConstPtr& normals,
 							const pcl::PointCloud<PointType>::ConstPtr& cloud,
 							pcl::PointCloud<pcl::SHOT352>::Ptr& descriptors)
 {
 	pcl::SHOTEstimationOMP<PointType, pcl::Normal, pcl::SHOT352> shot;
+	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
+	estimate_normals(keypoints, normals);
 	shot.setNumberOfThreads(4);
 	shot.setRadiusSearch(SHOT352_RADIUS_SEARCH);
 	shot.setInputCloud(keypoints);
