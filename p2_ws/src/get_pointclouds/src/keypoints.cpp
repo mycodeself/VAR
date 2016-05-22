@@ -1,3 +1,10 @@
+/**
+ * @file keypoints.cpp
+ * Algoritmos de obtenicion de keypoints mediante PCL
+ * implementacion
+ *
+ * @Author Ismael Piñeiro Ramos
+ */
 #include "keypoints.h"
 
 void iss_keypoints(const pcl::PointCloud<PointType>::ConstPtr& cloud,

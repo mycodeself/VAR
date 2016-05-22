@@ -1,5 +1,11 @@
+/**
+ * @file node.cpp
+ * Implementacion del nodo que se encarga de procesar
+ * los mensajes recibidos de la kinect implementacion
+ *
+ * @author Ismael Piñeiro Ramos
+ */
 #include "node.h"
-
 
 void simpleVis ()
 {
@@ -9,7 +15,6 @@ void simpleVis ()
 	  viewer.showCloud (final_cloud);
 	  boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
 	}
-
 }
 
 void cloud_visualizer(const std::string& name, 
@@ -24,9 +29,9 @@ void cloud_visualizer(const std::string& name,
 
 void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 {
-	pcl::PointCloud<PointType>::Ptr cloud_filtered (new pcl::PointCloud<PointType>());
-	pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>(*msg));
-
+	pcl::PointCloud<PointType>::Ptr cloud_filtered(new pcl::PointCloud<PointType>());
+	pcl::PointCloud<PointType>::Ptr cloud_original(new pcl::PointCloud<PointType>(*msg));
+	pcl::PointCloud<PointType>::Ptr cloud(new pcl::PointCloud<PointType>(*msg));
 #if DEBUG_MSG
 	cout << "Number of points captured: " << cloud->size() << "\n";
 #endif
@@ -51,6 +56,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 
 	// Obtenemos descriptores
 	pcl::PointCloud<DescriptorType>::Ptr descriptors(new pcl::PointCloud<DescriptorType>());
+
 #if DescriptorMethod == 1
 	SHOT352_descriptors(keypoints, cloud, descriptors);
 #elif DescriptorMethod == 2
@@ -61,24 +67,21 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 	if(!last_cloud->empty()) { 
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
+		// obtenemos correspondencias
 		ransac_correspondences(keypoints, correspondences);
-		//iterative_closest_point(cloud);
-		// alineamos las nubes mediante RANSAC
-		//if(ransac_alignment(cloud, descriptors, cloud_filtered)) {
-		//	*visu_pc += *cloud_filtered;
-		//	iterative_closest_point(cloud_filtered);
-		//}
+		// refinamos con ICP
+		iterative_closest_point(cloud);
 		pcl::PointCloud<PointType>::Ptr transformed_cloud(new pcl::PointCloud<PointType>());
-		pcl::transformPointCloud(*cloud, *transformed_cloud, transformation);
+		pcl::transformPointCloud(*cloud_original, *transformed_cloud, transformation);
 		filter_voxel_grid(transformed_cloud, cloud_filtered);
 		*final_cloud += *cloud_filtered;
 	}else{
 		// Es la primera nube la metemos sin más
-		filter_voxel_grid(cloud, cloud_filtered);
+		filter_voxel_grid(cloud_original, cloud_filtered);
 		*final_cloud += *cloud_filtered;
 	}
 
-	*last_cloud = *cloud;
+	*last_cloud = *cloud_original;
 	*last_keypoints = *keypoints;
 	*last_descriptors = *descriptors;
 	*last_normals = *normals;

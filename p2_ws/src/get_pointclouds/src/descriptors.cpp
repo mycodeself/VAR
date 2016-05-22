@@ -1,3 +1,10 @@
+/**
+ * @file descriptors.cpp
+ * Algoritmos de obtenicion de descriptores mediante PCL
+ * implementacion
+ *
+ * @Author Ismael Piñeiro Ramos
+ */
 #include "descriptors.h"
 
 void SHOT352_descriptors(const pcl::PointCloud<PointType>::ConstPtr& keypoints,

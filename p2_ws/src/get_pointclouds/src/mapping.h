@@ -1,3 +1,10 @@
+/**
+ * @file mapping.h
+ * Funciones necesarias para el mapeado, que no son de obtencion de keypoints
+ * ni de descriptores. Cabecera
+ *
+ * @author Ismael Piñeiro Ramos
+ */
 #ifndef _MAPPING_H_
 #define _MAPPING_H_
 
@@ -9,6 +16,9 @@
 #define ICP_MAX_CORRESPONDENCE_DISTANCE 0.05
 #define ICP_TRANSFORMATION_EPSILON 1e-8
 #define ICP_EUCLIDEAN_FITNESS_EPSILON 1
+
+#define RANSAC_MAX_ITERATIONS 1000
+#define RANSAC_INLIER_THRESHOLD 0.01
 /**
  * Calcula la resolución espacial de una nube de puntos dada,
  * mediante la media de la distancia entre cada punto y su
@@ -60,8 +70,10 @@ bool ransac_alignment(const pcl::PointCloud<PointType>::ConstPtr& cloud,
 void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud);
 
 /**
- *
- *
+ * Obtiene las correspondencias y las filtra para quedarnos unicamente
+ * con las mejores correspondencias mediante el uso de RANSAC
+ * @param keypoints nubde de puntos de entrada de la que calcular correspondencias
+ * @param bestCorrespondences correspondencias de salida calculadas
  */
 void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 							pcl::CorrespondencesPtr bestCorrespondences);

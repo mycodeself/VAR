@@ -1,0 +1,93 @@
+\hypertarget{node_8cpp}{\section{node.\-cpp \-File \-Reference}
+\label{node_8cpp}\index{node.\-cpp@{node.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}node.\-h\char`\"{}}\*
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{node_8cpp_a4b381d03bbaf90fd96a6618104d8f62e}{simple\-Vis} ()
+\item 
+void \hyperlink{node_8cpp_a5c5666f5986d7d27f8ddda9c8ff37690}{cloud\-\_\-visualizer} (const std\-::string \&name, const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud)
+\item 
+void \hyperlink{node_8cpp_a7a00ee4c24cc2ce7654b1b2729d09b45}{callback} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&msg)
+\item 
+double \hyperlink{node_8cpp_ad95cbd9d0128890b56135b55daa13c0c}{get\-\_\-cpu\-\_\-time} (void)
+\item 
+\hypertarget{node_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{int {\bfseries main} (int argc, char $\ast$$\ast$argv)}\label{node_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Implementacion del nodo que se encarga de procesar los mensajes recibidos de la kinect implementacion
+
+\begin{DoxyAuthor}{\-Author}
+\-Ismael \-Piñeiro \-Ramos 
+\end{DoxyAuthor}
+
+
+\-Definition in file \hyperlink{node_8cpp_source}{node.\-cpp}.
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{node_8cpp_a7a00ee4c24cc2ce7654b1b2729d09b45}{\index{node.\-cpp@{node.\-cpp}!callback@{callback}}
+\index{callback@{callback}!node.cpp@{node.\-cpp}}
+\subsubsection[{callback}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf callback} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}}\label{node_8cpp_a7a00ee4c24cc2ce7654b1b2729d09b45}
+\-Callback donde realizaremos los calculos correspondientes para obtener el mapeado en un visualizador 
+\begin{DoxyParams}{\-Parameters}
+{\em msg} & \-Nube de puntos recibida en el callback desde la kinect \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 30 of file node.\-cpp.
+
+\hypertarget{node_8cpp_a5c5666f5986d7d27f8ddda9c8ff37690}{\index{node.\-cpp@{node.\-cpp}!cloud\-\_\-visualizer@{cloud\-\_\-visualizer}}
+\index{cloud\-\_\-visualizer@{cloud\-\_\-visualizer}!node.cpp@{node.\-cpp}}
+\subsubsection[{cloud\-\_\-visualizer}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf cloud\-\_\-visualizer} (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{name, }
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud}
+\end{DoxyParamCaption}
+)}}\label{node_8cpp_a5c5666f5986d7d27f8ddda9c8ff37690}
+\-Lanza un visualizador de \-P\-C\-L con la nube de puntos pasada por parametro 
+\begin{DoxyParams}{\-Parameters}
+{\em name} & \-Nombre de la ventana \\
+\hline
+{\em cloud} & \-Nube de puntos a visualizar \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 20 of file node.\-cpp.
+
+\hypertarget{node_8cpp_ad95cbd9d0128890b56135b55daa13c0c}{\index{node.\-cpp@{node.\-cpp}!get\-\_\-cpu\-\_\-time@{get\-\_\-cpu\-\_\-time}}
+\index{get\-\_\-cpu\-\_\-time@{get\-\_\-cpu\-\_\-time}!node.cpp@{node.\-cpp}}
+\subsubsection[{get\-\_\-cpu\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf get\-\_\-cpu\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{node_8cpp_ad95cbd9d0128890b56135b55daa13c0c}
+\-Computa el tiempo de \-C\-P\-U actual \begin{DoxyReturn}{\-Returns}
+tiempo actual de \-C\-P\-U 
+\end{DoxyReturn}
+
+
+\-Definition at line 95 of file node.\-cpp.
+
+\hypertarget{node_8cpp_a4b381d03bbaf90fd96a6618104d8f62e}{\index{node.\-cpp@{node.\-cpp}!simple\-Vis@{simple\-Vis}}
+\index{simple\-Vis@{simple\-Vis}!node.cpp@{node.\-cpp}}
+\subsubsection[{simple\-Vis}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf simple\-Vis} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{node_8cpp_a4b381d03bbaf90fd96a6618104d8f62e}
+\-Lanza el visualizador por defecto donde se muestra el mapeado 
+
+\-Definition at line 10 of file node.\-cpp.
+

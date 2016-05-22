@@ -1,3 +1,10 @@
+/**
+ * @file common.h
+ * Parametrizacion comun necesaria
+ *
+ * @Author Ismael Piñeiro Ramos
+ */
+
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
@@ -57,12 +64,13 @@
  * No olvidar ajustar DescriptorType
  */	
 #define DescriptorMethod 2
-// tipo de punto
-#define PointType pcl::PointXYZRGB
 // algoritmo descriptor a usar
 //#define DescriptorType pcl::SHOT352 // 1 == SHOT352
 #define DescriptorType pcl::FPFHSignature33 // 2 == FPFH
 //#define DescriptorType pcl::VFHSignature308 // 3 == CVFH
+// tipo de punto
+#define PointType pcl::PointXYZRGB
+
 
 extern pcl::PointCloud<PointType>::Ptr final_cloud;
 extern pcl::PointCloud<PointType>::Ptr last_cloud;

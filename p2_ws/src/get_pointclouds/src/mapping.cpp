@@ -1,3 +1,10 @@
+/**
+ * @file mapping.cpp
+ * Funciones necesarias para el mapeado, que no son de obtencion de keypoints
+ * ni de descriptores. Implementacion
+ *
+ * @author Ismael Piñeiro Ramos
+ */
 #include "mapping.h"
 
 /* VARIABLES GLOBALES */
@@ -114,13 +121,12 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 	icp.setTransformationEpsilon(ICP_TRANSFORMATION_EPSILON);
 	icp.setEuclideanFitnessEpsilon(ICP_EUCLIDEAN_FITNESS_EPSILON);
 	pcl::PointCloud<PointType> aligned_cloud;
-	icp.align(aligned_cloud);
-	//transformation = icp.getFinalTransformation();
+	icp.align(aligned_cloud, transformation);
+	if(icp.hasConverged())
+		transformation = icp.getFinalTransformation();
 #if DEBUG_MSG
-	if(icp.hasConverged()) {
-		std::cout << "ICP has converged, ";
-	}
 	std::cout << "ICP Score: " << icp.getFitnessScore() << "\n";
+	std::cout << "ICP matrix transformation: \n" << transformation << "\n";
 #endif
 }
 
@@ -138,8 +144,8 @@ void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoint
 	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType> crsc;
     crsc.setInputSource(keypoints);
     crsc.setInputTarget(last_keypoints); 
-    crsc.setInlierThreshold(0.01); 
-    crsc.setMaximumIterations(10000); 
+    crsc.setInlierThreshold(RANSAC_INLIER_THRESHOLD); 
+    crsc.setMaximumIterations(RANSAC_MAX_ITERATIONS); 
     crsc.setInputCorrespondences(estimateCorrespondences);
 	crsc.getCorrespondences(*bestCorrespondences);
 	transformation = crsc.getBestTransformation();

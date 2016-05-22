@@ -1,3 +1,10 @@
+/**
+ * @file node.h
+ * Implementacion del nodo que se encarga de procesar
+ * los mensajes recibidos de la kinect
+ *
+ * @author Ismael Piñeiro Ramos
+ */
 #ifndef _NODE_H_
 #define _NODE_H_
 

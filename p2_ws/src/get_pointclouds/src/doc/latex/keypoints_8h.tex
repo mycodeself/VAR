@@ -1,0 +1,109 @@
+\hypertarget{keypoints_8h}{\section{keypoints.\-h \-File \-Reference}
+\label{keypoints_8h}\index{keypoints.\-h@{keypoints.\-h}}
+}
+{\ttfamily \#include \char`\"{}common.\-h\char`\"{}}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{keypoints_8h_aa4486bbb0369be694bd08cd36b361ac7}{\#define {\bfseries \-I\-S\-S\-\_\-\-S\-A\-L\-I\-E\-N\-T\-\_\-\-R\-A\-D\-I\-U\-S}~6}\label{keypoints_8h_aa4486bbb0369be694bd08cd36b361ac7}
+
+\item 
+\hypertarget{keypoints_8h_ab8d2b368740135060a0c5c453bcfd236}{\#define {\bfseries \-I\-S\-S\-\_\-\-N\-O\-N\-\_\-\-M\-A\-X\-\_\-\-R\-A\-D\-I\-U\-S}~4}\label{keypoints_8h_ab8d2b368740135060a0c5c453bcfd236}
+
+\item 
+\hypertarget{keypoints_8h_a1c7c19c7348ab9c03611d071085381f6}{\#define {\bfseries \-S\-I\-F\-T\-\_\-\-M\-I\-N\-\_\-\-S\-C\-A\-L\-E}~0.\-01f}\label{keypoints_8h_a1c7c19c7348ab9c03611d071085381f6}
+
+\item 
+\hypertarget{keypoints_8h_ad1544fbe6524285f7739b204f6a9b758}{\#define {\bfseries \-S\-I\-F\-T\-\_\-\-N\-\_\-\-O\-C\-T\-A\-V\-E\-S}~3}\label{keypoints_8h_ad1544fbe6524285f7739b204f6a9b758}
+
+\item 
+\hypertarget{keypoints_8h_aa4a34717ceba6f3391905df0880d6f3c}{\#define {\bfseries \-S\-I\-F\-T\-\_\-\-N\-\_\-\-S\-C\-A\-L\-E\-S\-\_\-\-O\-C\-T\-A\-V\-E}~4}\label{keypoints_8h_aa4a34717ceba6f3391905df0880d6f3c}
+
+\item 
+\hypertarget{keypoints_8h_a5f5a55e5457946b5ff6cdbc8acc630d8}{\#define {\bfseries \-S\-I\-F\-T\-\_\-\-M\-I\-N\-I\-M\-U\-M\-\_\-\-C\-O\-N\-T\-R\-A\-S\-T}~0.\-0001f}\label{keypoints_8h_a5f5a55e5457946b5ff6cdbc8acc630d8}
+
+\item 
+\hypertarget{keypoints_8h_a4a9bda249d3f20f3e77398d537d555b9}{\#define {\bfseries \-H\-A\-R\-R\-I\-S\-\_\-\-N\-O\-N\-\_\-\-M\-A\-X\-\_\-\-S\-U\-P\-R\-E\-S\-S\-I\-O\-N}~true}\label{keypoints_8h_a4a9bda249d3f20f3e77398d537d555b9}
+
+\item 
+\hypertarget{keypoints_8h_aeaeccc771053bfdc9645b2869c9d8ff4}{\#define {\bfseries \-H\-A\-R\-R\-I\-S\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}~1e-\/9}\label{keypoints_8h_aeaeccc771053bfdc9645b2869c9d8ff4}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{keypoints_8h_aeb5041e7decf281cfff811959cb91349}{iss\-\_\-keypoints} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&keypoints)
+\item 
+void \hyperlink{keypoints_8h_ade7f273599038c7f5a39fa13bf269642}{sift\-\_\-keypoints} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&keypoints)
+\item 
+void \hyperlink{keypoints_8h_ae4e28880670f219f27255c85230c6d6f}{harris\-\_\-keypoints} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&keypoints)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Algoritmos de obtenicion de keypoints mediante \-P\-C\-L cabecera
+
+\-Ismael \-Piñeiro \-Ramos 
+
+\-Definition in file \hyperlink{keypoints_8h_source}{keypoints.\-h}.
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{keypoints_8h_ae4e28880670f219f27255c85230c6d6f}{\index{keypoints.\-h@{keypoints.\-h}!harris\-\_\-keypoints@{harris\-\_\-keypoints}}
+\index{harris\-\_\-keypoints@{harris\-\_\-keypoints}!keypoints.h@{keypoints.\-h}}
+\subsubsection[{harris\-\_\-keypoints}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf harris\-\_\-keypoints} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&}]{keypoints}
+\end{DoxyParamCaption}
+)}}\label{keypoints_8h_ae4e28880670f219f27255c85230c6d6f}
+\-Calcula los keypoints de una nube de puntos, utilizando el algoritmo \-Harris\-Keypoint3\-D 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada de la que calcular los keypoints \\
+\hline
+{\em keypoints} & \-Nube de puntos de salida con los keypoints calculados \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 59 of file keypoints.\-cpp.
+
+\hypertarget{keypoints_8h_aeb5041e7decf281cfff811959cb91349}{\index{keypoints.\-h@{keypoints.\-h}!iss\-\_\-keypoints@{iss\-\_\-keypoints}}
+\index{iss\-\_\-keypoints@{iss\-\_\-keypoints}!keypoints.h@{keypoints.\-h}}
+\subsubsection[{iss\-\_\-keypoints}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf iss\-\_\-keypoints} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&}]{keypoints}
+\end{DoxyParamCaption}
+)}}\label{keypoints_8h_aeb5041e7decf281cfff811959cb91349}
+\-Calcula los keypoints de una nube de puntos, utilizando el algoritmo de \-I\-S\-S\-Keypoint3\-D 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada de la que calcular los keypoints \\
+\hline
+{\em keypoints} & \-Nube de puntos de salida con los keypoints calculados \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 10 of file keypoints.\-cpp.
+
+\hypertarget{keypoints_8h_ade7f273599038c7f5a39fa13bf269642}{\index{keypoints.\-h@{keypoints.\-h}!sift\-\_\-keypoints@{sift\-\_\-keypoints}}
+\index{sift\-\_\-keypoints@{sift\-\_\-keypoints}!keypoints.h@{keypoints.\-h}}
+\subsubsection[{sift\-\_\-keypoints}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf sift\-\_\-keypoints} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&}]{keypoints}
+\end{DoxyParamCaption}
+)}}\label{keypoints_8h_ade7f273599038c7f5a39fa13bf269642}
+\-Calcula los keypoints de una nube de puntos, utilizando el algoritmo \-S\-I\-F\-T 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada de la que calcular los keypoints \\
+\hline
+{\em keypoints} & \-Nube de puntos de salida con los keypoints calculados \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 33 of file keypoints.\-cpp.
+

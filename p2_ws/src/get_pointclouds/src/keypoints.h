@@ -1,3 +1,10 @@
+/**
+ * @file keypoints.h
+ * Algoritmos de obtenicion de keypoints mediante PCL
+ * cabecera
+ *
+ * @Author Ismael Piñeiro Ramos
+ */
 #ifndef _KEYPOINTS_H_
 #define _KEYPOINTS_H_
 
