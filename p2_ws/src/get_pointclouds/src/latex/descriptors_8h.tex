@@ -1,0 +1,107 @@
+\hypertarget{descriptors_8h}{\section{descriptors.\-h \-File \-Reference}
+\label{descriptors_8h}\index{descriptors.\-h@{descriptors.\-h}}
+}
+{\ttfamily \#include \char`\"{}common.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mapping.\-h\char`\"{}}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{descriptors_8h_a466ecf7d48b8b59bf8156dc759b75023}{\#define {\bfseries \-S\-H\-O\-T352\-\_\-\-R\-A\-D\-I\-U\-S\-\_\-\-S\-E\-A\-R\-C\-H}~0.\-05}\label{descriptors_8h_a466ecf7d48b8b59bf8156dc759b75023}
+
+\item 
+\hypertarget{descriptors_8h_a93040439af87512a852fc771b20ab488}{\#define {\bfseries \-F\-P\-F\-H\-\_\-\-R\-A\-D\-I\-U\-S\-\_\-\-S\-E\-A\-R\-C\-H}~0.\-05}\label{descriptors_8h_a93040439af87512a852fc771b20ab488}
+
+\item 
+\hypertarget{descriptors_8h_a0e045c5799907e124a8ec92f5a5429a0}{\#define {\bfseries \-C\-V\-F\-H\-\_\-\-E\-P\-S\-\_\-\-A\-N\-G\-L\-E\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}~5.\-0 / 180.\-0 $\ast$ \-M\-\_\-\-P\-I}\label{descriptors_8h_a0e045c5799907e124a8ec92f5a5429a0}
+
+\item 
+\hypertarget{descriptors_8h_a47ba9033242f7bd1197669d9c0532e4d}{\#define {\bfseries \-C\-V\-F\-H\-\_\-\-C\-U\-R\-V\-A\-T\-U\-R\-E\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}~1.\-0}\label{descriptors_8h_a47ba9033242f7bd1197669d9c0532e4d}
+
+\item 
+\hypertarget{descriptors_8h_a971ece4b73556f675fc8704810577197}{\#define {\bfseries \-C\-V\-F\-H\-\_\-\-N\-O\-R\-M\-A\-L\-I\-Z\-E\-\_\-\-B\-I\-N\-S}~false}\label{descriptors_8h_a971ece4b73556f675fc8704810577197}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{descriptors_8h_a9cbf4bbbda7e269ac748f9a3556f7daa}{\-S\-H\-O\-T352\-\_\-descriptors} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&keypoints, const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ pcl\-::\-S\-H\-O\-T352 $>$\-::\-Ptr \&descriptors)
+\item 
+void \hyperlink{descriptors_8h_a3585fa3b021497ca9c2517d45d1be53b}{\-F\-P\-F\-H\-\_\-descriptors} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&keypoints, pcl\-::\-Point\-Cloud$<$ pcl\-::\-F\-P\-F\-H\-Signature33 $>$\-::\-Ptr \&descriptors)
+\item 
+void \hyperlink{descriptors_8h_af0a201ae745e5729f18d8d8782b1fc48}{\-C\-V\-F\-H\-\_\-descriptors} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&keypoints, pcl\-::\-Point\-Cloud$<$ pcl\-::\-V\-F\-H\-Signature308 $>$\-::\-Ptr \&descriptors)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Algoritmos de obtenicion de descriptores mediante \-P\-C\-L cabecera
+
+\-Ismael \-Piñeiro \-Ramos \begin{DoxyAuthor}{\-Author}
+\-Gacel \-Ivorra \-Rodriguez 
+\end{DoxyAuthor}
+
+
+\-Definition in file \hyperlink{descriptors_8h_source}{descriptors.\-h}.
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{descriptors_8h_af0a201ae745e5729f18d8d8782b1fc48}{\index{descriptors.\-h@{descriptors.\-h}!\-C\-V\-F\-H\-\_\-descriptors@{\-C\-V\-F\-H\-\_\-descriptors}}
+\index{\-C\-V\-F\-H\-\_\-descriptors@{\-C\-V\-F\-H\-\_\-descriptors}!descriptors.h@{descriptors.\-h}}
+\subsubsection[{\-C\-V\-F\-H\-\_\-descriptors}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-C\-V\-F\-H\-\_\-descriptors} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{keypoints, }
+\item[{pcl\-::\-Point\-Cloud$<$ pcl\-::\-V\-F\-H\-Signature308 $>$\-::\-Ptr \&}]{descriptors}
+\end{DoxyParamCaption}
+)}}\label{descriptors_8h_af0a201ae745e5729f18d8d8782b1fc48}
+\-Computa los descriptores mediante el algoritmo \-C\-V\-F\-H 
+\begin{DoxyParams}{\-Parameters}
+{\em keypoints} & nube de puntos de la que obtener los descriptore \\
+\hline
+{\em descriptors} & nube de puntos de salida obteniendo los descriptores \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 50 of file descriptors.\-cpp.
+
+\hypertarget{descriptors_8h_a3585fa3b021497ca9c2517d45d1be53b}{\index{descriptors.\-h@{descriptors.\-h}!\-F\-P\-F\-H\-\_\-descriptors@{\-F\-P\-F\-H\-\_\-descriptors}}
+\index{\-F\-P\-F\-H\-\_\-descriptors@{\-F\-P\-F\-H\-\_\-descriptors}!descriptors.h@{descriptors.\-h}}
+\subsubsection[{\-F\-P\-F\-H\-\_\-descriptors}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-F\-P\-F\-H\-\_\-descriptors} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{keypoints, }
+\item[{pcl\-::\-Point\-Cloud$<$ pcl\-::\-F\-P\-F\-H\-Signature33 $>$\-::\-Ptr \&}]{descriptors}
+\end{DoxyParamCaption}
+)}}\label{descriptors_8h_a3585fa3b021497ca9c2517d45d1be53b}
+\-Computa los descriptores mediante el algoritmo \-P\-F\-H utilizando su vertiente \char`\"{}\-F\-A\-S\-T\char`\"{} \-F\-P\-F\-H 
+\begin{DoxyParams}{\-Parameters}
+{\em keypoints} & \-Keypoints de los que calular los descriptores \\
+\hline
+{\em descriptors} & nube de puntos de salida obteniendo los descriptores \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 30 of file descriptors.\-cpp.
+
+\hypertarget{descriptors_8h_a9cbf4bbbda7e269ac748f9a3556f7daa}{\index{descriptors.\-h@{descriptors.\-h}!\-S\-H\-O\-T352\-\_\-descriptors@{\-S\-H\-O\-T352\-\_\-descriptors}}
+\index{\-S\-H\-O\-T352\-\_\-descriptors@{\-S\-H\-O\-T352\-\_\-descriptors}!descriptors.h@{descriptors.\-h}}
+\subsubsection[{\-S\-H\-O\-T352\-\_\-descriptors}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-S\-H\-O\-T352\-\_\-descriptors} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{keypoints, }
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ pcl\-::\-S\-H\-O\-T352 $>$\-::\-Ptr \&}]{descriptors}
+\end{DoxyParamCaption}
+)}}\label{descriptors_8h_a9cbf4bbbda7e269ac748f9a3556f7daa}
+\-Computa los descriptores mediante el algoritmo \-S\-H\-O\-T352 de manera paralelizada mediante \-Open\-M\-P 
+\begin{DoxyParams}{\-Parameters}
+{\em keypoints} & \-Keypoints de los que calcular los descriptores \\
+\hline
+{\em cloud} & \-Nube de puntso de la que calcular los descriptores \\
+\hline
+{\em descriptors} & nube de puntos de salida obteniendo los descriptores \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 10 of file descriptors.\-cpp.
+

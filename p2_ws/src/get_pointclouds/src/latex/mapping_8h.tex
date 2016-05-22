@@ -1,0 +1,213 @@
+\hypertarget{mapping_8h}{\section{mapping.\-h \-File \-Reference}
+\label{mapping_8h}\index{mapping.\-h@{mapping.\-h}}
+}
+{\ttfamily \#include \char`\"{}common.\-h\char`\"{}}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{mapping_8h_a381635cd7e0e479c7111b616c3d4a7f2}{\#define {\bfseries \-N\-O\-R\-M\-A\-L\-S\-\_\-\-R\-A\-D\-I\-U\-S\-\_\-\-S\-E\-A\-R\-C\-H}~0.\-01f}\label{mapping_8h_a381635cd7e0e479c7111b616c3d4a7f2}
+
+\item 
+\hypertarget{mapping_8h_a09c18c31e79201a8ddfb411ff2307120}{\#define {\bfseries \-I\-C\-P\-\_\-\-M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}~50}\label{mapping_8h_a09c18c31e79201a8ddfb411ff2307120}
+
+\item 
+\hypertarget{mapping_8h_a813cd57059219ce0c0b87261139371d3}{\#define {\bfseries \-I\-C\-P\-\_\-\-M\-A\-X\-\_\-\-C\-O\-R\-R\-E\-S\-P\-O\-N\-D\-E\-N\-C\-E\-\_\-\-D\-I\-S\-T\-A\-N\-C\-E}~0.\-05}\label{mapping_8h_a813cd57059219ce0c0b87261139371d3}
+
+\item 
+\hypertarget{mapping_8h_a15f22f7e4f6a4d2a358429f6c98b12b7}{\#define {\bfseries \-I\-C\-P\-\_\-\-T\-R\-A\-N\-S\-F\-O\-R\-M\-A\-T\-I\-O\-N\-\_\-\-E\-P\-S\-I\-L\-O\-N}~1e-\/8}\label{mapping_8h_a15f22f7e4f6a4d2a358429f6c98b12b7}
+
+\item 
+\hypertarget{mapping_8h_a0114f5ea202d70b7ebfabed96398ef48}{\#define {\bfseries \-I\-C\-P\-\_\-\-E\-U\-C\-L\-I\-D\-E\-A\-N\-\_\-\-F\-I\-T\-N\-E\-S\-S\-\_\-\-E\-P\-S\-I\-L\-O\-N}~1}\label{mapping_8h_a0114f5ea202d70b7ebfabed96398ef48}
+
+\item 
+\hypertarget{mapping_8h_a273ecca6dc9aae25b4f868a09bb050b1}{\#define {\bfseries \-R\-A\-N\-S\-A\-C\-\_\-\-M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}~10000}\label{mapping_8h_a273ecca6dc9aae25b4f868a09bb050b1}
+
+\item 
+\hypertarget{mapping_8h_afa004a9613e779da57146bffeba6561c}{\#define {\bfseries \-R\-A\-N\-S\-A\-C\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}~0.\-05}\label{mapping_8h_afa004a9613e779da57146bffeba6561c}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{mapping_8h_af76267315257cd095f31e0f494e9f4df}{get\-\_\-cloud\-\_\-resolution} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud)
+\item 
+void \hyperlink{mapping_8h_ad03e994486aaa1b6049eb222781d0fdc}{remove\-\_\-nan} (pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr cloud)
+\item 
+void \hyperlink{mapping_8h_aba9b0c254e7579d00a2a660d3fd4387c}{filter\-\_\-voxel\-\_\-grid} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr cloud\-\_\-filtered)
+\item 
+void \hyperlink{mapping_8h_a443412efa41625dcd31cc894675f05e9}{estimate\-\_\-normals} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ pcl\-::\-Normal $>$\-::\-Ptr normals)
+\item 
+bool \hyperlink{mapping_8h_aea2873ad09f7dd21678c98134cceb925}{ransac\-\_\-alignment} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, const pcl\-::\-Point\-Cloud$<$ \-Descriptor\-Type $>$\-::\-Const\-Ptr \&descriptors, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr cloud\-\_\-aligned)
+\item 
+void \hyperlink{mapping_8h_a26b9d7c9a036dbe15a59f5ed1b3927ea}{iterative\-\_\-closest\-\_\-point} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud)
+\item 
+void \hyperlink{mapping_8h_aa75af789c8e11d2bfd15ef4dca0bfadf}{ransac\-\_\-correspondences} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&keypoints, pcl\-::\-Correspondences\-Ptr best\-Correspondences)
+\item 
+void \hyperlink{mapping_8h_a3c54e61e77a0c7e6171d9b836b537192}{ransac\-\_\-transform} (const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&keypoints, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&transformed\-Cloud)
+\item 
+\hypertarget{mapping_8h_a25d379004b74e3d3f2f96358a6c35e29}{void {\bfseries transform\-\_\-cloud} (const \-Eigen\-::\-Matrix4f \&transform, const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&cloud, pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&transformed\-Cloud)}\label{mapping_8h_a25d379004b74e3d3f2f96358a6c35e29}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Funciones necesarias para el mapeado, que no son de obtencion de keypoints ni de descriptores. \-Cabecera
+
+\begin{DoxyAuthor}{\-Author}
+\-Ismael \-Piñeiro \-Ramos 
+
+\-Gacel \-Ivorra \-Rodriguez 
+\end{DoxyAuthor}
+
+
+\-Definition in file \hyperlink{mapping_8h_source}{mapping.\-h}.
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{mapping_8h_a443412efa41625dcd31cc894675f05e9}{\index{mapping.\-h@{mapping.\-h}!estimate\-\_\-normals@{estimate\-\_\-normals}}
+\index{estimate\-\_\-normals@{estimate\-\_\-normals}!mapping.h@{mapping.\-h}}
+\subsubsection[{estimate\-\_\-normals}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf estimate\-\_\-normals} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ pcl\-::\-Normal $>$\-::\-Ptr}]{normals}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_a443412efa41625dcd31cc894675f05e9}
+\-Estima las normales locales de una nube de puntos, utiliza paralelizacion mediante \-Open\-M\-P 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada de la que estimar las normales \\
+\hline
+{\em normals} & \-Nube de puntos de salida de las normales estimadas \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 73 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_aba9b0c254e7579d00a2a660d3fd4387c}{\index{mapping.\-h@{mapping.\-h}!filter\-\_\-voxel\-\_\-grid@{filter\-\_\-voxel\-\_\-grid}}
+\index{filter\-\_\-voxel\-\_\-grid@{filter\-\_\-voxel\-\_\-grid}!mapping.h@{mapping.\-h}}
+\subsubsection[{filter\-\_\-voxel\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf filter\-\_\-voxel\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr}]{cloud\-\_\-filtered}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_aba9b0c254e7579d00a2a660d3fd4387c}
+\-Realiza un filtrado \-Voxel\-Grid sobre la nube de puntos de entrada, aproximando los puntos mediante sus centroides. 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada a filtrar \\
+\hline
+{\em cloud\-\_\-filtered} & \-Nube de puntos de salida ya filtrada \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 59 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_af76267315257cd095f31e0f494e9f4df}{\index{mapping.\-h@{mapping.\-h}!get\-\_\-cloud\-\_\-resolution@{get\-\_\-cloud\-\_\-resolution}}
+\index{get\-\_\-cloud\-\_\-resolution@{get\-\_\-cloud\-\_\-resolution}!mapping.h@{mapping.\-h}}
+\subsubsection[{get\-\_\-cloud\-\_\-resolution}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf get\-\_\-cloud\-\_\-resolution} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_af76267315257cd095f31e0f494e9f4df}
+\-Calcula la resolución espacial de una nube de puntos dada, mediante la media de la distancia entre cada punto y su vecino mas cercano 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de la que calcular la resolución \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 24 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_a26b9d7c9a036dbe15a59f5ed1b3927ea}{\index{mapping.\-h@{mapping.\-h}!iterative\-\_\-closest\-\_\-point@{iterative\-\_\-closest\-\_\-point}}
+\index{iterative\-\_\-closest\-\_\-point@{iterative\-\_\-closest\-\_\-point}!mapping.h@{mapping.\-h}}
+\subsubsection[{iterative\-\_\-closest\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf iterative\-\_\-closest\-\_\-point} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_a26b9d7c9a036dbe15a59f5ed1b3927ea}
+\-Minimiza las distancias entre los puntos de dos nubes y las transforma utilizando el algoritmo \-Iterative\-Closest\-Point 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 115 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_aea2873ad09f7dd21678c98134cceb925}{\index{mapping.\-h@{mapping.\-h}!ransac\-\_\-alignment@{ransac\-\_\-alignment}}
+\index{ransac\-\_\-alignment@{ransac\-\_\-alignment}!mapping.h@{mapping.\-h}}
+\subsubsection[{ransac\-\_\-alignment}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ransac\-\_\-alignment} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{cloud, }
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Descriptor\-Type $>$\-::\-Const\-Ptr \&}]{descriptors, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr}]{cloud\-\_\-aligned}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_aea2873ad09f7dd21678c98134cceb925}
+\-Realiza el alineamiento de la nube de puntos actual con la anterior utilizando el algoritmo \-Sample\-Consensus\-Prerejective 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de entrada a alinear \\
+\hline
+{\em descriptors} & \-Descriptores de la nube de puntos de entrada \\
+\hline
+{\em cloud\-\_\-aligned} & \-Nube de puntos de salida alineada \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 93 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_aa75af789c8e11d2bfd15ef4dca0bfadf}{\index{mapping.\-h@{mapping.\-h}!ransac\-\_\-correspondences@{ransac\-\_\-correspondences}}
+\index{ransac\-\_\-correspondences@{ransac\-\_\-correspondences}!mapping.h@{mapping.\-h}}
+\subsubsection[{ransac\-\_\-correspondences}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ransac\-\_\-correspondences} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{keypoints, }
+\item[{pcl\-::\-Correspondences\-Ptr}]{best\-Correspondences}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_aa75af789c8e11d2bfd15ef4dca0bfadf}
+\-Obtiene las correspondencias y las filtra para quedarnos unicamente con las mejores correspondencias mediante el uso de \-R\-A\-N\-S\-A\-C 
+\begin{DoxyParams}{\-Parameters}
+{\em keypoints} & nubde de puntos de entrada de la que calcular correspondencias \\
+\hline
+{\em best\-Correspondences} & correspondencias de salida calculadas \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 134 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_a3c54e61e77a0c7e6171d9b836b537192}{\index{mapping.\-h@{mapping.\-h}!ransac\-\_\-transform@{ransac\-\_\-transform}}
+\index{ransac\-\_\-transform@{ransac\-\_\-transform}!mapping.h@{mapping.\-h}}
+\subsubsection[{ransac\-\_\-transform}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ransac\-\_\-transform} (
+\begin{DoxyParamCaption}
+\item[{const pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Const\-Ptr \&}]{keypoints, }
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr \&}]{transformed\-Cloud}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_a3c54e61e77a0c7e6171d9b836b537192}
+\-Transformacion haciendo uso de la clase \-Correspondence\-Rejection\-Sample\-Consensus 
+\begin{DoxyParams}{\-Parameters}
+{\em keypoints} & nube de puntos a transformar \\
+\hline
+{\em transformed\-Cloud} & nube transformada \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 163 of file mapping.\-cpp.
+
+\hypertarget{mapping_8h_ad03e994486aaa1b6049eb222781d0fdc}{\index{mapping.\-h@{mapping.\-h}!remove\-\_\-nan@{remove\-\_\-nan}}
+\index{remove\-\_\-nan@{remove\-\_\-nan}!mapping.h@{mapping.\-h}}
+\subsubsection[{remove\-\_\-nan}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf remove\-\_\-nan} (
+\begin{DoxyParamCaption}
+\item[{pcl\-::\-Point\-Cloud$<$ \-Point\-Type $>$\-::\-Ptr}]{cloud}
+\end{DoxyParamCaption}
+)}}\label{mapping_8h_ad03e994486aaa1b6049eb222781d0fdc}
+\-Elimina los \char`\"{}\-Not a Number\char`\"{} de una nube de puntos 
+\begin{DoxyParams}{\-Parameters}
+{\em cloud} & \-Nube de puntos de la que eliminar los \-Na\-N \\
+\hline
+\end{DoxyParams}
+
+
+\-Definition at line 46 of file mapping.\-cpp.
+
