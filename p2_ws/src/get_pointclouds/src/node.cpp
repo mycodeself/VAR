@@ -69,7 +69,7 @@ void callback(const pcl::PointCloud<PointType>::ConstPtr& msg)
 		// hacemos matching
 		pcl::CorrespondencesPtr correspondences (new pcl::Correspondences ());
 		// obtenemos correspondencias
-		ransac_correspondences(keypoints, correspondences);
+		ransac_correspondences(cloud, correspondences);
 		// refinamos con ICP
 		iterative_closest_point(cloud);
 		pcl::PointCloud<PointType>::Ptr transformed_cloud(new pcl::PointCloud<PointType>());

@@ -131,20 +131,20 @@ void iterative_closest_point(const pcl::PointCloud<PointType>::ConstPtr& cloud)
 #endif
 }
 
-void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &cloud,
 							pcl::CorrespondencesPtr bestCorrespondences)
 {
 	// Estimate correspondences
 	pcl::CorrespondencesPtr estimateCorrespondences (new pcl::Correspondences);
 	pcl::registration::CorrespondenceEstimation<PointType, PointType> corr_est;
-	corr_est.setInputSource(keypoints);
-	corr_est.setInputTarget(last_keypoints);
+	corr_est.setInputSource(cloud);
+	corr_est.setInputTarget(last_cloud);
 	corr_est.determineCorrespondences(*estimateCorrespondences);
 
 	// Apply RANSAC
 	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType> crsc;
-    crsc.setInputSource(keypoints);
-    crsc.setInputTarget(last_keypoints); 
+    crsc.setInputSource(cloud);
+    crsc.setInputTarget(last_cloud); 
     crsc.setInlierThreshold(RANSAC_INLIER_THRESHOLD); 
     crsc.setMaximumIterations(RANSAC_MAX_ITERATIONS); 
     crsc.setInputCorrespondences(estimateCorrespondences);
@@ -160,7 +160,7 @@ void ransac_correspondences(const pcl::PointCloud<PointType>::ConstPtr &keypoint
 }
 
 
-void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
+void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &cloud,
 						pcl::PointCloud<PointType>::Ptr &transformedCloud)
 {
 	Eigen::Matrix4f transform;
@@ -169,14 +169,14 @@ void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 	// Estimate correspondences
 	pcl::CorrespondencesPtr estimateCorrespondences (new pcl::Correspondences);
 	pcl::registration::CorrespondenceEstimation<PointType, PointType> corr_est;
-	corr_est.setInputSource(keypoints);
-	corr_est.setInputTarget(last_keypoints);
+	corr_est.setInputSource(cloud);
+	corr_est.setInputTarget(last_cloud);
 	corr_est.determineCorrespondences(*estimateCorrespondences);
 
 	// Apply RANSAC
 	pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>::Ptr crsc(new pcl::registration::CorrespondenceRejectorSampleConsensus<PointType>);
-    crsc->setInputSource(keypoints);
-    crsc->setInputTarget(last_keypoints); 
+    crsc->setInputSource(cloud);
+    crsc->setInputTarget(last_cloud); 
     crsc->setInlierThreshold(0.05); 
     crsc->setMaximumIterations(5000); 
     crsc->setInputCorrespondences(estimateCorrespondences);
@@ -188,7 +188,7 @@ void ransac_transform(const pcl::PointCloud<PointType>::ConstPtr &keypoints,
 	std::cout << "Best transform matrix: " << "\n" << transform << "\n";
 #endif
 
-	transform_cloud(transform, keypoints, transformedCloud);
+	transform_cloud(transform, cloud, transformedCloud);
 	//pcl::transformPointCloud(*keypoints, *transformedCloud, transformTotal);
 #if DEBUG_MSG
 	std::cout << "Size of transformed cloud: " << transformedCloud->size() << "\n";

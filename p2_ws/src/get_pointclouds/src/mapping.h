@@ -18,8 +18,8 @@
 #define ICP_TRANSFORMATION_EPSILON 1e-8
 #define ICP_EUCLIDEAN_FITNESS_EPSILON 1
 
-#define RANSAC_MAX_ITERATIONS 10000
-#define RANSAC_INLIER_THRESHOLD 0.05
+#define RANSAC_MAX_ITERATIONS 1000
+#define RANSAC_INLIER_THRESHOLD 0.01
 /**
  * Calcula la resolución espacial de una nube de puntos dada,
  * mediante la media de la distancia entre cada punto y su
